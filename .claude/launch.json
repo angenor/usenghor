@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "frontend",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3000,
+      "cwd": "usenghor_nuxt"
+    },
+    {
+      "name": "backend",
+      "runtimeExecutable": "/Users/mac/Documents/projets/2025/usenghor/usenghor_backend/.venv/bin/uvicorn",
+      "runtimeArgs": ["app.main:app", "--reload"],
+      "port": 8000,
+      "cwd": "usenghor_backend"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: usenghor_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-usenghor}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-usenghor_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-usenghor}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./usenghor_backend/documentation/modele_de_données/services:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-usenghor} -d ${POSTGRES_DB:-usenghor}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - usenghor_network
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./usenghor_backend
+      dockerfile: Dockerfile
+    container_name: usenghor_backend
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_SECRET_KEY: ${APP_SECRET_KEY}
+      POSTGRES_USER: ${POSTGRES_USER:-usenghor}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-usenghor_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-usenghor}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ALGORITHM: HS256
+      JWT_ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      JWT_REFRESH_TOKEN_EXPIRE_DAYS: 7
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://usenghor.org}
+      STORAGE_TYPE: local
+      STORAGE_PATH: /var/www/uploads
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL:-noreply@usenghor.org}
+    volumes:
+      - uploads_data:/var/www/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - usenghor_network
+
+  # Nuxt Frontend
+  frontend:
+    build:
+      context: ./usenghor_nuxt
+      dockerfile: Dockerfile
+      args:
+        NUXT_PUBLIC_API_BASE: ${NUXT_PUBLIC_API_BASE:-http://backend:8000}
+        NUXT_PUBLIC_API_BASE_URL: ${NUXT_PUBLIC_API_BASE_URL:-http://backend:8000}
+    container_name: usenghor_frontend
+    restart: unless-stopped
+    environment:
+      NUXT_PUBLIC_API_BASE: http://backend:8000
+      NUXT_PUBLIC_API_BASE_URL: http://backend:8000
+      NUXT_SITE_URL: ${NUXT_SITE_URL:-http://137.74.117.231}
+    depends_on:
+      - backend
+    networks:
+      - usenghor_network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: usenghor_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - uploads_data:/var/www/uploads:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - usenghor_network
+
+  # Adminer (optional - for database management)
+  adminer:
+    image: adminer:latest
+    container_name: usenghor_adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - usenghor_network
+    profiles:
+      - tools
+
+volumes:
+  postgres_data:
+    driver: local
+  uploads_data:
+    driver: local
+
+networks:
+  usenghor_network:
+    driver: bridge

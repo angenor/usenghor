@@ -1,0 +1,11 @@
+# Backups de base de données
+backups/
+
+# Fichiers d'environnement
+.env
+.env.*
+!.env.production.example
+
+# Divers
+.DS_Store
+*.log

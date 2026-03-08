@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYTE4ODk0Ni05ODFjLTRhNGUtOGQ0OC05ZmI1MjU1MjdlZjQiLCJleHAiOjE3NzE4ODkyOTUsInR5cGUiOiJhY2Nlc3MifQ.LNiLpUFfBanWL6FQdrh0nak_v_uj6AO4a0i7_b0q5W4\")",
+      "WebFetch(domain:en.wikipedia.org)",
+      "Bash(npx nuxi build:*)"
+    ]
+  }
+}
