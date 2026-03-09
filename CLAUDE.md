@@ -48,7 +48,7 @@ docker exec -i usenghor_db psql -U usenghor -d usenghor < fichier.sql
 ```
 app/
 ├── components/    # Auto-importés, organisés par feature
-├── composables/   # useDarkMode, useScrollAnimation, useMockData, useEditorJS...
+├── composables/   # useDarkMode, useScrollAnimation, useMockData, useToastUIEditor...
 ├── pages/         # Routing basé fichiers
 ├── stores/        # Pinia
 └── assets/css/    # main.css, timeline.css
@@ -91,9 +91,12 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 
 | Composant | Usage |
 |-----------|-------|
-| `EditorJS.vue` | Édition rich text (admin) |
-| `EditorJSRenderer.vue` | Affichage rich text (public) |
+| `ToastUIEditor.client.vue` | Édition rich text WYSIWYG/Markdown (admin, client-only) |
+| `RichTextRenderer.vue` | Affichage HTML rich text (public) |
+| `useToastUIEditor.ts` | Composable de gestion de l'éditeur TOAST UI |
 | `useMockData()` | Données de dev sans BDD |
+
+**Stockage du contenu riche :** Double colonne `*_html` (rendu public) + `*_md` (édition Markdown) pour chaque champ de contenu riche (11 tables, ~20 colonnes).
 
 ## Conventions
 
@@ -114,3 +117,11 @@ Use multiple sub-agents in parallel for efficiency:
 ## Auto-maintenance de ce fichier
 
 Après chaque modification significative du projet, vérifier si CLAUDE.md reflète toujours l'état actuel et le mettre à jour si nécessaire.
+
+## Active Technologies
+- TypeScript (Nuxt 4 / Vue 3), Python 3.14 (FastAPI), Tailwind CSS
+- `@toast-ui/editor@3.2.2`, `@toast-ui/editor-plugin-table-merged-cell` (éditeur rich text)
+- PostgreSQL 16 (contenu riche en double colonne `*_html` + `*_md`)
+
+## Recent Changes
+- 001-migrate-toastui-editor: Migré EditorJS → TOAST UI Editor (composants, composable, schémas Pydantic, 11 pages admin, 11 pages publiques, nettoyage complet)
