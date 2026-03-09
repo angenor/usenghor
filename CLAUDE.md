@@ -122,6 +122,8 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - TypeScript (Nuxt 4 / Vue 3), Python 3.14 (FastAPI), Tailwind CSS
 - `@toast-ui/editor@3.2.2`, `@toast-ui/editor-plugin-table-merged-cell` (éditeur rich text)
 - PostgreSQL 16 (contenu riche en double colonne `*_html` + `*_md`)
+- TypeScript (Vue 3 / Nuxt 4) + `@toast-ui/editor@3.2.2`, `@toast-ui/editor-plugin-table-merged-cell`, Tailwind CSS, `@nuxtjs/i18n` (002-toastui-fullscreen-modal)
+- N/A (fonctionnalité purement frontend, aucune modification backend/BDD) (002-toastui-fullscreen-modal)
 
 ## Recent Changes
 - 001-migrate-toastui-editor: Migré EditorJS → TOAST UI Editor (composants, composable, schémas Pydantic, 11 pages admin, 11 pages publiques, nettoyage complet)
