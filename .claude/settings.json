@@ -6,7 +6,8 @@
       "Bash(npx nuxi build:*)",
       "Bash(.specify/scripts/bash/create-new-feature.sh --json --number 1 --short-name \"migrate-toastui-editor\" \"Migrer l''éditeur actuel EditorJS vers TOAST UI Editor\")",
       "Bash(.specify/scripts/bash/create-new-feature.sh --json --number 1 --short-name \"migrate-toastui-editor\" \"Migrer editeur EditorJS vers TOAST UI Editor\")",
-      "Bash(agent-browser eval \"Object.keys\\(localStorage\\)\")"
+      "Bash(agent-browser eval \"Object.keys\\(localStorage\\)\")",
+      "Bash(grep -n \"__extends$1\\(CellSelection\" /Users/mac/Documents/projets/2025/usenghor/usenghor_nuxt/node_modules/@toast-ui/editor/dist/toastui-editor.js)"
     ]
   }
 }
