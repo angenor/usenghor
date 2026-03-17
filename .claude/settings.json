@@ -7,7 +7,38 @@
       "Bash(.specify/scripts/bash/create-new-feature.sh --json --number 1 --short-name \"migrate-toastui-editor\" \"Migrer l''éditeur actuel EditorJS vers TOAST UI Editor\")",
       "Bash(.specify/scripts/bash/create-new-feature.sh --json --number 1 --short-name \"migrate-toastui-editor\" \"Migrer editeur EditorJS vers TOAST UI Editor\")",
       "Bash(agent-browser eval \"Object.keys\\(localStorage\\)\")",
-      "Bash(grep -n \"__extends$1\\(CellSelection\" /Users/mac/Documents/projets/2025/usenghor/usenghor_nuxt/node_modules/@toast-ui/editor/dist/toastui-editor.js)"
+      "Bash(grep -n \"__extends$1\\(CellSelection\" /Users/mac/Documents/projets/2025/usenghor/usenghor_nuxt/node_modules/@toast-ui/editor/dist/toastui-editor.js)",
+      "Bash(.specify/scripts/bash/create-new-feature.sh --json --number 4 --short-name \"fundraising-page\" \"Page levée de fond avec hero section, image de couverture, 3 onglets \\(présentation, contributeurs, actualités\\)\")",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T006/- [x] T006/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T007/- [x] T007/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T008/- [x] T008/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T009/- [x] T009/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T010/- [x] T010/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T011/- [x] T011/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T012/- [x] T012/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T013/- [x] T013/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T014/- [x] T014/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T015/- [x] T015/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T016/- [x] T016/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T017/- [x] T017/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T018/- [x] T018/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T019/- [x] T019/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T026/- [x] T026/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T020/- [x] T020/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T021/- [x] T021/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T022/- [x] T022/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T023/- [x] T023/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T024/- [x] T024/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T025/- [x] T025/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T027/- [x] T027/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T028/- [x] T028/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T029/- [x] T029/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T030/- [x] T030/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T031/- [x] T031/' specs/004-fundraising-page/tasks.md)",
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T032/- [x] T032/' specs/004-fundraising-page/tasks.md)"
+    ],
+    "additionalDirectories": [
+      "/Users/mac/Documents/projets/2025/usenghor/usenghor_nuxt/app/pages/admin/contenus/levees-de-fonds"
     ]
   }
 }

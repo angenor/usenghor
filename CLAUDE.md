@@ -9,6 +9,10 @@ Monorepo pour le site de l'Université Senghor (Alexandrie, Égypte). Trilingue 
 | `usenghor_nuxt/` | Nuxt 4, Vue 3, Tailwind CSS |
 | `usenghor_backend/` | FastAPI, Python 3.14, PostgreSQL |
 
+## Accès admin (local)
+
+Les identifiants admin se trouvent dans `usenghor_backend/.env` (variables `ADMIN_EMAIL` et `ADMIN_PASSWORD`).
+
 ## Commandes
 
 ```bash
@@ -126,6 +130,8 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - N/A (fonctionnalité purement frontend, aucune modification backend/BDD) (002-toastui-fullscreen-modal)
 - TypeScript (Nuxt 4 / Vue 3) + Python 3.14 (FastAPI) + Nuxt 4, Vue 3, Tailwind CSS, FastAPI, SQLAlchemy (async) (003-audit-backend-connect)
 - PostgreSQL 16 (table `audit_logs` existante) (003-audit-backend-connect)
+- Python 3.14 (backend), TypeScript (frontend Nuxt 4 / Vue 3) + FastAPI, SQLAlchemy (async), Pydantic v2, Nuxt 4, Vue 3, Tailwind CSS, TOAST UI Editor (004-fundraising-page)
+- PostgreSQL 16 (Docker: `usenghor_postgres` local, `usenghor_db` prod) (004-fundraising-page)
 
 ## Recent Changes
 - 001-migrate-toastui-editor: Migré EditorJS → TOAST UI Editor (composants, composable, schémas Pydantic, 11 pages admin, 11 pages publiques, nettoyage complet)
