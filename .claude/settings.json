@@ -35,7 +35,8 @@
       "Bash(sed -i '' 's/^- \\\\[ \\\\] T029/- [x] T029/' specs/004-fundraising-page/tasks.md)",
       "Bash(sed -i '' 's/^- \\\\[ \\\\] T030/- [x] T030/' specs/004-fundraising-page/tasks.md)",
       "Bash(sed -i '' 's/^- \\\\[ \\\\] T031/- [x] T031/' specs/004-fundraising-page/tasks.md)",
-      "Bash(sed -i '' 's/^- \\\\[ \\\\] T032/- [x] T032/' specs/004-fundraising-page/tasks.md)"
+      "Bash(sed -i '' 's/^- \\\\[ \\\\] T032/- [x] T032/' specs/004-fundraising-page/tasks.md)",
+      "Bash(grep -E \"\\\\.\\(py\\)$\")"
     ],
     "additionalDirectories": [
       "/Users/mac/Documents/projets/2025/usenghor/usenghor_nuxt/app/pages/admin/contenus/levees-de-fonds"
