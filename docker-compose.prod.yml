@@ -49,6 +49,7 @@ services:
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL:-communication@usenghor.org}
+      FRONTEND_URL: ${FRONTEND_URL:-https://usenghor-francophonie.org}
     volumes:
       - uploads_data:/var/www/uploads
     depends_on:
