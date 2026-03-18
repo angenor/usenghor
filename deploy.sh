@@ -261,7 +261,7 @@ ENDSSH
 
 # Function to setup SSL with Let's Encrypt
 ssl() {
-    DOMAIN=${2:-usenghor.org}
+    DOMAIN=${2:-usenghor-francophonie.org}
     echo -e "${GREEN}Setting up SSL for ${DOMAIN}...${NC}"
     ssh ${REMOTE_USER}@${REMOTE_HOST} << ENDSSH
         sudo apt-get update
@@ -349,7 +349,7 @@ case "$1" in
         echo "  restart [svc]  - Restart services (optional: specific service)"
         echo "  stop           - Stop all services"
         echo "  status         - Show status (containers, git, resources)"
-        echo "  ssl [domain]   - Setup SSL (default: usenghor.org)"
+        echo "  ssl [domain]   - Setup SSL (default: usenghor-francophonie.org)"
         echo "  backup         - Backup database to local file"
         echo "  connect        - SSH into server"
         echo ""
@@ -358,7 +358,7 @@ case "$1" in
         echo "  $0 deploy                   # Deploy/update application"
         echo "  $0 logs backend             # View backend logs"
         echo "  $0 restart frontend         # Restart only frontend"
-        echo "  $0 ssl usenghor.org         # Setup SSL for domain"
+        echo "  $0 ssl usenghor-francophonie.org  # Setup SSL for domain"
         exit 1
         ;;
 esac

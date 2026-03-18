@@ -41,14 +41,14 @@ services:
       JWT_ALGORITHM: HS256
       JWT_ACCESS_TOKEN_EXPIRE_MINUTES: 30
       JWT_REFRESH_TOKEN_EXPIRE_DAYS: 7
-      CORS_ORIGINS: ${CORS_ORIGINS:-https://usenghor.org}
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://usenghor-francophonie.org}
       STORAGE_TYPE: local
       STORAGE_PATH: /var/www/uploads
       SMTP_HOST: ${SMTP_HOST:-}
       SMTP_PORT: ${SMTP_PORT:-587}
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
-      SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL:-noreply@usenghor.org}
+      SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL:-communication@usenghor.org}
     volumes:
       - uploads_data:/var/www/uploads
     depends_on:
@@ -70,7 +70,7 @@ services:
     environment:
       NUXT_PUBLIC_API_BASE: http://backend:8000
       NUXT_PUBLIC_API_BASE_URL: http://backend:8000
-      NUXT_SITE_URL: ${NUXT_SITE_URL:-http://137.74.117.231}
+      NUXT_SITE_URL: ${NUXT_SITE_URL:-https://usenghor-francophonie.org}
     depends_on:
       - backend
     networks:
