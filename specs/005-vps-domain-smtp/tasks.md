@@ -50,9 +50,9 @@
 - [x] T007 [US1] Décommenter et configurer le bloc HTTPS (port 443) avec `server_name usenghor-francophonie.org` dans `nginx/nginx.conf`
 - [x] T008 [US1] Ajouter le bloc de redirection HTTP→HTTPS (port 80 → 301 vers https) dans `nginx/nginx.conf`
 - [x] T009 [US1] Ajouter le bloc de redirection www→non-www (443 www → 301 vers non-www) dans `nginx/nginx.conf`
-- [ ] T010 [US1] Déployer la config nginx mise à jour sur le VPS via `./deploy.sh update`
-- [ ] T011 [US1] Générer le certificat SSL sur le VPS via `./deploy.sh ssl usenghor-francophonie.org`
-- [ ] T012 [US1] Vérifier : `curl -I https://usenghor-francophonie.org` (200), `curl -I http://usenghor-francophonie.org` (301→https), `curl -I https://www.usenghor-francophonie.org` (301→non-www)
+- [x] T010 [US1] Déployer la config nginx mise à jour sur le VPS via `./deploy.sh update`
+- [x] T011 [US1] Générer le certificat SSL sur le VPS via `./deploy.sh ssl usenghor-francophonie.org`
+- [x] T012 [US1] Vérifier : `curl -I https://usenghor-francophonie.org` (200), `curl -I http://usenghor-francophonie.org` (301→https), `curl -I https://www.usenghor-francophonie.org` (301→non-www)
 
 **Checkpoint**: Le site est accessible en HTTPS avec toutes les redirections fonctionnelles
 
@@ -72,7 +72,7 @@
 - [x] T016 [US2] Créer le schéma Pydantic pour la requête de test email dans `usenghor_backend/app/schemas/email.py`
 - [x] T017 [US2] Créer le router admin email avec endpoint POST `/api/admin/email/test` dans `usenghor_backend/app/routers/admin/email.py`
 - [x] T018 [US2] Enregistrer le router email dans `usenghor_backend/app/routers/admin/__init__.py`
-- [ ] T019 [US2] Vérifier l'envoi d'email de test depuis le VPS via l'endpoint admin
+- [x] T019 [US2] Vérifier l'envoi d'email de test depuis le VPS via l'endpoint admin
 
 **Checkpoint**: Les emails sont envoyés et reçus correctement via Gmail SMTP
 
@@ -86,9 +86,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T020 [US3] Configurer le .env de production sur le VPS avec les credentials SMTP réels (SSH → `/opt/usenghor/.env`)
+- [x] T020 [US3] Configurer le .env de production sur le VPS avec les credentials SMTP réels (SSH → `/opt/usenghor/.env`)
 - [x] T021 [US3] Vérifier que `.env` et les credentials SMTP ne sont pas dans le code source (présence dans `.gitignore`, absence dans le repo)
-- [ ] T022 [US3] Vérifier la persistance : `./deploy.sh restart` puis `curl -I https://usenghor-francophonie.org` et test email
+- [x] T022 [US3] Vérifier la persistance : `./deploy.sh restart` puis `curl -I https://usenghor-francophonie.org` et test email
 
 **Checkpoint**: La configuration est sécurisée et persistante
 
@@ -98,8 +98,8 @@
 
 **Purpose**: Vérifications finales et nettoyage
 
-- [ ] T023 Vérifier le renouvellement automatique du certificat SSL (cron certbot présent sur le VPS)
-- [ ] T024 Valider le parcours complet du quickstart.md (toutes les étapes de vérification)
+- [x] T023 Vérifier le renouvellement automatique du certificat SSL (cron certbot présent sur le VPS)
+- [x] T024 Valider le parcours complet du quickstart.md (toutes les étapes de vérification)
 
 ---
 
