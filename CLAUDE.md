@@ -135,6 +135,8 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - Python 3.12 (backend FastAPI), TypeScript (frontend Nuxt 4) + FastAPI, aiosmtplib 3.0.1+, Jinja2 3.1.3+ (déjà dans requirements.txt), Nginx, Certbo (005-vps-domain-smtp)
 - PostgreSQL 15 (Docker), fichiers .env pour les secrets (005-vps-domain-smtp)
 - Python 3.14 (backend FastAPI), TypeScript (frontend Nuxt 4 / Vue 3) + FastAPI, SQLAlchemy (async), Pydantic v2, aiosmtplib, Jinja2, Nuxt 4, Vue 3, Tailwind CSS (006-password-reset-email)
+- TypeScript, Vue 3 (Nuxt 4) + Tailwind CSS, `useDarkMode()` composable (existant) (007-diese-decorative-bg)
+- N/A — feature purement frontend/visuelle (007-diese-decorative-bg)
 
 ## Recent Changes
 - 001-migrate-toastui-editor: Migré EditorJS → TOAST UI Editor (composants, composable, schémas Pydantic, 11 pages admin, 11 pages publiques, nettoyage complet)
