@@ -111,7 +111,7 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 
 ## Parallel Sub-agents Strategy
 
-Use multiple sub-agents in parallel for efficiency:
+Use multiple sub-agents in parallel for efficiency(10 max):
 - Search frontend + backend simultaneously
 - Explore multiple files/folders at the same time
 - Run tests + verifications in parallel after modifications
@@ -137,6 +137,8 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - Python 3.14 (backend FastAPI), TypeScript (frontend Nuxt 4 / Vue 3) + FastAPI, SQLAlchemy (async), Pydantic v2, aiosmtplib, Jinja2, Nuxt 4, Vue 3, Tailwind CSS (006-password-reset-email)
 - TypeScript, Vue 3 (Nuxt 4) + Tailwind CSS, `useDarkMode()` composable (existant) (007-diese-decorative-bg)
 - N/A — feature purement frontend/visuelle (007-diese-decorative-bg)
+- Python 3.14 (backend FastAPI) + TypeScript (frontend Nuxt 4 / Vue 3) + FastAPI, SQLAlchemy (async), Pydantic v2, SurveyJS Form Library (`survey-vue3-ui`), aiosmtplib, Jinja2 (008-survey-campaigns)
+- PostgreSQL 16 (Docker: `usenghor_postgres` local, `usenghor_db` prod) — JSONB pour survey_json et response_data (008-survey-campaigns)
 
 ## Recent Changes
 - 001-migrate-toastui-editor: Migré EditorJS → TOAST UI Editor (composants, composable, schémas Pydantic, 11 pages admin, 11 pages publiques, nettoyage complet)
