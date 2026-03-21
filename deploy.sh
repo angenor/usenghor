@@ -82,6 +82,8 @@ ENDSSH
     # Upload docker-compose and nginx config
     scp docker-compose.prod.yml ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/
     scp nginx/nginx.conf ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/nginx/
+    scp nginx/maintenance.html ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/nginx/
+    scp nginx/maintenance_logo.png ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/nginx/
     scp .env.production.example ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/
 
     echo -e "${GREEN}[5/5] Generating secure secrets and creating .env...${NC}"
@@ -144,6 +146,8 @@ ENDSSH
     echo -e "${GREEN}[2/4] Uploading configuration files...${NC}"
     scp docker-compose.prod.yml ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/
     scp nginx/nginx.conf ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/nginx/
+    scp nginx/maintenance.html ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/nginx/
+    scp nginx/maintenance_logo.png ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/nginx/
 
     echo -e "${GREEN}[3/4] Building and starting containers...${NC}"
     ssh ${REMOTE_USER}@${REMOTE_HOST} << ENDSSH
@@ -156,12 +160,14 @@ ENDSSH
             exit 1
         fi
 
-        # Stop existing containers
-        docker compose -f docker-compose.prod.yml down || true
+        # Ensure nginx is running (serves maintenance page while others rebuild)
+        docker compose -f docker-compose.prod.yml up -d nginx
 
-        # Build and start
-        docker compose -f docker-compose.prod.yml build
-        docker compose -f docker-compose.prod.yml up -d
+        # Rebuild and restart backend + frontend only (nginx stays up)
+        docker compose -f docker-compose.prod.yml up -d --build backend frontend db
+
+        # Reload nginx config if it changed
+        docker exec usenghor_nginx nginx -s reload || true
 
         # Clean up old images
         docker image prune -f
@@ -203,9 +209,14 @@ update() {
         git pull origin main || git pull origin master
         cd ..
 
-        # Rebuild and restart
-        docker compose -f docker-compose.prod.yml build
-        docker compose -f docker-compose.prod.yml up -d
+        # Ensure nginx is running (serves maintenance page while others rebuild)
+        docker compose -f docker-compose.prod.yml up -d nginx
+
+        # Rebuild and restart backend + frontend only (nginx stays up)
+        docker compose -f docker-compose.prod.yml up -d --build backend frontend db
+
+        # Reload nginx config if it changed
+        docker exec usenghor_nginx nginx -s reload || true
 ENDSSH
     echo -e "${GREEN}Update complete!${NC}"
 }

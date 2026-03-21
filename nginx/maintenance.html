@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintenance en cours - Universit&eacute; Senghor</title>
+  <style>
+    :root {
+      --brand-blue-600: #233da0;
+      --brand-blue-700: #1c3080;
+      --brand-blue-800: #152460;
+      --brand-blue-900: #0e1840;
+      --brand-red-500: #f32525;
+      --brand-red-600: #d91f1f;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--brand-blue-900) 0%, var(--brand-blue-800) 50%, var(--brand-blue-700) 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Subtle animated background pattern */
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(243, 37, 37, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(35, 61, 160, 0.1) 0%, transparent 50%);
+      animation: drift 20s ease-in-out infinite;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-2%, 2%); }
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      max-width: 600px;
+      padding: 2rem;
+    }
+
+    /* Logo */
+    .logo {
+      width: 180px;
+      height: auto;
+      margin: 0 auto 2rem;
+      display: block;
+      filter: brightness(1.1);
+    }
+
+    /* Animated gear icon */
+    .icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 1.5rem;
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .icon svg {
+      width: 100%;
+      height: 100%;
+      fill: rgba(255, 255, 255, 0.5);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      min-width: 80px;
+    }
+
+    .countdown-value {
+      font-size: 2rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+      margin-top: 0.25rem;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      height: 6px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand-red-500), var(--brand-red-600));
+      border-radius: 100px;
+      width: 0%;
+      transition: width 1s linear;
+    }
+
+    .status-text {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Language switcher */
+    .lang-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover, .lang-btn.active {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .brand {
+      opacity: 0.5;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    [dir="rtl"] { direction: rtl; text-align: center; }
+
+    /* When site is back */
+    .ready .icon { animation: none; }
+    .ready .icon svg { fill: #4ade80; }
+    .ready .progress-bar { width: 100% !important; background: #4ade80; }
+    .ready h1, .ready .subtitle { opacity: 0.5; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <img src="/maintenance_logo.png" alt="Universite Senghor" class="logo">
+
+    <!-- Gear icon -->
+    <div class="icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66z"/>
+      </svg>
+    </div>
+
+    <!-- Language switcher -->
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('fr')">Francais</button>
+      <button class="lang-btn" onclick="setLang('en')">English</button>
+      <button class="lang-btn" onclick="setLang('ar')">العربية</button>
+    </div>
+
+    <h1 id="title">Maintenance en cours</h1>
+    <p class="subtitle" id="subtitle">
+      Notre site fait peau neuve. Nous serons de retour dans quelques instants.
+    </p>
+
+    <!-- Countdown -->
+    <div class="countdown">
+      <div class="countdown-item">
+        <div class="countdown-value" id="minutes">03</div>
+        <div class="countdown-label" id="minLabel">min</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="seconds">00</div>
+        <div class="countdown-label" id="secLabel">sec</div>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <p class="status-text" id="statusText">Verification en cours...</p>
+
+    <p class="brand">Universite Senghor &mdash; Alexandrie</p>
+  </div>
+
+  <script>
+    const TOTAL_SECONDS = 180; // 3 minutes estimate
+    const POLL_INTERVAL = 5000; // 5 seconds
+    let remaining = TOTAL_SECONDS;
+    let siteReady = false;
+
+    const i18n = {
+      fr: {
+        title: 'Maintenance en cours',
+        subtitle: 'Notre site fait peau neuve. Nous serons de retour dans quelques instants.',
+        min: 'min',
+        sec: 'sec',
+        checking: 'Verification en cours...',
+        almostReady: 'Encore un instant...',
+        ready: 'Le site est de retour ! Redirection...',
+        dir: 'ltr'
+      },
+      en: {
+        title: 'Maintenance in progress',
+        subtitle: 'Our site is being updated. We will be back in a few moments.',
+        min: 'min',
+        sec: 'sec',
+        checking: 'Checking availability...',
+        almostReady: 'Almost ready...',
+        ready: 'The site is back! Redirecting...',
+        dir: 'ltr'
+      },
+      ar: {
+        title: 'الصيانة جارية',
+        subtitle: 'موقعنا قيد التحديث. سنعود خلال لحظات قليلة.',
+        min: 'دقيقة',
+        sec: 'ثانية',
+        checking: 'جاري التحقق...',
+        almostReady: 'لحظات قليلة...',
+        ready: 'الموقع متاح مجددا! جاري التحويل...',
+        dir: 'rtl'
+      }
+    };
+
+    let currentLang = 'fr';
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir = t.dir;
+      document.getElementById('title').textContent = t.title;
+      document.getElementById('subtitle').textContent = t.subtitle;
+      document.getElementById('minLabel').textContent = t.min;
+      document.getElementById('secLabel').textContent = t.sec;
+      if (siteReady) {
+        document.getElementById('statusText').textContent = t.ready;
+      } else if (remaining <= 0) {
+        document.getElementById('statusText').textContent = t.almostReady;
+      } else {
+        document.getElementById('statusText').textContent = t.checking;
+      }
+      // Update active button
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+    }
+
+    // Countdown timer
+    function updateCountdown() {
+      if (siteReady) return;
+      if (remaining > 0) {
+        remaining--;
+      }
+      var min = Math.floor(remaining / 60);
+      var sec = remaining % 60;
+      document.getElementById('minutes').textContent = String(min).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(sec).padStart(2, '0');
+
+      // Progress bar
+      var progress = ((TOTAL_SECONDS - remaining) / TOTAL_SECONDS) * 100;
+      document.getElementById('progressBar').style.width = Math.min(progress, 95) + '%';
+
+      if (remaining <= 0) {
+        document.getElementById('statusText').textContent = i18n[currentLang].almostReady;
+      }
+    }
+
+    // Poll /health endpoint
+    async function checkHealth() {
+      try {
+        var res = await fetch('/health', { cache: 'no-store' });
+        if (res.ok) {
+          siteReady = true;
+          document.body.classList.add('ready');
+          document.getElementById('statusText').textContent = i18n[currentLang].ready;
+          document.getElementById('minutes').textContent = '00';
+          document.getElementById('seconds').textContent = '00';
+          document.getElementById('progressBar').style.width = '100%';
+          // Redirect after 2 seconds
+          setTimeout(function() { window.location.href = '/'; }, 2000);
+          return;
+        }
+      } catch (e) {
+        // Still down
+      }
+      setTimeout(checkHealth, POLL_INTERVAL);
+    }
+
+    // Start
+    setInterval(updateCountdown, 1000);
+    setTimeout(checkHealth, POLL_INTERVAL);
+  </script>
+</body>
+</html>
