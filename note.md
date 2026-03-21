@@ -30,4 +30,4 @@ Migrer les pages vers useAsyncData (11 pages)
 Migrer AppNavBar vers useLazyAsyncData
 
 
-En mode mobile je ne veux pas qu'on affiche uniquement les icons, il faut aussi montrer les textes sauf que cette fois il y aura retoutour a la ligne en ca de débordement( flex-wrap)
+La page projet et levée de fond sont presque les memes. La différance c'est 

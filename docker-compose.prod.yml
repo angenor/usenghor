@@ -66,12 +66,13 @@ services:
       args:
         NUXT_PUBLIC_API_BASE: ${NUXT_PUBLIC_API_BASE:-http://backend:8000}
         NUXT_PUBLIC_API_BASE_URL: ${NUXT_PUBLIC_API_BASE_URL:-http://backend:8000}
+        NUXT_PUBLIC_SITE_URL: ${NUXT_PUBLIC_SITE_URL:-https://usenghor-francophonie.org}
     container_name: usenghor_frontend
     restart: unless-stopped
     environment:
       NUXT_PUBLIC_API_BASE: http://backend:8000
       NUXT_PUBLIC_API_BASE_URL: http://backend:8000
-      NUXT_SITE_URL: ${NUXT_SITE_URL:-https://usenghor-francophonie.org}
+      NUXT_PUBLIC_SITE_URL: ${NUXT_PUBLIC_SITE_URL:-https://usenghor-francophonie.org}
     depends_on:
       - backend
     networks:

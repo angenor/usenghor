@@ -139,6 +139,8 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - N/A — feature purement frontend/visuelle (007-diese-decorative-bg)
 - Python 3.14 (backend FastAPI) + TypeScript (frontend Nuxt 4 / Vue 3) + FastAPI, SQLAlchemy (async), Pydantic v2, SurveyJS Form Library (`survey-vue3-ui`), aiosmtplib, Jinja2 (008-survey-campaigns)
 - PostgreSQL 16 (Docker: `usenghor_postgres` local, `usenghor_db` prod) — JSONB pour survey_json et response_data (008-survey-campaigns)
+- TypeScript (Nuxt 4 / Vue 3) + `@nuxtjs/i18n` (prefix_except_default), `@nuxtjs/sitemap`, `useSeoMeta()` (Nuxt built-in) (009-og-meta-tags)
+- N/A — feature purement frontend, lecture seule des donnees existantes (009-og-meta-tags)
 
 ## Recent Changes
 - 001-migrate-toastui-editor: Migré EditorJS → TOAST UI Editor (composants, composable, schémas Pydantic, 11 pages admin, 11 pages publiques, nettoyage complet)
