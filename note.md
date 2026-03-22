@@ -30,4 +30,21 @@ Migrer les pages vers useAsyncData (11 pages)
 Migrer AppNavBar vers useLazyAsyncData
 
 
-La page projet et levée de fond sont presque les memes. La différance c'est 
+La page levée de fond de l'université senghor. 
+# La page principale de levée de fond contient des rubrique clés géririques qui concerne l'ensemble de toutes les campages jusqu'à présent: 
+- hero section comme pour la page `/actualites`
+- Votre contribution sert à(raison),
+- Exemples d'engagement, 
+- Bénéfice lié à votre contribution, 
+- somme total jusqu'à prsent, 
+- la liste de tous les contricuteurs des campagnes passées et en cours...
+- la campage en cours mis en évidence + campagne passées plus discret ou dans un onglet
+- onglet actualités
+# Les pages de campagne(appel) contiennent les éléments suivants:
+- presentation de la campagne
+- raison de la levée de fond
+- objectif chiffre cible, chiffre atteint actuellemt
+- onglet contributeurs(ceux qui ont participé à la levée de fond + somme de leur comtribution)
+- un bouton manifester son interret à contribuer à la levée de font(sera enregistrer dans la base de donnée + envera un email): Mettre en place un outil anti spam(vérificateur de navigateur par exemple).
+- Une campage a les statuts suivants: En cours, cloturé
+- Médiatheques
