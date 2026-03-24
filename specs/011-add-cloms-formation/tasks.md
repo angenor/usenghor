@@ -21,11 +21,11 @@
 
 **⚠️ CRITICAL**: Aucune tâche de user story ne peut commencer avant la fin de cette phase.
 
-- [ ] T001 Créer la migration SQL `029_add_clom_program_type.sql` avec `ALTER TYPE program_type ADD VALUE 'clom'` dans `usenghor_backend/documentation/modele_de_données/migrations/029_add_clom_program_type.sql`
-- [ ] T002 Mettre à jour la définition ENUM dans le schéma source : ajouter `'clom'` à `CREATE TYPE program_type` dans `usenghor_backend/documentation/modele_de_données/services/07_academic.sql`
-- [ ] T003 Exécuter la migration localement : `docker exec -i usenghor_postgres psql -U usenghor -d usenghor < usenghor_backend/documentation/modele_de_données/migrations/029_add_clom_program_type.sql`
-- [ ] T004 [P] Ajouter `CLOM = "clom"` à l'enum Python `ProgramType` dans `usenghor_backend/app/models/academic.py`
-- [ ] T005 [P] Ajouter `| 'clom'` au type TypeScript `ProgramType` dans `usenghor_nuxt/app/types/api/programs.ts`
+- [x] T001 Créer la migration SQL `029_add_clom_program_type.sql` avec `ALTER TYPE program_type ADD VALUE 'clom'` dans `usenghor_backend/documentation/modele_de_données/migrations/029_add_clom_program_type.sql`
+- [x] T002 Mettre à jour la définition ENUM dans le schéma source : ajouter `'clom'` à `CREATE TYPE program_type` dans `usenghor_backend/documentation/modele_de_données/services/07_academic.sql`
+- [x] T003 Exécuter la migration localement : `docker exec -i usenghor_postgres psql -U usenghor -d usenghor < usenghor_backend/documentation/modele_de_données/migrations/029_add_clom_program_type.sql`
+- [x] T004 [P] Ajouter `CLOM = "clom"` à l'enum Python `ProgramType` dans `usenghor_backend/app/models/academic.py`
+- [x] T005 [P] Ajouter `| 'clom'` au type TypeScript `ProgramType` dans `usenghor_nuxt/app/types/api/programs.ts`
 
 **Checkpoint**: La valeur `clom` est reconnue par la DB, le backend et le frontend. Les schemas Pydantic, routes et services se propagent automatiquement.
 
@@ -39,10 +39,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T006 [US1] Ajouter le mapping slug→type `'cloms': 'clom'` et type→slug `'clom': 'cloms'` dans les objets `urlSlugToProgramType` et `programTypeToUrlSlug` de `usenghor_nuxt/app/composables/usePublicProgramsApi.ts`
-- [ ] T007 [US1] Ajouter le label public `clom: 'CLOM'` dans `publicProgramTypeLabels` de `usenghor_nuxt/app/composables/usePublicProgramsApi.ts`
-- [ ] T008 [US1] Ajouter la configuration couleur/icône pour `clom` (icon: `fa-solid fa-globe`, color: teal) dans `publicProgramTypeColors` de `usenghor_nuxt/app/composables/usePublicProgramsApi.ts`
-- [ ] T009 [US1] Ajouter `'cloms'` au tableau `validTypes` dans `usenghor_nuxt/app/pages/formations/[type]/index.vue`
+- [x] T006 [US1] Ajouter le mapping slug→type `'cloms': 'clom'` et type→slug `'clom': 'cloms'` dans les objets `urlSlugToProgramType` et `programTypeToUrlSlug` de `usenghor_nuxt/app/composables/usePublicProgramsApi.ts`
+- [x] T007 [US1] Ajouter le label public `clom: 'CLOM'` dans `publicProgramTypeLabels` de `usenghor_nuxt/app/composables/usePublicProgramsApi.ts`
+- [x] T008 [US1] Ajouter la configuration couleur/icône pour `clom` (icon: `fa-solid fa-globe`, color: teal) dans `publicProgramTypeColors` de `usenghor_nuxt/app/composables/usePublicProgramsApi.ts`
+- [x] T009 [US1] Ajouter `'cloms'` au tableau `validTypes` dans `usenghor_nuxt/app/pages/formations/[type]/index.vue`
 
 **Checkpoint**: La page `/formations/cloms` est accessible et fonctionnelle. Le filtrage par type CLOM fonctionne sur l'API publique.
 
@@ -56,8 +56,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T010 [US2] Ajouter le label admin `clom: 'CLOM'` dans `programTypeLabels` de `usenghor_nuxt/app/composables/useProgramsApi.ts`
-- [ ] T011 [US2] Ajouter la classe CSS couleur `clom: 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400'` dans `programTypeColors` de `usenghor_nuxt/app/composables/useProgramsApi.ts`
+- [x] T010 [US2] Ajouter le label admin `clom: 'CLOM'` dans `programTypeLabels` de `usenghor_nuxt/app/composables/useProgramsApi.ts`
+- [x] T011 [US2] Ajouter la classe CSS couleur `clom: 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400'` dans `programTypeColors` de `usenghor_nuxt/app/composables/useProgramsApi.ts`
 
 **Checkpoint**: Le type CLOM apparaît dans le sélecteur de type du formulaire admin. Un CLOM peut être créé et géré.
 
@@ -71,9 +71,9 @@
 
 ### Implementation for User Stories 3 & 4
 
-- [ ] T012 [P] [US4] Ajouter les traductions françaises du type CLOM (clom, cloms, typeDescriptions.cloms) dans `usenghor_nuxt/i18n/locales/fr/formations.json`
-- [ ] T013 [P] [US4] Ajouter les traductions anglaises du type CLOM (clom→MOOC, cloms→MOOCs, typeDescriptions.cloms) dans `usenghor_nuxt/i18n/locales/en/formations.json`
-- [ ] T014 [P] [US4] Ajouter les traductions arabes du type CLOM (clom→مقرر مفتوح عبر الإنترنت, cloms→مقررات مفتوحة عبر الإنترنت) dans `usenghor_nuxt/i18n/locales/ar/formations.json`
+- [x] T012 [P] [US4] Ajouter les traductions françaises du type CLOM (clom, cloms, typeDescriptions.cloms) dans `usenghor_nuxt/i18n/locales/fr/formations.json`
+- [x] T013 [P] [US4] Ajouter les traductions anglaises du type CLOM (clom→MOOC, cloms→MOOCs, typeDescriptions.cloms) dans `usenghor_nuxt/i18n/locales/en/formations.json`
+- [x] T014 [P] [US4] Ajouter les traductions arabes du type CLOM (clom→مقرر مفتوح عبر الإنترنت, cloms→مقررات مفتوحة عبر الإنترنت) dans `usenghor_nuxt/i18n/locales/ar/formations.json`
 
 **Checkpoint**: Le type CLOM est traduit dans les trois langues. La navigation et les filtres affichent le libellé correct dans chaque langue.
 
@@ -83,8 +83,8 @@
 
 **Purpose**: Vérification finale de bout en bout.
 
-- [ ] T015 Exécuter la validation quickstart.md : vérifier API (`curl /api/public/programs/by-type/clom`), Swagger, création admin, page publique `/formations/cloms`, et bascule i18n
-- [ ] T016 Vérifier que le schéma source `07_academic.sql` et la migration `029_add_clom_program_type.sql` sont cohérents
+- [x] T015 Exécuter la validation quickstart.md : vérifier API (`curl /api/public/programs/by-type/clom`), Swagger, création admin, page publique `/formations/cloms`, et bascule i18n
+- [x] T016 Vérifier que le schéma source `07_academic.sql` et la migration `029_add_clom_program_type.sql` sont cohérents
 
 ---
 
