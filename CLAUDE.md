@@ -145,6 +145,9 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - Python 3.14 (backend FastAPI), TypeScript (frontend Nuxt 4 / Vue 3) + FastAPI, SQLAlchemy (async), Pydantic v2, Nuxt 4, Vue 3, Tailwind CSS (012-media-events-news)
 - Python 3.14 (FastAPI backend), TypeScript (Nuxt 4 / Vue 3 frontend) + FastAPI, SQLAlchemy (async), Pydantic v2, Nuxt 4, Vue 3, Tailwind CSS (014-link-shortener)
 - Python 3.14 (FastAPI backend), TypeScript (Nuxt 4 / Vue 3 frontend) + FastAPI, SQLAlchemy (async), Pydantic v2, Nuxt 4, Vue 3, Tailwind CSS, @nuxtjs/i18n (015-mediatheque)
+- TypeScript 5.x (Nuxt 4 / Vue 3 Composition API) — aucune partie Python touchée + Vue 3, Nuxt 4, Tailwind CSS, `@nuxtjs/i18n`, `useMediaApi` composable existant, Font Awesome (icônes). Aucune nouvelle dépendance. (016-mediatheque-direct-upload)
+- N/A (backend inchangé). PostgreSQL `media` + `album_media` tables existantes utilisées tel quel. (016-mediatheque-direct-upload)
 
 ## Recent Changes
+- 016-mediatheque-direct-upload: upload direct de fichiers dans la médiathèque (composant + composable, sans album)
 - 001-migrate-toastui-editor: Migré EditorJS → TOAST UI Editor (composants, composable, schémas Pydantic, 11 pages admin, 11 pages publiques, nettoyage complet)
