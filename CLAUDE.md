@@ -147,6 +147,8 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - Python 3.14 (FastAPI backend), TypeScript (Nuxt 4 / Vue 3 frontend) + FastAPI, SQLAlchemy (async), Pydantic v2, Nuxt 4, Vue 3, Tailwind CSS, @nuxtjs/i18n (015-mediatheque)
 - TypeScript 5.x (Nuxt 4 / Vue 3 Composition API) — aucune partie Python touchée + Vue 3, Nuxt 4, Tailwind CSS, `@nuxtjs/i18n`, `useMediaApi` composable existant, Font Awesome (icônes). Aucune nouvelle dépendance. (016-mediatheque-direct-upload)
 - N/A (backend inchangé). PostgreSQL `media` + `album_media` tables existantes utilisées tel quel. (016-mediatheque-direct-upload)
+- TypeScript 5.x (Nuxt 4 / Vue 3 Composition API) + `@toast-ui/editor@3.2.2`, `@toast-ui/editor-plugin-table-merged-cell@3.1.0` (existants) (017-editor-text-color)
+- N/A (HTML inline dans colonnes `*_html` existantes, aucune migration SQL) (017-editor-text-color)
 
 ## Recent Changes
 - 016-mediatheque-direct-upload: upload direct de fichiers dans la médiathèque (composant + composable, sans album)
