@@ -36,7 +36,12 @@
       "Bash(sed -i '' 's/^- \\\\[ \\\\] T030/- [x] T030/' specs/004-fundraising-page/tasks.md)",
       "Bash(sed -i '' 's/^- \\\\[ \\\\] T031/- [x] T031/' specs/004-fundraising-page/tasks.md)",
       "Bash(sed -i '' 's/^- \\\\[ \\\\] T032/- [x] T032/' specs/004-fundraising-page/tasks.md)",
-      "Bash(grep -E \"\\\\.\\(py\\)$\")"
+      "Bash(grep -E \"\\\\.\\(py\\)$\")",
+      "Bash(AGENT_BROWSER_SESSION=\"\" agent-browser --headed open \"http://localhost:3000/actualites/evenements/ceremonie-de-remise-des-diplomes-2025\")",
+      "Bash(.specify/scripts/bash/create-new-feature.sh --json --number 013 --short-name \"program-partners\" \"Associer des partenaires à une formation dans l''admin et afficher leurs logos/noms sur la page publique de la formation\")",
+      "Bash(.specify/scripts/bash/create-new-feature.sh --json --number 013 --short-name \"program-partners\" \"Associer des partenaires a une formation dans admin et afficher leurs logos sur la page publique\")",
+      "Bash(.specify/scripts/bash/create-new-feature.sh --json --number 14 --short-name \"link-shortener\" \"Système de réduction de liens dans le backoffice admin\")",
+      "Bash(agent-browser --headed eval \"document.querySelectorAll\\(''[class*=handshake]''\\).length\")"
     ],
     "additionalDirectories": [
       "/Users/mac/Documents/projets/2025/usenghor/usenghor_nuxt/app/pages/admin/contenus/levees-de-fonds"
