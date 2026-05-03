@@ -99,6 +99,8 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 | `RichTextRenderer.vue` | Affichage HTML rich text (public) |
 | `useToastUIEditor.ts` | Composable de gestion de l'éditeur TOAST UI |
 | `useMockData()` | Données de dev sans BDD |
+| `components/faq/admin/*` | Backoffice FAQ (entrées + catégories trilingues, audit) |
+| `useFaqApi()` | Composable admin FAQ (`/api/admin/faq/*`) |
 
 **Stockage du contenu riche :** Double colonne `*_html` (rendu public) + `*_md` (édition Markdown) pour chaque champ de contenu riche (11 tables, ~20 colonnes).
 
@@ -151,7 +153,10 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - N/A (HTML inline dans colonnes `*_html` existantes, aucune migration SQL) (017-editor-text-color)
 - TypeScript 5.x (Nuxt 4 / Vue 3 Composition API) côté frontend, Python 3.14 (FastAPI) côté backend. + Nuxt 4, Vue 3, Tailwind CSS, `@nuxtjs/i18n` ; FastAPI, SQLAlchemy (async), Pydantic v2, `asyncpg`. Pas de nouvelle dépendance ajoutée. (018-governance-media-album)
 - PostgreSQL 16 via Docker (`usenghor_postgres` local, `usenghor_db` prod). Tables impactées : `media`, `albums`, `album_media`. Lecture seule de `editorial_contents` au moment de la migration. (018-governance-media-album)
+- TypeScript 5.x (Nuxt 4 / Vue 3 Composition API) côté frontend, Python 3.14 (FastAPI) côté backend. + Nuxt 4, Vue 3, Tailwind CSS, `@nuxtjs/i18n`, TOAST UI Editor 3.2.2 ; FastAPI, SQLAlchemy (async), Pydantic v2, `asyncpg`. Pas de nouvelle dépendance ajoutée. (019-faq-backoffice)
+- PostgreSQL 16 via Docker (`usenghor_postgres` local, `usenghor_db` prod). Nouvelles tables : `faq_categories`, `faq_entries`. Réutilisation : `users` (FK auteur), `audit_logs` (traces), permissions/rôles existants. (019-faq-backoffice)
 
 ## Recent Changes
+- 019-faq-backoffice: page FAQ publique trilingue (`/faq`) + backoffice (entrées et catégories) avec audit complet, repli FR, réordonnancement, JSON-LD
 - 016-mediatheque-direct-upload: upload direct de fichiers dans la médiathèque (composant + composable, sans album)
 - 001-migrate-toastui-editor: Migré EditorJS → TOAST UI Editor (composants, composable, schémas Pydantic, 11 pages admin, 11 pages publiques, nettoyage complet)

@@ -4,8 +4,9 @@ agent natif de claude code:
 Explore
 
 
-Si vous voulez voir les interactions en temps réel, ajoutez l'option --headed :
-`agent-browser --headed` open http://localhost:3000/admin/organisation/secteurs
+test cette feature avec `agent-browser --headed`
+
+`claude --dangerously-skip-permissions`
 
 pour les besoins d'exploration tu peux utiliser intelligenmment plusieurs sous agent
 
