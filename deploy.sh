@@ -317,6 +317,52 @@ connect() {
     ssh ${REMOTE_USER}@${REMOTE_HOST} -t "cd ${REMOTE_DIR} && bash"
 }
 
+# Function to manage the monitoring stack (spec 020)
+monitoring() {
+    SUBCOMMAND=${2:-}
+    case "$SUBCOMMAND" in
+        up)
+            echo -e "${GREEN}[monitoring] Synchronisation des fichiers de configuration...${NC}"
+            ssh ${REMOTE_USER}@${REMOTE_HOST} "mkdir -p ${REMOTE_DIR}/usenghor_backend/monitoring"
+            scp usenghor_backend/docker-compose.monitoring.yml \
+                ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/usenghor_backend/
+            scp -r usenghor_backend/monitoring/* \
+                ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/usenghor_backend/monitoring/
+
+            echo -e "${GREEN}[monitoring] Demarrage de la stack...${NC}"
+            ssh ${REMOTE_USER}@${REMOTE_HOST} << ENDSSH
+                cd ${REMOTE_DIR}/usenghor_backend
+                docker compose -f docker-compose.monitoring.yml --env-file ../.env up -d
+                echo ""
+                echo "Etat des conteneurs:"
+                docker compose -f docker-compose.monitoring.yml ps
+ENDSSH
+            ;;
+        down)
+            echo -e "${GREEN}[monitoring] Arret de la stack (volumes preserves)...${NC}"
+            ssh ${REMOTE_USER}@${REMOTE_HOST} << ENDSSH
+                cd ${REMOTE_DIR}/usenghor_backend
+                docker compose -f docker-compose.monitoring.yml down
+ENDSSH
+            ;;
+        logs)
+            ssh ${REMOTE_USER}@${REMOTE_HOST} -t \
+                "cd ${REMOTE_DIR}/usenghor_backend && docker compose -f docker-compose.monitoring.yml logs -f"
+            ;;
+        status)
+            ssh ${REMOTE_USER}@${REMOTE_HOST} << ENDSSH
+                cd ${REMOTE_DIR}/usenghor_backend
+                echo "=== Monitoring Stack ==="
+                docker compose -f docker-compose.monitoring.yml ps
+ENDSSH
+            ;;
+        *)
+            echo "Usage: ./deploy.sh monitoring {up|down|logs|status}" >&2
+            exit 1
+            ;;
+    esac
+}
+
 # Main script
 case "$1" in
     setup)
@@ -349,6 +395,9 @@ case "$1" in
     connect)
         connect
         ;;
+    monitoring)
+        monitoring "$@"
+        ;;
     *)
         echo "Usage: $0 {command} [options]"
         echo ""
@@ -363,6 +412,7 @@ case "$1" in
         echo "  ssl [domain]   - Setup SSL (default: usenghor-francophonie.org)"
         echo "  backup         - Backup database to local file"
         echo "  connect        - SSH into server"
+        echo "  monitoring     - Stack monitoring: ./deploy.sh monitoring {up|down|logs|status}"
         echo ""
         echo "Examples:"
         echo "  $0 setup                    # First-time setup"
@@ -370,6 +420,7 @@ case "$1" in
         echo "  $0 logs backend             # View backend logs"
         echo "  $0 restart frontend         # Restart only frontend"
         echo "  $0 ssl usenghor-francophonie.org  # Setup SSL for domain"
+        echo "  $0 monitoring up            # Demarrer la stack de monitoring"
         exit 1
         ;;
 esac

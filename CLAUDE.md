@@ -155,8 +155,10 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - PostgreSQL 16 via Docker (`usenghor_postgres` local, `usenghor_db` prod). Tables impactées : `media`, `albums`, `album_media`. Lecture seule de `editorial_contents` au moment de la migration. (018-governance-media-album)
 - TypeScript 5.x (Nuxt 4 / Vue 3 Composition API) côté frontend, Python 3.14 (FastAPI) côté backend. + Nuxt 4, Vue 3, Tailwind CSS, `@nuxtjs/i18n`, TOAST UI Editor 3.2.2 ; FastAPI, SQLAlchemy (async), Pydantic v2, `asyncpg`. Pas de nouvelle dépendance ajoutée. (019-faq-backoffice)
 - PostgreSQL 16 via Docker (`usenghor_postgres` local, `usenghor_db` prod). Nouvelles tables : `faq_categories`, `faq_entries`. Réutilisation : `users` (FK auteur), `audit_logs` (traces), permissions/rôles existants. (019-faq-backoffice)
+- Infrastructure / DevOps : Docker Compose v3.8 (`docker-compose.monitoring.yml`), Prometheus 2.55.1 (TSDB, rétention 30j / 4.5 GB), Grafana 11.4.0 (provisioning par fichier, auth admin via env, sign-up & anonyme OFF), node-exporter 1.8.2, cAdvisor 0.49.1. Nginx reverse-proxy `monitoring.<DOMAINE>` + rate limiting + TLS Let's Encrypt. Réseau Docker `usenghor_network` partagé. Aucun port public pour Prometheus/exporters. Pilotage via `./deploy.sh monitoring {up|down|logs|status}`. (020-monitoring-stack)
 
 ## Recent Changes
+- 020-monitoring-stack: socle observabilité (Prometheus + Grafana + node-exporter + cAdvisor) — métriques système et conteneurs, sans instrumentation applicative ; rétention 30j, accès HTTPS via `monitoring.<DOMAINE>` derrière Nginx
 - 019-faq-backoffice: page FAQ publique trilingue (`/faq`) + backoffice (entrées et catégories) avec audit complet, repli FR, réordonnancement, JSON-LD
 - 016-mediatheque-direct-upload: upload direct de fichiers dans la médiathèque (composant + composable, sans album)
 - 001-migrate-toastui-editor: Migré EditorJS → TOAST UI Editor (composants, composable, schémas Pydantic, 11 pages admin, 11 pages publiques, nettoyage complet)

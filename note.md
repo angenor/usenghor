@@ -8,6 +8,9 @@ test cette feature avec `agent-browser --headed`
 
 `claude --dangerously-skip-permissions`
 
+utilise plusieurs sous agents jusqu'à 10 s'il le faut pour comprendre ce projet et complete les element de reponse de ce DAT @docs/architechture_technique.md . Pour les shemats(representations), tu peux juste décrire et je vais générer avec app.diagrams.net
+la liste des besoins fonctionnel n'est pas comprete, tu pourras les completer en fonction de ta comprehention
+
 pour les besoins d'exploration tu peux utiliser intelligenmment plusieurs sous agent
 
 
