@@ -54,4 +54,5 @@ La page levée de fond de l'université senghor.
 - Médiatheques
 
 
-J'ai un problème avec @usenghor_nuxt/app/pages/admin/projets/liste/nouveau.vue et usenghor_nuxt/app/pages/admin/projets/liste/[id]/edit.vue . Je vois 'Afficher dans la section levée de fonds (page Stratégie)', non, ce n'est pas correcte, il faut plutot faire en sorte qu'on puisse associer un projet à ue levée de fond(facultatif) dans l'ongle associations, je pense qu'il s'agira de reutiliser la meme logique. Mais attentions, un projet peut avoir plusieurs levée de fond. Un peu faire une levée pendant un période données et une autre pendant une autre periode mais en gardant l'historique
+De meme souligné et mettre au meme format 'Des projets à impact' , 'Nos partenaires', 'Actualités des projets'.
+Je trouve aussi que 'Tous nos projets' est trop collé à la premiere carde
