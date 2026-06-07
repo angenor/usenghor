@@ -52,3 +52,6 @@ La page levée de fond de l'université senghor.
 - un bouton manifester son interret à contribuer à la levée de font(sera enregistrer dans la base de donnée + envera un email): Mettre en place un outil anti spam(vérificateur de navigateur par exemple).
 - Une campage a les statuts suivants: En cours, cloturé
 - Médiatheques
+
+
+J'ai un problème avec @usenghor_nuxt/app/pages/admin/projets/liste/nouveau.vue et usenghor_nuxt/app/pages/admin/projets/liste/[id]/edit.vue . Je vois 'Afficher dans la section levée de fonds (page Stratégie)', non, ce n'est pas correcte, il faut plutot faire en sorte qu'on puisse associer un projet à ue levée de fond(facultatif) dans l'ongle associations, je pense qu'il s'agira de reutiliser la meme logique. Mais attentions, un projet peut avoir plusieurs levée de fond. Un peu faire une levée pendant un période données et une autre pendant une autre periode mais en gardant l'historique
