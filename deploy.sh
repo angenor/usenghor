@@ -164,7 +164,10 @@ ENDSSH
         docker compose -f docker-compose.prod.yml up -d nginx
 
         # Rebuild and restart backend + frontend only (nginx stays up)
-        docker compose -f docker-compose.prod.yml up -d --build backend frontend db
+        # --force-recreate: Compose/BuildKit reconstruit parfois une nouvelle
+        # image sans recréer le conteneur ; on force la recréation pour garantir
+        # que le nouveau code est effectivement servi.
+        docker compose -f docker-compose.prod.yml up -d --build --force-recreate backend frontend db
 
         # Reload nginx config if it changed
         docker exec usenghor_nginx nginx -s reload || true
@@ -213,7 +216,9 @@ update() {
         docker compose -f docker-compose.prod.yml up -d nginx
 
         # Rebuild and restart backend + frontend only (nginx stays up)
-        docker compose -f docker-compose.prod.yml up -d --build backend frontend db
+        # --force-recreate: garantit que les conteneurs repartent sur la nouvelle
+        # image (Compose ne recrée pas toujours le conteneur après un rebuild).
+        docker compose -f docker-compose.prod.yml up -d --build --force-recreate backend frontend db
 
         # Reload nginx config if it changed
         docker exec usenghor_nginx nginx -s reload || true
