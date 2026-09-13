@@ -83,7 +83,7 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 | `10_project.sql` | Project | projects, project_categories |
 | `11_newsletter.sql` | Newsletter | newsletter_subscribers, newsletter_campaigns |
 | `12_editorial.sql` | Editorial | editorial_categories, editorial_contents |
-| `16_entrepreneurship.sql` | Entrepreneurship | pei_programs, pei_cohorts, pei_resources |
+| `16_entrepreneurship.sql` | Entrepreneurship | pei_programs, pei_cohorts, pei_resources, pei_laureates, pei_partners |
 | `99_functions.sql` | Utilitaires | Fonctions et triggers |
 | `99_data_init.sql` | Seed | Données initiales |
 | `99_views.sql` | Vues | Vues agrégées |
@@ -102,8 +102,8 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 | `useMockData()` | Données de dev sans BDD |
 | `components/faq/admin/*` | Backoffice FAQ (entrées + catégories trilingues, audit) |
 | `useFaqApi()` | Composable admin FAQ (`/api/admin/faq/*`) |
-| `useEntrepreneurshipApi()` | Composable admin pôle PEI (`/api/admin/entrepreneurship/*`) |
-| `components/entrepreneurship/admin/*` | Backoffice PEI (dispositifs, cohortes, ressources, tableau de bord) |
+| `useEntrepreneurshipApi()` | Composable admin pôle PEI (`/api/admin/entrepreneurship/*`) : dispositifs, cohortes, ressources, lauréats, partenaires du pôle |
+| `components/entrepreneurship/admin/*` | Backoffice PEI (dispositifs, cohortes, ressources, lauréats, partenaires du pôle — `PartnerPicker`, `PartnerFamilyBoard` —, tableau de bord) |
 | `AdminMediaPicker` | Sélecteur de médiathèque transverse (modale, recherche, téléversement) |
 
 **Stockage du contenu riche :** Double colonne `*_html` (rendu public) + `*_md` (édition Markdown) pour chaque champ de contenu riche (11 tables, ~20 colonnes).
@@ -162,6 +162,7 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - Infrastructure / DevOps : Docker Compose v3.8 (`docker-compose.monitoring.yml`), Prometheus 2.55.1 (TSDB, rétention 30j / 4.5 GB), Grafana 11.4.0 (provisioning par fichier, auth admin via env, sign-up & anonyme OFF), node-exporter 1.8.2, cAdvisor 0.49.1. Nginx reverse-proxy `monitoring.<DOMAINE>` + rate limiting + TLS Let's Encrypt. Réseau Docker `usenghor_network` partagé. Aucun port public pour Prometheus/exporters. Pilotage via `./deploy.sh monitoring {up|down|logs|status}`. (020-monitoring-stack)
 
 ## Recent Changes
+- 022-pei-laureates-partners: portraits (lauréats FSE / étudiants-entrepreneurs) et partenaires du pôle PEI — SQL `16_entrepreneurship.sql` + migration `046_pei_laureates_partners.sql` (tables `pei_laureates` avec FK `cohort_id` RESTRICT, `pei_partners` avec PK/FK `partner_id` CASCADE vers `partners`, rattachement initial par motifs sans création) ; rollback 046 **avant** le rollback 045 ; ordre des portraits par cohorte et des partenaires par famille (`_reorder` scopé) ; 409 « Cohorte utilisée par N lauréats » ; admin `/admin/entrepreneuriat/{laureats,partenaires}` ; endpoints publics `/api/public/entrepreneurship/{laureates,partners}` ; verbatim ≤ 600 caractères par langue ; aucune nouvelle permission
 - 021-pei-entrepreneurship-core: socle du Pôle Entrepreneuriat et Innovation — SQL `16_entrepreneurship.sql` + migration `045_entrepreneurship.sql` (tables `pei_programs`, `pei_cohorts`, `pei_resources`, seeds FR, 43 clés éditoriales), API `/api/admin/entrepreneurship/*` et `/api/public/entrepreneurship/*`, section admin « Entrepreneuriat (PEI) » (`/admin/entrepreneuriat`), page éditoriale `entrepreneurship`, permissions `entrepreneurship.*` ; lancer « Traduire les champs manquants » après la migration
 - call-type-candidature-masque: le type d'appel `application` (« Candidature ») est déprécié et fusionné dans `training` (« Formation ») — migration `044_call_type_application_vers_training.sql` (données `application_calls` + `project_calls`, table de sauvegarde pour rollback) ; option masquée dans les filtres publics et les formulaires admin, valeur conservée dans l'ENUM `call_type` pour compatibilité
 - appels-sync-atomique: sauvegarde des listes d'un appel (critères, prises en charge, documents, calendrier) via `PUT /api/admin/application-calls/{id}/details` (une transaction, idempotent, diff par `id`) — remplace le cycle « tout supprimer / tout recréer » qui produisait des doublons ; migration `042_application_calls_dedup_sous_tables.sql` pour nettoyer l'existant

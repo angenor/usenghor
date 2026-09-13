@@ -90,8 +90,9 @@ pei_laureates   id, cohort_id FK, type ENUM(fse_laureate, student_entrepreneur),
                 project_name, department_label_fr/en/ar, quote_fr/en/ar, photo_external_id,
                 website_url, linkedin_url, instagram_url, facebook_url, video_url,
                 grant_amount NUMERIC, is_featured, is_published, display_order, created_at, updated_at
-pei_partners    partner_external_id (→ partners.id), family ENUM(academic, support, international),
-                display_order, PRIMARY KEY(partner_external_id)
+pei_partners    partner_id (PK, FK → partners.id ON DELETE CASCADE — livré en 022, au lieu de
+                partner_external_id), family ENUM(academic, support, international),
+                display_order (relatif à la famille)
 pei_resources   id, title_fr/en/ar, description_fr/en/ar, type ENUM(document, link, video),
                 media_external_id, url, category_fr/en/ar, display_order, is_published,
                 created_at, updated_at
@@ -163,6 +164,12 @@ est mis à jour (nouveau fichier SQL, nouvelle section admin, nouveau composable
 ### Feature 022 — Lauréats, étudiants-entrepreneurs et partenaires du pôle (backoffice)
 
 **Dépend de** : 021. **Livre** : tables `pei_laureates`, `pei_partners`, API, deux pages admin.
+
+> ✅ **Livrée** (specs/022-pei-laureates-partners/, migration `046_pei_laureates_partners.sql`).
+> Portée retenue : ordre des portraits **par cohorte** et des partenaires **par famille**, verbatim en
+> texte simple (600 caractères par langue), chiffres du bandeau calculés (`stats` de
+> `GET /api/public/entrepreneurship/laureates`), `pei_partners.partner_id` avec FK en cascade,
+> rattachement initial des partenaires du cahier des charges par motifs (sans création).
 
 ```
 Ajouter au backoffice « Entrepreneuriat (PEI) » la gestion des lauréats du Fonds de Soutien à
