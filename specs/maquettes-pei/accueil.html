@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Pôle Entrepreneuriat et Innovation · Accueil</title>
+  
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter','Inter Variable',system-ui,-apple-system,'Segoe UI',sans-serif;color:#111827;background:#ffffff;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#2b4bbf;text-decoration:none} a:hover{color:#233da0}
+p{margin:0}
+.container{max-width:1280px;margin:0 auto;padding:0 32px}
+.section{padding:96px 0}
+.grid-bg{background-image:linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);background-size:60px 60px}
+.h2{font-size:40px;line-height:1.15;font-weight:700;color:#111827;margin:0}
+.h2 .u{position:relative;display:inline-block}
+.h2 .u::after{content:'';position:absolute;left:0;bottom:-8px;width:33%;height:4px;border-radius:9999px;background:linear-gradient(90deg,#2b4bbf,#8aabff)}
+.h3{font-size:24px;line-height:1.3;font-weight:700;color:#111827;margin:0}
+.lead{font-size:18px;line-height:1.7;color:#4b5563}
+.body{font-size:16px;line-height:1.7;color:#4b5563}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2b4bbf}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 32px;font-weight:600;border-radius:9999px;font-size:16px;line-height:1}
+.btn-red{background:#f32525;color:#ffffff}
+.btn-blue{background:#2b4bbf;color:#ffffff}
+.btn-ghost{background:rgba(255,255,255,.15);color:#ffffff;border:1px solid rgba(255,255,255,.3)}
+.btn-outline{background:#ffffff;color:#1c3080;border:2px solid #baccff}
+.card{background:#ffffff;border-radius:12px;border:2px solid #e5e7eb;padding:24px}
+.badge{display:inline-flex;align-items:center;padding:6px 16px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:9999px}
+.badge-red-dark{background:rgba(243,37,37,.2);color:#ffa0a0;border:1px solid rgba(247,85,85,.3)}
+.badge-blue{background:#dce6ff;color:#1c3080}
+.badge-red{background:#ffe3e3;color:#b31919}
+.badge-amber{background:#fef3c7;color:#92400e}
+.badge-teal{background:#ccfbf1;color:#115e59}
+.photo{background:#e5e7eb;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.05) 0 10px,transparent 10px 20px);display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:13px;font-weight:500;text-align:center;padding:12px}
+.nav{position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0));z-index:5}
+.nav .container{display:flex;align-items:center;justify-content:space-between;height:80px}
+.navpill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;font-size:14px;font-weight:600;border-radius:12px;background:rgba(255,255,255,.15);color:#ffffff;backdrop-filter:blur(4px)}
+.navicon{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#ffffff}
+.subnav{background:#ffffff;border-bottom:1px solid #e5e7eb;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.subnav .container{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.tabs{display:flex;align-items:center;gap:0}
+.tab{display:flex;align-items:center;gap:8px;padding:16px 16px;font-size:14px;font-weight:500;color:#6b7280;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.active{color:#233da0;border-bottom-color:#2b4bbf}
+.tab svg{width:16px;height:16px;color:#9ca3af}
+.tab.active svg{color:#2b4bbf}
+.stat{text-align:center;padding:24px;background:rgba(255,255,255,.1);backdrop-filter:blur(4px);border-radius:16px;border:1px solid rgba(255,255,255,.1)}
+.stat .n{font-size:40px;font-weight:700;color:#ffffff;line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.stat .l{font-size:14px;color:rgba(255,255,255,.7)}
+.crumb{display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.7)}
+.crumb .sep{color:rgba(255,255,255,.4)}
+.crumb .cur{color:#f75555;font-weight:500}
+.step{position:relative;background:#ffffff;border-radius:12px;border:2px solid #e5e7eb;padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;min-width:0}
+.step .num{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.step .t{font-weight:700;font-size:17px;color:#111827;line-height:1.3}
+.step .d{font-size:14px;line-height:1.6;color:#4b5563}
+.step .k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:9999px;font-size:14px;font-weight:500;background:#ffffff;border:1px solid #e5e7eb;color:#374151}
+.newscard{display:flex;flex-direction:column;gap:12px}
+.newscard .img{aspect-ratio:16/10;border-radius:12px;overflow:hidden}
+.newscard .tag{font-size:12px;font-weight:500;color:#233da0}
+.newscard .t{font-size:18px;font-weight:600;color:#111827;line-height:1.35}
+.newscard .x{font-size:14px;color:#6b7280;line-height:1.6}
+.logo{height:72px;border-radius:12px;border:1px solid #e5e7eb;background:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:700;color:#374151;font-size:15px;letter-spacing:.02em;padding:0 20px}
+.faq{border:1px solid #e5e7eb;border-radius:12px;background:#ffffff;overflow:hidden}
+.faq .q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;font-weight:600;font-size:16px;color:#111827}
+.faq .a{padding:0 24px 20px;font-size:15px;line-height:1.65;color:#4b5563}
+.faq .q svg{width:18px;height:18px;color:#6b7280;flex-shrink:0}
+.tl{display:flex;flex-direction:column;gap:0}
+.tl .row{display:flex;gap:24px;align-items:flex-start;position:relative;padding-bottom:28px}
+.tl .row::before{content:'';position:absolute;left:11px;top:26px;bottom:0;width:2px;background:#dce6ff}
+.tl .row:last-child::before{display:none}
+.tl .dot{width:24px;height:24px;border-radius:9999px;background:#ffffff;border:6px solid #2b4bbf;flex-shrink:0;margin-top:2px}
+.tl .dot.red{border-color:#f32525}
+.tl .date{font-weight:700;color:#111827;font-size:16px}
+.tl .what{font-size:15px;color:#4b5563;margin-top:2px}
+.portrait{background:#ffffff;border-radius:16px;border:2px solid #e5e7eb;overflow:hidden;display:flex;flex-direction:column}
+.portrait .ph{height:220px}
+.portrait .b{padding:20px;display:flex;flex-direction:column;gap:10px}
+.portrait .name{font-weight:700;font-size:17px;color:#111827}
+.portrait .proj{font-weight:600;font-size:14px;color:#233da0}
+.portrait .dept{font-size:13px;color:#6b7280}
+.portrait .quote{font-size:14px;line-height:1.6;color:#4b5563;font-style:italic;border-left:3px solid #dce6ff;padding-left:12px}
+.social{width:32px;height:32px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;color:#374151}
+.social svg{width:16px;height:16px}
+.footer{background:#111827;color:#9ca3af;padding:40px 0;font-size:14px}
+.footer .container{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.ico{width:20px;height:20px;flex-shrink:0}
+</style>
+
+</helmet>
+<div style="width:1440px;background:#ffffff;overflow:hidden">
+
+<!-- HERO (slider 1/3) -->
+<section style="position:relative;overflow:hidden;height:720px">
+  <img src="hero-bg.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" alt="">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,24,64,.85),rgba(17,24,39,.55))"></div>
+  
+<div class="nav">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:32px">
+      <img src="logo-senghor.png" style="height:48px;width:auto;filter:brightness(0) invert(1)" alt="Université Senghor">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="navpill"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"></path><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"></path></svg> Se former <svg class="ico" style="width:14px;height:14px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+        <span class="navpill"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h6M7 12h10M7 16h10"></path></svg> Actualités <svg class="ico" style="width:14px;height:14px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="navicon"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></span>
+      <span class="navicon" style="font-size:13px;font-weight:700">FR</span>
+      <span class="navicon"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></span>
+      <span class="navpill"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle></svg> Plus</span>
+    </div>
+  </div>
+</div>
+  <div style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:40px">
+    <div class="container" style="display:flex;flex-direction:column;gap:24px">
+      <div class="crumb"><span>Accueil</span><span class="sep"><svg class="ico" style="width:12px;height:12px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></span><span>Nous connaître</span><span class="sep"><svg class="ico" style="width:12px;height:12px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></span><span>Organisation</span><span class="sep"><svg class="ico" style="width:12px;height:12px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></span><span>DDE</span><span class="sep"><svg class="ico" style="width:12px;height:12px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></span><span class="cur">Pôle Entrepreneuriat et Innovation</span></div>
+      <span class="badge badge-red-dark" style="align-self:flex-start">Entreprendre à Senghor</span>
+      <h1 style="font-size:72px;line-height:1.02;font-weight:800;color:#ffffff;margin:0;letter-spacing:-.01em">INNOVER.<br>AGIR.<br>TRANSFORMER.</h1>
+      <p style="font-size:20px;line-height:1.6;color:rgba(255,255,255,.85);max-width:640px">Le Pôle Entrepreneuriat et Innovation (PEI) accompagne les étudiants et alumni de l'Université Senghor, de l'idée à l'entreprise.</p>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span class="btn btn-red"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg> Devenir étudiant-entrepreneur</span>
+        <span class="btn btn-ghost">Découvrir le parcours <svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;right:48px;bottom:88px;z-index:3;display:flex;gap:8px">
+    <span style="width:32px;height:6px;border-radius:9999px;background:#ffffff"></span>
+    <span style="width:12px;height:6px;border-radius:9999px;background:rgba(255,255,255,.4)"></span>
+    <span style="width:12px;height:6px;border-radius:9999px;background:rgba(255,255,255,.4)"></span>
+  </div>
+  <svg style="position:absolute;bottom:0;left:0;width:100%;height:64px;display:block" viewBox="0 0 1200 120" preserveAspectRatio="none"><polygon points="0,40 1200,0 1200,120 0,120" fill="#ffffff"></polygon></svg>
+</section>
+
+
+<div class="subnav">
+  <div class="container">
+    <div class="tabs"><span class="tab active"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v4h1"></path></svg> Présentation</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg> Nos activités</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="3"></circle><path d="M16 15.5a5 5 0 0 1 5.5 4.5"></path></svg> Nos alumni</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l4-4 4 4 4-4 4 4"></path><path d="M4 12v6h16v-6"></path></svg> Nos partenaires</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> Nos ressources</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h6M7 12h10M7 16h10"></path></svg> Actualités</span></div>
+    <span class="btn btn-red" style="padding:10px 20px;font-size:14px"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg> Devenir étudiant-entrepreneur</span>
+  </div>
+</div>
+
+<!-- PRÉSENTATION + CHIFFRES CLÉS -->
+<section class="section grid-bg">
+  <div class="container" style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:80px;align-items:center">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <span class="eyebrow">Présentation du pôle</span>
+      <h2 class="h2"><span class="u">Une université entrepreneuriale de référence</span></h2>
+      <p class="lead">Créé en 2022 au sein de la Direction du Développement et de l'Entrepreneuriat (DDE), le PEI favorise l'émergence, l'accompagnement et la réussite des initiatives portées par nos étudiants et alumni, en insufflant une véritable culture d'intrapreneuriat.</p>
+      <p class="body">Catalyseur de talents à l'échelle du continent, le pôle a structuré un parcours contextualisé, de la sensibilisation à l'incubation, appuyé sur deux piliers : le programme de pré-incubation « Mature Ton Idée » et l'incubateur « Senghor'Innov ». Pour 2025-2027, ses grands chantiers sont l'opérationnalisation du Statut de l'Étudiant-Entrepreneur, la réforme des parcours de formation et l'organisation d'un hackathon international.</p>
+      <div style="display:flex;align-items:center;gap:12px"><span style="height:4px;width:64px;border-radius:9999px;background:#f32525"></span><span style="height:4px;width:32px;border-radius:9999px;background:#8aabff"></span></div>
+      <a href="#" style="display:inline-flex;align-items:center;gap:8px;font-weight:600">Historique, vision et missions du pôle <svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+    </div>
+    <div style="position:relative;border-radius:24px;padding:40px;background:linear-gradient(135deg,#0e1840,#152460 55%,#1c3080);overflow:hidden">
+      <div style="position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:9999px;background:rgba(243,37,37,.25);filter:blur(60px)"></div>
+      <div style="position:absolute;bottom:-100px;left:-60px;width:260px;height:260px;border-radius:9999px;background:rgba(255,255,255,.12);filter:blur(60px)"></div>
+      <div style="position:relative;display:flex;flex-direction:column;gap:20px">
+        <span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8aabff">Chiffres clés</span>
+        <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px">
+          <div class="stat"><div class="n">3 ans</div><div class="l">d'existence</div></div>
+          <div class="stat"><div class="n">3</div><div class="l">événements internationaux</div></div>
+          <div class="stat"><div class="n">12</div><div class="l">lauréats du FSE</div></div>
+          <div class="stat"><div class="n">500+</div><div class="l">étudiants et alumni formés</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARCOURS -->
+<section class="section" style="background:#f9fafb">
+  <div class="container" style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center">
+      <span class="eyebrow">Nos activités</span>
+      <h2 class="h2"><span class="u">Un parcours, de l'idée à l'entreprise</span></h2>
+      <p class="lead" style="max-width:760px">Le PEI a structuré son intervention autour d'un parcours de croissance complet, conçu pour transformer une simple intuition en une entreprise viable et structurée.</p>
+    </div>
+    <div style="display:flex;gap:20px;align-items:stretch"><div class="step" style="border-top:4px solid #f59e0b">
+  <div style="display:flex;align-items:center;justify-content:space-between"><span class="num" style="background:#fef3c7;color:#92400e">1</span><span class="k" style="color:#92400e">Sensibilisation</span></div>
+  <div class="t">Parcours OSER</div>
+  <div class="d">Éveiller l'esprit créatif et susciter le déclic entrepreneurial dès l'arrivée : module SCIADO, campagne « Réalise un exploit », Semaine Senghorienne de l'Entrepreneuriat (2SE).</div>
+</div><div class="step" style="border-top:4px solid #2b4bbf">
+  <div style="display:flex;align-items:center;justify-content:space-between"><span class="num" style="background:#dce6ff;color:#1c3080">2</span><span class="k" style="color:#1c3080">Cadre</span></div>
+  <div class="t">Statut Étudiant-Entrepreneur (SEE)</div>
+  <div class="d">Une reconnaissance officielle et un cadre privilégié : aménagements académiques, projet valorisé comme stage ou mémoire.</div>
+</div><div class="step" style="border-top:4px solid #f32525">
+  <div style="display:flex;align-items:center;justify-content:space-between"><span class="num" style="background:#ffe3e3;color:#b31919">3</span><span class="k" style="color:#b31919">Pré-incubation</span></div>
+  <div class="t">Mature Ton Idée (MTI)</div>
+  <div class="d">3 mois pour passer de l'idée au projet : design thinking, modèle économique, pitch. 4 crédits universitaires validés.</div>
+</div><div class="step" style="border-top:4px solid #1c3080">
+  <div style="display:flex;align-items:center;justify-content:space-between"><span class="num" style="background:#dce6ff;color:#152460">4</span><span class="k" style="color:#152460">Incubation</span></div>
+  <div class="t">Senghor'Innov</div>
+  <div class="d">Accélérer la création de start-up : MVP, sécurisation juridique, mentorat par des alumni expérimentés.</div>
+</div><div class="step" style="border-top:4px solid #0d9488">
+  <div style="display:flex;align-items:center;justify-content:space-between"><span class="num" style="background:#ccfbf1;color:#115e59">5</span><span class="k" style="color:#115e59">Amorçage</span></div>
+  <div class="t">Fonds de Soutien à l'Entrepreneuriat (FSE)</div>
+  <div class="d">Une subvention d'amorçage jusqu'à 5 000 € par projet pour lancer les premières opérations concrètes.</div>
+</div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:center">
+      <span style="font-size:14px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.08em">Et toute l'année, l'animation de l'écosystème</span>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+        <span class="chip"><svg class="ico" style="width:16px;height:16px;color:#f59e0b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg> Semaine Senghorienne de l'Entrepreneuriat (2SE)</span>
+        <span class="chip"><svg class="ico" style="width:16px;height:16px;color:#2b4bbf;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg> Hackathons internationaux</span>
+        <span class="chip"><svg class="ico" style="width:16px;height:16px;color:#f32525;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg> Bootcamps</span>
+        <span class="chip"><svg class="ico" style="width:16px;height:16px;color:#0d9488;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="3"></circle><path d="M16 15.5a5 5 0 0 1 5.5 4.5"></path></svg> Afterworks</span>
+        <span class="chip"><svg class="ico" style="width:16px;height:16px;color:#1c3080;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg> Séminaires et webinaires</span>
+      </div>
+      <span class="btn btn-outline" style="margin-top:8px">Voir toutes nos activités <svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+    </div>
+  </div>
+</section>
+
+<!-- ENCADRÉ + IMPACT -->
+<section style="position:relative;overflow:hidden;padding:96px 0;background:linear-gradient(135deg,#0e1840,#152460 60%,#070c20)">
+  <div style="position:absolute;inset:0;opacity:.12;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%232b4bbf' stroke-width='1.2'%3E%3Cpath d='M0 30c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M0 60c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M0 90c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M30 0c-10 20 10 40 0 60s-10 40 0 60'/%3E%3Cpath d='M90 0c-10 20 10 40 0 60s-10 40 0 60'/%3E%3C/g%3E%3C/svg%3E&quot;);background-size:120px 120px"></div>
+  <div class="container" style="position:relative;display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:center">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <svg class="ico" style="width:48px;height:48px;color:#f75555;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17h3l2-4V7H6v6h3zM15 17h3l2-4V7h-6v6h3z"></path></svg>
+      <p style="font-size:28px;line-height:1.4;font-weight:600;color:#ffffff">« L'accompagnement du Pôle Entrepreneuriat ne s'arrête pas au chèque ou à une reconnaissance académique. C'est tout un écosystème : le mentorat, l'accès au réseau de l'Université et à des espaces de travail et de créativité privilégiés, qui nous ouvre les portes à des investisseurs internationaux. »</p>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="photo" style="width:56px;height:56px;border-radius:9999px;background:#233da0;color:#ffffff;font-size:11px">Photo</div>
+        <div><div style="font-weight:700;color:#ffffff">Gaël Gbonsou</div><div style="font-size:14px;color:#8aabff">Directeur du Développement et de l'Entrepreneuriat</div></div>
+      </div>
+      <p style="font-size:16px;line-height:1.7;color:rgba(255,255,255,.75)">L'impact est déjà tangible : 100 étudiants ont bénéficié d'un accompagnement personnalisé, menant à la distinction de 12 lauréats. Nos actions de sensibilisation ont touché plus de 500 étudiants et alumni, créant une dynamique de réseau durable.</p>
+    </div>
+    <div class="photo" style="height:420px;border-radius:24px;background:#152460;color:#8aabff;border:1px solid rgba(255,255,255,.12)">Photo : groupe d'étudiants en salle de créativité / fab lab<br>(intention : dynamisme, concret)</div>
+  </div>
+</section>
+
+<!-- ACTUALITÉS -->
+<section class="section grid-bg">
+  <div class="container" style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+      <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow">Actualités</span><h2 class="h2"><span class="u">La vie du pôle</span></h2></div>
+      <a href="#" style="display:inline-flex;align-items:center;gap:8px;font-weight:600;white-space:nowrap">Toutes les actualités du PEI <svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:32px">
+      <div class="newscard"><div class="photo img">Visuel de l'actualité</div><span class="tag">Appel à candidatures · 1er avril 2026</span><span class="t">Statut Étudiant-Entrepreneur : l'appel 2026 est ouvert</span><span class="x">Jusqu'au 15 avril, les étudiants de Master peuvent candidater aux parcours SEE 1 et SEE 2.</span></div>
+      <div class="newscard"><div class="photo img">Visuel de l'actualité</div><span class="tag">Événement · [date]</span><span class="t">Semaine Senghorienne de l'Entrepreneuriat : le programme</span><span class="x">Conférences, ateliers et concours de pitch pour célébrer l'audace des étudiants senghoriens.</span></div>
+      <div class="newscard"><div class="photo img">Visuel de l'actualité</div><span class="tag">Lauréats · [date]</span><span class="t">FSE 3 : les projets lauréats de la promotion 2025</span><span class="x">Innovation et passage à l'échelle : découvrez les start-up incubées via Senghor'Innov.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTENAIRES -->
+<section class="section" style="background:#f9fafb">
+  <div class="container" style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center"><span class="eyebrow">Nos partenaires</span><h2 class="h2"><span class="u">Un écosystème d'appui</span></h2></div>
+    <div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:24px">
+      <div class="card" style="display:flex;flex-direction:column;gap:16px"><span class="badge badge-blue" style="align-self:flex-start">Académiques et institutionnels</span><div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px"><div class="logo">Réseau Senghor</div><div class="logo">Campus France</div></div></div>
+      <div class="card" style="display:flex;flex-direction:column;gap:16px"><span class="badge badge-red" style="align-self:flex-start">Organisations d'appui</span><div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px"><div class="logo">CEF</div><div class="logo">CCI</div><div class="logo">Incubateurs</div><div class="logo">Accélérateurs</div></div></div>
+      <div class="card" style="display:flex;flex-direction:column;gap:16px"><span class="badge badge-teal" style="align-self:flex-start">Organisations internationales</span><div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px"><div class="logo">AUF</div><div class="logo">AFD</div><div class="logo">OIF</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:#ffffff">
+  <div style="max-width:896px;margin:0 auto;padding:0 32px;text-align:center">
+    <div style="background:#eef2ff;border-radius:16px;padding:48px;display:flex;flex-direction:column;gap:20px;align-items:center">
+      <h3 style="font-size:30px;font-weight:700;color:#111827;margin:0">Prêt à passer à l'action ?</h3>
+      <p class="lead" style="max-width:600px">Ne laissez pas votre projet dormir dans un tiroir. Entreprendre et étudier à Senghor, c'est possible grâce au statut d'étudiant-entrepreneur.</p>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span class="btn btn-blue"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg> Postuler au statut <svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        <span style="display:inline-flex;align-items:center;gap:8px;color:#4b5563;font-size:15px"><svg class="ico" style="width:18px;height:18px;color:#2b4bbf;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg> entrepreneuriat@usenghor.org</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:16px"><img src="logo-senghor.png" style="height:36px;width:auto;filter:brightness(0) invert(1)" alt="Université Senghor"><span>Pôle Entrepreneuriat et Innovation · Direction du Développement et de l'Entrepreneuriat</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><svg class="ico" style="width:16px;height:16px;color:#5478e6;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg> <span style="color:#ffffff">entrepreneuriat@usenghor.org</span></div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+</body>
+</html>

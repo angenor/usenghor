@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Entreprendre et étudier (SEE)</title>
+  
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter','Inter Variable',system-ui,-apple-system,'Segoe UI',sans-serif;color:#111827;background:#ffffff;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#2b4bbf;text-decoration:none} a:hover{color:#233da0}
+p{margin:0}
+.container{max-width:1280px;margin:0 auto;padding:0 32px}
+.section{padding:96px 0}
+.grid-bg{background-image:linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);background-size:60px 60px}
+.h2{font-size:40px;line-height:1.15;font-weight:700;color:#111827;margin:0}
+.h2 .u{position:relative;display:inline-block}
+.h2 .u::after{content:'';position:absolute;left:0;bottom:-8px;width:33%;height:4px;border-radius:9999px;background:linear-gradient(90deg,#2b4bbf,#8aabff)}
+.h3{font-size:24px;line-height:1.3;font-weight:700;color:#111827;margin:0}
+.lead{font-size:18px;line-height:1.7;color:#4b5563}
+.body{font-size:16px;line-height:1.7;color:#4b5563}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2b4bbf}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 32px;font-weight:600;border-radius:9999px;font-size:16px;line-height:1}
+.btn-red{background:#f32525;color:#ffffff}
+.btn-blue{background:#2b4bbf;color:#ffffff}
+.btn-ghost{background:rgba(255,255,255,.15);color:#ffffff;border:1px solid rgba(255,255,255,.3)}
+.btn-outline{background:#ffffff;color:#1c3080;border:2px solid #baccff}
+.card{background:#ffffff;border-radius:12px;border:2px solid #e5e7eb;padding:24px}
+.badge{display:inline-flex;align-items:center;padding:6px 16px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:9999px}
+.badge-red-dark{background:rgba(243,37,37,.2);color:#ffa0a0;border:1px solid rgba(247,85,85,.3)}
+.badge-blue{background:#dce6ff;color:#1c3080}
+.badge-red{background:#ffe3e3;color:#b31919}
+.badge-amber{background:#fef3c7;color:#92400e}
+.badge-teal{background:#ccfbf1;color:#115e59}
+.photo{background:#e5e7eb;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.05) 0 10px,transparent 10px 20px);display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:13px;font-weight:500;text-align:center;padding:12px}
+.nav{position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0));z-index:5}
+.nav .container{display:flex;align-items:center;justify-content:space-between;height:80px}
+.navpill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;font-size:14px;font-weight:600;border-radius:12px;background:rgba(255,255,255,.15);color:#ffffff;backdrop-filter:blur(4px)}
+.navicon{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#ffffff}
+.subnav{background:#ffffff;border-bottom:1px solid #e5e7eb;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.subnav .container{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.tabs{display:flex;align-items:center;gap:0}
+.tab{display:flex;align-items:center;gap:8px;padding:16px 16px;font-size:14px;font-weight:500;color:#6b7280;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.active{color:#233da0;border-bottom-color:#2b4bbf}
+.tab svg{width:16px;height:16px;color:#9ca3af}
+.tab.active svg{color:#2b4bbf}
+.stat{text-align:center;padding:24px;background:rgba(255,255,255,.1);backdrop-filter:blur(4px);border-radius:16px;border:1px solid rgba(255,255,255,.1)}
+.stat .n{font-size:40px;font-weight:700;color:#ffffff;line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.stat .l{font-size:14px;color:rgba(255,255,255,.7)}
+.crumb{display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.7)}
+.crumb .sep{color:rgba(255,255,255,.4)}
+.crumb .cur{color:#f75555;font-weight:500}
+.step{position:relative;background:#ffffff;border-radius:12px;border:2px solid #e5e7eb;padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;min-width:0}
+.step .num{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.step .t{font-weight:700;font-size:17px;color:#111827;line-height:1.3}
+.step .d{font-size:14px;line-height:1.6;color:#4b5563}
+.step .k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:9999px;font-size:14px;font-weight:500;background:#ffffff;border:1px solid #e5e7eb;color:#374151}
+.newscard{display:flex;flex-direction:column;gap:12px}
+.newscard .img{aspect-ratio:16/10;border-radius:12px;overflow:hidden}
+.newscard .tag{font-size:12px;font-weight:500;color:#233da0}
+.newscard .t{font-size:18px;font-weight:600;color:#111827;line-height:1.35}
+.newscard .x{font-size:14px;color:#6b7280;line-height:1.6}
+.logo{height:72px;border-radius:12px;border:1px solid #e5e7eb;background:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:700;color:#374151;font-size:15px;letter-spacing:.02em;padding:0 20px}
+.faq{border:1px solid #e5e7eb;border-radius:12px;background:#ffffff;overflow:hidden}
+.faq .q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;font-weight:600;font-size:16px;color:#111827}
+.faq .a{padding:0 24px 20px;font-size:15px;line-height:1.65;color:#4b5563}
+.faq .q svg{width:18px;height:18px;color:#6b7280;flex-shrink:0}
+.tl{display:flex;flex-direction:column;gap:0}
+.tl .row{display:flex;gap:24px;align-items:flex-start;position:relative;padding-bottom:28px}
+.tl .row::before{content:'';position:absolute;left:11px;top:26px;bottom:0;width:2px;background:#dce6ff}
+.tl .row:last-child::before{display:none}
+.tl .dot{width:24px;height:24px;border-radius:9999px;background:#ffffff;border:6px solid #2b4bbf;flex-shrink:0;margin-top:2px}
+.tl .dot.red{border-color:#f32525}
+.tl .date{font-weight:700;color:#111827;font-size:16px}
+.tl .what{font-size:15px;color:#4b5563;margin-top:2px}
+.portrait{background:#ffffff;border-radius:16px;border:2px solid #e5e7eb;overflow:hidden;display:flex;flex-direction:column}
+.portrait .ph{height:220px}
+.portrait .b{padding:20px;display:flex;flex-direction:column;gap:10px}
+.portrait .name{font-weight:700;font-size:17px;color:#111827}
+.portrait .proj{font-weight:600;font-size:14px;color:#233da0}
+.portrait .dept{font-size:13px;color:#6b7280}
+.portrait .quote{font-size:14px;line-height:1.6;color:#4b5563;font-style:italic;border-left:3px solid #dce6ff;padding-left:12px}
+.social{width:32px;height:32px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;color:#374151}
+.social svg{width:16px;height:16px}
+.footer{background:#111827;color:#9ca3af;padding:40px 0;font-size:14px}
+.footer .container{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.ico{width:20px;height:20px;flex-shrink:0}
+</style>
+
+</helmet>
+<div style="width:1440px;background:#ffffff;overflow:hidden">
+
+
+<section style="position:relative;overflow:hidden;height:480px;background:linear-gradient(135deg,#111827,#1f2937 50%,#111827)">
+  <div style="position:absolute;inset:0;opacity:.35;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%232b4bbf' stroke-width='1.2'%3E%3Cpath d='M0 30c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M0 60c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M0 90c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M30 0c-10 20 10 40 0 60s-10 40 0 60'/%3E%3Cpath d='M90 0c-10 20 10 40 0 60s-10 40 0 60'/%3E%3C/g%3E%3C/svg%3E&quot;);background-size:120px 120px"></div>
+  
+<div class="nav">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:32px">
+      <img src="logo-senghor.png" style="height:48px;width:auto;filter:brightness(0) invert(1)" alt="Université Senghor">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="navpill"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"></path><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"></path></svg> Se former <svg class="ico" style="width:14px;height:14px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+        <span class="navpill"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h6M7 12h10M7 16h10"></path></svg> Actualités <svg class="ico" style="width:14px;height:14px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="navicon"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></span>
+      <span class="navicon" style="font-size:13px;font-weight:700">FR</span>
+      <span class="navicon"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></span>
+      <span class="navpill"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle></svg> Plus</span>
+    </div>
+  </div>
+</div>
+  <div style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:60px">
+    <div class="container" style="display:flex;flex-direction:column;gap:20px">
+      <div class="crumb"><span>Accueil</span><span class="sep"><svg class="ico" style="width:12px;height:12px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></span><span>Pôle Entrepreneuriat et Innovation</span><span class="sep"><svg class="ico" style="width:12px;height:12px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></span><span class="cur">Entreprendre et étudier</span></div>
+      <span class="badge badge-red-dark" style="align-self:flex-start">Statut Étudiant-Entrepreneur · Appel 2026</span>
+      <h1 style="font-size:56px;line-height:1.1;font-weight:700;color:#ffffff;margin:0;max-width:900px">Entreprendre et étudier à Senghor</h1>
+      <p style="font-size:20px;line-height:1.6;color:rgba(255,255,255,.8);max-width:760px">Concilier les exigences d'un Master de haut niveau avec le lancement d'une start-up, c'est possible grâce au Statut Étudiant-Entrepreneur (SEE).</p>
+    </div>
+  </div>
+  <svg style="position:absolute;bottom:0;left:0;width:100%;height:64px;display:block" viewBox="0 0 1200 120" preserveAspectRatio="none"><polygon points="0,40 1200,0 1200,120 0,120" fill="#ffffff"></polygon></svg>
+</section>
+
+<div class="subnav">
+  <div class="container">
+    <div class="tabs"><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v4h1"></path></svg> Présentation</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg> Nos activités</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="3"></circle><path d="M16 15.5a5 5 0 0 1 5.5 4.5"></path></svg> Nos alumni</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l4-4 4 4 4-4 4 4"></path><path d="M4 12v6h16v-6"></path></svg> Nos partenaires</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> Nos ressources</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h6M7 12h10M7 16h10"></path></svg> Actualités</span></div>
+    <span class="btn btn-red" style="padding:10px 20px;font-size:14px;box-shadow:0 0 0 4px #ffe3e3"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg> Postuler au statut</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="section grid-bg">
+  <div class="container" style="display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <span class="eyebrow">Devenir étudiant-entrepreneur</span>
+      <h2 class="h2"><span class="u">Vous avez une idée ? Nous avons le cadre pour la faire grandir.</span></h2>
+      <p class="lead">L'époque où l'université n'était qu'un lieu de transmission théorique est révolue. Le campus de l'Université Senghor s'affirme comme un véritable incubateur de talents où l'acquisition des savoirs s'articule avec l'audace de créer.</p>
+      <p class="body">Le statut d'étudiant-entrepreneur est une passerelle : un accompagnement personnalisé et un aménagement de votre parcours pour faire éclore votre projet, tout en validant votre Master.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="border-radius:16px;padding:28px;background:linear-gradient(135deg,#0e1840,#1c3080);color:#ffffff;display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8aabff">Le SEE, c'est quoi ?</span>
+        <p style="font-size:16px;line-height:1.6;color:rgba(255,255,255,.85)">Un « accélérateur » intégré à votre cursus. Selon l'avancement de votre idée, vous intégrez l'un des deux parcours.</p>
+      </div>
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;border-color:#baccff"><span class="badge badge-blue">SEE 1</span><div><div style="font-weight:700">Vous avez une idée ou un concept ?</div><div style="font-size:14px;color:#4b5563;line-height:1.6">Nous vous aidons à structurer votre projet (phase d'idéation) avec Mature Ton Idée.</div></div></div>
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;border-color:#ffc9c9"><span class="badge badge-red">SEE 2</span><div><div style="font-weight:700">Votre plan d'affaires est prêt ?</div><div style="font-size:14px;color:#4b5563;line-height:1.6">Passez à la vitesse supérieure avec l'incubateur Senghor'Innov.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AVANTAGES -->
+<section class="section" style="background:#f9fafb">
+  <div class="container" style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow">Pourquoi postuler ?</span><h2 class="h2"><span class="u">Six leviers pour votre projet</span></h2></div>
+    <div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:20px">
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:24px">
+  <span style="width:48px;height:48px;border-radius:12px;background:#dce6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg class="ico" style="width:22px;height:22px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"></path></svg></span>
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:700;font-size:17px;color:#111827">Coaching et mentorat</span><span style="font-size:14px;line-height:1.6;color:#4b5563">Un accompagnement sur mesure par des experts et des alumni entrepreneurs.</span></div>
+</div>
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:24px">
+  <span style="width:48px;height:48px;border-radius:12px;background:#dce6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg class="ico" style="width:22px;height:22px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg></span>
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:700;font-size:17px;color:#111827">Programmes d'élite</span><span style="font-size:14px;line-height:1.6;color:#4b5563">Accès direct à Mature Ton Idée (MTI) et à l'incubateur Senghor'Innov.</span></div>
+</div>
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:24px">
+  <span style="width:48px;height:48px;border-radius:12px;background:#dce6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg class="ico" style="width:22px;height:22px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"></path><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"></path></svg></span>
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:700;font-size:17px;color:#111827">Diplôme et projet liés</span><span style="font-size:14px;line-height:1.6;color:#4b5563">Votre projet devient votre sujet de stage et de mémoire de Master.</span></div>
+</div>
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:24px">
+  <span style="width:48px;height:48px;border-radius:12px;background:#dce6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg class="ico" style="width:22px;height:22px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:700;font-size:17px;color:#111827">Flexibilité</span><span style="font-size:14px;line-height:1.6;color:#4b5563">10 h de temps libéré sur vos cours et 4 crédits universitaires.</span></div>
+</div>
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:24px">
+  <span style="width:48px;height:48px;border-radius:12px;background:#dce6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg class="ico" style="width:22px;height:22px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M14.5 9.5a2.5 2.5 0 0 0-5 0c0 3 5 2 5 5a2.5 2.5 0 0 1-5 0M12 6v1.5M12 16.5V18"></path></svg></span>
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:700;font-size:17px;color:#111827">Financement</span><span style="font-size:14px;line-height:1.6;color:#4b5563">Accès potentiel au Fonds de Soutien à l'Entrepreneuriat, jusqu'à 5 000 €.</span></div>
+</div>
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:24px">
+  <span style="width:48px;height:48px;border-radius:12px;background:#dce6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg class="ico" style="width:22px;height:22px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"></path></svg></span>
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:700;font-size:17px;color:#111827">Espace de travail</span><span style="font-size:14px;line-height:1.6;color:#4b5563">Un bureau, un espace de coworking et l'accès au fablab du campus.</span></div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- CANDIDATER : éligibilité, jury, dossier + agenda -->
+<section class="section grid-bg">
+  <div class="container" style="display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:32px">
+      <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow">Candidater</span><h2 class="h2"><span class="u">Suis-je le bon candidat ?</span></h2><p class="body">L'appel est ouvert à tous les étudiants de Master de l'Université Senghor, en projet individuel ou collectif.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:20px">
+        <div class="card" style="display:flex;flex-direction:column;gap:12px"><span style="font-weight:700">Conditions</span>
+          <div style="display:flex;gap:10px;font-size:14px;color:#4b5563;line-height:1.5"><svg class="ico" style="width:18px;height:18px;color:#0d9488;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"></path></svg>Inscrit régulièrement pour l'année en cours</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:#4b5563;line-height:1.5"><svg class="ico" style="width:18px;height:18px;color:#0d9488;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"></path></svg>Porteur d'une idée innovante ou d'un projet à impact pour le continent africain</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:#4b5563;line-height:1.5"><svg class="ico" style="width:18px;height:18px;color:#0d9488;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"></path></svg>Prêt à s'engager activement dans l'aventure</div>
+        </div>
+        <div class="card" style="display:flex;flex-direction:column;gap:12px"><span style="font-weight:700">Les critères du jury</span>
+          <div style="display:flex;gap:10px;font-size:14px;color:#4b5563;line-height:1.5"><span class="badge badge-blue" style="padding:2px 10px;font-size:11px">1</span>L'innovation de votre projet</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:#4b5563;line-height:1.5"><span class="badge badge-blue" style="padding:2px 10px;font-size:11px">2</span>L'impact de votre solution</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:#4b5563;line-height:1.5"><span class="badge badge-blue" style="padding:2px 10px;font-size:11px">3</span>Votre motivation</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:#4b5563;line-height:1.5"><span class="badge badge-blue" style="padding:2px 10px;font-size:11px">4</span>La cohérence avec vos études</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:14px;background:#eef2ff;border-color:#dce6ff">
+        <span style="font-weight:700">Mon dossier de candidature</span>
+        <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px">
+          <div style="display:flex;gap:10px;font-size:14px;color:#374151;line-height:1.5"><svg class="ico" style="width:18px;height:18px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4M9 12h6M9 16h6"></path></svg>Avis de non-objection du Directeur de département</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:#374151;line-height:1.5"><svg class="ico" style="width:18px;height:18px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4M9 12h6M9 16h6"></path></svg>Lettre de motivation adressée au Recteur</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:#374151;line-height:1.5"><svg class="ico" style="width:18px;height:18px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4M9 12h6M9 16h6"></path></svg>Fiche projet synthétique ou business plan</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:#374151;line-height:1.5"><svg class="ico" style="width:18px;height:18px;color:#233da0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg>Tout bonus : vidéo, prototype, photos</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:32px;display:flex;flex-direction:column;gap:24px;position:sticky;top:100px">
+      <div style="display:flex;align-items:center;justify-content:space-between"><span class="h3">Agenda 2026</span><span class="badge badge-red">Appel ouvert</span></div>
+      <div class="tl">
+        <div class="row"><span class="dot"></span><div><div class="date">1er avril 2026</div><div class="what">Ouverture des candidatures</div></div></div>
+        <div class="row"><span class="dot"></span><div><div class="date">7 avril 2026</div><div class="what">Réunion d'information : venez poser vos questions</div></div></div>
+        <div class="row"><span class="dot red"></span><div><div class="date">15 avril 2026, minuit</div><div class="what">Date limite de soumission</div></div></div>
+        <div class="row"><span class="dot"></span><div><div class="date">16 avril 2026</div><div class="what">Jury de sélection</div></div></div>
+        <div class="row"><span class="dot"></span><div><div class="date">21 avril 2026</div><div class="what">Publication des résultats</div></div></div>
+        <div class="row"><span class="dot"></span><div><div class="date">3 mai 2026</div><div class="what">Démarrage officiel du programme</div></div></div>
+      </div>
+      <span class="btn btn-red" style="justify-content:center"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg> Postuler via le formulaire</span>
+      <span style="font-size:13px;color:#6b7280;line-height:1.5;text-align:center">Mettez votre Directeur de département en copie.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="background:#f9fafb">
+  <div style="max-width:960px;margin:0 auto;padding:0 32px;display:flex;flex-direction:column;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center"><span class="eyebrow">FAQ</span><h2 class="h2"><span class="u">Vos questions sur le statut</span></h2></div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b7280">Généralités</span>
+        <div class="faq"><div class="q">Le statut est-il payant ?<svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg></div><div class="a">Non, l'obtention du statut est gratuite pour les étudiants en cours de cursus.</div></div>
+        <div class="faq"><div class="q">Dois-je déjà avoir créé mon entreprise ?<svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+        <div class="faq"><div class="q">Est-ce que je peux postuler en groupe ?<svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b7280">Avantages et aménagements</span>
+        <div class="faq"><div class="q">Ai-je droit à des aménagements académiques grâce au SEE ?<svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg></div><div class="a">Oui : 10 h de temps libéré sur vos temps de cours et 4 crédits universitaires, sous condition de validation des évaluations du parcours.</div></div>
+        <div class="faq"><div class="q">Puis-je remplacer mon stage par mon projet ?<svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b7280">Engagement, risques et confidentialité</span>
+        <div class="faq"><div class="q">Que se passe-t-il si j'échoue dans mes études ou mon projet ?<svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+        <div class="faq"><div class="q">Combien de temps le statut est-il valable ?<svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+        <div class="faq"><div class="q">Mon idée sera-t-elle protégée ?<svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:24px;font-size:14px;color:#6b7280">
+      <span>Pour aller plus loin :</span><a href="#" style="display:inline-flex;align-items:center;gap:6px;font-weight:600"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg> Réseau PÉPITE France</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:#ffffff">
+  <div style="max-width:896px;margin:0 auto;padding:0 32px;text-align:center">
+    <div style="background:#eef2ff;border-radius:16px;padding:48px;display:flex;flex-direction:column;gap:20px;align-items:center">
+      <h3 style="font-size:30px;font-weight:700;color:#111827;margin:0">Prêt à passer à l'action ?</h3>
+      <p class="lead" style="max-width:600px">Ne laissez pas votre projet dormir dans un tiroir. Besoin d'aide ? Passez nous voir au Pôle Entrepreneuriat (DDE).</p>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span class="btn btn-blue"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg> Cliquez ici pour postuler <svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        <span style="display:inline-flex;align-items:center;gap:8px;color:#4b5563;font-size:15px"><svg class="ico" style="width:18px;height:18px;color:#2b4bbf;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg> entrepreneuriat@usenghor.org</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:16px"><img src="logo-senghor.png" style="height:36px;width:auto;filter:brightness(0) invert(1)" alt="Université Senghor"><span>Pôle Entrepreneuriat et Innovation · Direction du Développement et de l'Entrepreneuriat</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><svg class="ico" style="width:16px;height:16px;color:#5478e6;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg> <span style="color:#ffffff">entrepreneuriat@usenghor.org</span></div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+</body>
+</html>

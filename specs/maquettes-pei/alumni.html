@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Nos alumni et lauréats</title>
+  
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter','Inter Variable',system-ui,-apple-system,'Segoe UI',sans-serif;color:#111827;background:#ffffff;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#2b4bbf;text-decoration:none} a:hover{color:#233da0}
+p{margin:0}
+.container{max-width:1280px;margin:0 auto;padding:0 32px}
+.section{padding:96px 0}
+.grid-bg{background-image:linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);background-size:60px 60px}
+.h2{font-size:40px;line-height:1.15;font-weight:700;color:#111827;margin:0}
+.h2 .u{position:relative;display:inline-block}
+.h2 .u::after{content:'';position:absolute;left:0;bottom:-8px;width:33%;height:4px;border-radius:9999px;background:linear-gradient(90deg,#2b4bbf,#8aabff)}
+.h3{font-size:24px;line-height:1.3;font-weight:700;color:#111827;margin:0}
+.lead{font-size:18px;line-height:1.7;color:#4b5563}
+.body{font-size:16px;line-height:1.7;color:#4b5563}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2b4bbf}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 32px;font-weight:600;border-radius:9999px;font-size:16px;line-height:1}
+.btn-red{background:#f32525;color:#ffffff}
+.btn-blue{background:#2b4bbf;color:#ffffff}
+.btn-ghost{background:rgba(255,255,255,.15);color:#ffffff;border:1px solid rgba(255,255,255,.3)}
+.btn-outline{background:#ffffff;color:#1c3080;border:2px solid #baccff}
+.card{background:#ffffff;border-radius:12px;border:2px solid #e5e7eb;padding:24px}
+.badge{display:inline-flex;align-items:center;padding:6px 16px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:9999px}
+.badge-red-dark{background:rgba(243,37,37,.2);color:#ffa0a0;border:1px solid rgba(247,85,85,.3)}
+.badge-blue{background:#dce6ff;color:#1c3080}
+.badge-red{background:#ffe3e3;color:#b31919}
+.badge-amber{background:#fef3c7;color:#92400e}
+.badge-teal{background:#ccfbf1;color:#115e59}
+.photo{background:#e5e7eb;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.05) 0 10px,transparent 10px 20px);display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:13px;font-weight:500;text-align:center;padding:12px}
+.nav{position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0));z-index:5}
+.nav .container{display:flex;align-items:center;justify-content:space-between;height:80px}
+.navpill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;font-size:14px;font-weight:600;border-radius:12px;background:rgba(255,255,255,.15);color:#ffffff;backdrop-filter:blur(4px)}
+.navicon{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#ffffff}
+.subnav{background:#ffffff;border-bottom:1px solid #e5e7eb;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.subnav .container{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.tabs{display:flex;align-items:center;gap:0}
+.tab{display:flex;align-items:center;gap:8px;padding:16px 16px;font-size:14px;font-weight:500;color:#6b7280;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.active{color:#233da0;border-bottom-color:#2b4bbf}
+.tab svg{width:16px;height:16px;color:#9ca3af}
+.tab.active svg{color:#2b4bbf}
+.stat{text-align:center;padding:24px;background:rgba(255,255,255,.1);backdrop-filter:blur(4px);border-radius:16px;border:1px solid rgba(255,255,255,.1)}
+.stat .n{font-size:40px;font-weight:700;color:#ffffff;line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.stat .l{font-size:14px;color:rgba(255,255,255,.7)}
+.crumb{display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.7)}
+.crumb .sep{color:rgba(255,255,255,.4)}
+.crumb .cur{color:#f75555;font-weight:500}
+.step{position:relative;background:#ffffff;border-radius:12px;border:2px solid #e5e7eb;padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;min-width:0}
+.step .num{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.step .t{font-weight:700;font-size:17px;color:#111827;line-height:1.3}
+.step .d{font-size:14px;line-height:1.6;color:#4b5563}
+.step .k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:9999px;font-size:14px;font-weight:500;background:#ffffff;border:1px solid #e5e7eb;color:#374151}
+.newscard{display:flex;flex-direction:column;gap:12px}
+.newscard .img{aspect-ratio:16/10;border-radius:12px;overflow:hidden}
+.newscard .tag{font-size:12px;font-weight:500;color:#233da0}
+.newscard .t{font-size:18px;font-weight:600;color:#111827;line-height:1.35}
+.newscard .x{font-size:14px;color:#6b7280;line-height:1.6}
+.logo{height:72px;border-radius:12px;border:1px solid #e5e7eb;background:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:700;color:#374151;font-size:15px;letter-spacing:.02em;padding:0 20px}
+.faq{border:1px solid #e5e7eb;border-radius:12px;background:#ffffff;overflow:hidden}
+.faq .q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;font-weight:600;font-size:16px;color:#111827}
+.faq .a{padding:0 24px 20px;font-size:15px;line-height:1.65;color:#4b5563}
+.faq .q svg{width:18px;height:18px;color:#6b7280;flex-shrink:0}
+.tl{display:flex;flex-direction:column;gap:0}
+.tl .row{display:flex;gap:24px;align-items:flex-start;position:relative;padding-bottom:28px}
+.tl .row::before{content:'';position:absolute;left:11px;top:26px;bottom:0;width:2px;background:#dce6ff}
+.tl .row:last-child::before{display:none}
+.tl .dot{width:24px;height:24px;border-radius:9999px;background:#ffffff;border:6px solid #2b4bbf;flex-shrink:0;margin-top:2px}
+.tl .dot.red{border-color:#f32525}
+.tl .date{font-weight:700;color:#111827;font-size:16px}
+.tl .what{font-size:15px;color:#4b5563;margin-top:2px}
+.portrait{background:#ffffff;border-radius:16px;border:2px solid #e5e7eb;overflow:hidden;display:flex;flex-direction:column}
+.portrait .ph{height:220px}
+.portrait .b{padding:20px;display:flex;flex-direction:column;gap:10px}
+.portrait .name{font-weight:700;font-size:17px;color:#111827}
+.portrait .proj{font-weight:600;font-size:14px;color:#233da0}
+.portrait .dept{font-size:13px;color:#6b7280}
+.portrait .quote{font-size:14px;line-height:1.6;color:#4b5563;font-style:italic;border-left:3px solid #dce6ff;padding-left:12px}
+.social{width:32px;height:32px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;color:#374151}
+.social svg{width:16px;height:16px}
+.footer{background:#111827;color:#9ca3af;padding:40px 0;font-size:14px}
+.footer .container{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.ico{width:20px;height:20px;flex-shrink:0}
+</style>
+
+</helmet>
+<div style="width:1440px;background:#ffffff;overflow:hidden">
+
+
+<section style="position:relative;overflow:hidden;height:460px;background:linear-gradient(135deg,#111827,#1f2937 50%,#111827)">
+  <div style="position:absolute;inset:0;opacity:.35;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%232b4bbf' stroke-width='1.2'%3E%3Cpath d='M0 30c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M0 60c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M0 90c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M30 0c-10 20 10 40 0 60s-10 40 0 60'/%3E%3Cpath d='M90 0c-10 20 10 40 0 60s-10 40 0 60'/%3E%3C/g%3E%3C/svg%3E&quot;);background-size:120px 120px"></div>
+  
+<div class="nav">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:32px">
+      <img src="logo-senghor.png" style="height:48px;width:auto;filter:brightness(0) invert(1)" alt="Université Senghor">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="navpill"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"></path><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"></path></svg> Se former <svg class="ico" style="width:14px;height:14px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+        <span class="navpill"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h6M7 12h10M7 16h10"></path></svg> Actualités <svg class="ico" style="width:14px;height:14px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="navicon"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></span>
+      <span class="navicon" style="font-size:13px;font-weight:700">FR</span>
+      <span class="navicon"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></span>
+      <span class="navpill"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle></svg> Plus</span>
+    </div>
+  </div>
+</div>
+  <div style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:60px">
+    <div class="container" style="display:flex;flex-direction:column;gap:20px">
+      <div class="crumb"><span>Accueil</span><span class="sep"><svg class="ico" style="width:12px;height:12px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></span><span>Pôle Entrepreneuriat et Innovation</span><span class="sep"><svg class="ico" style="width:12px;height:12px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></span><span class="cur">Nos alumni</span></div>
+      <span class="badge badge-red-dark" style="align-self:flex-start">Portraits et témoignages</span>
+      <h1 style="font-size:56px;line-height:1.1;font-weight:700;color:#ffffff;margin:0;max-width:900px">Nos alumni et lauréats</h1>
+      <p style="font-size:20px;line-height:1.6;color:rgba(255,255,255,.8);max-width:760px">Ils sont passés de l'idée au projet, puis du projet à l'entreprise. Découvrez les lauréats du Fonds de Soutien à l'Entrepreneuriat et les étudiants-entrepreneurs de Senghor.</p>
+    </div>
+  </div>
+  <svg style="position:absolute;bottom:0;left:0;width:100%;height:64px;display:block" viewBox="0 0 1200 120" preserveAspectRatio="none"><polygon points="0,40 1200,0 1200,120 0,120" fill="#ffffff"></polygon></svg>
+</section>
+
+<div class="subnav">
+  <div class="container">
+    <div class="tabs"><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v4h1"></path></svg> Présentation</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg> Nos activités</span><span class="tab active"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="3"></circle><path d="M16 15.5a5 5 0 0 1 5.5 4.5"></path></svg> Nos alumni</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l4-4 4 4 4-4 4 4"></path><path d="M4 12v6h16v-6"></path></svg> Nos partenaires</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> Nos ressources</span><span class="tab"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h6M7 12h10M7 16h10"></path></svg> Actualités</span></div>
+    <span class="btn btn-red" style="padding:10px 20px;font-size:14px"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg> Devenir étudiant-entrepreneur</span>
+  </div>
+</div>
+
+<!-- Sous-onglets de la rubrique -->
+<div style="background:rgba(255,255,255,.3);border-bottom:1px solid rgba(229,231,235,.5)">
+  <div class="container" style="display:flex;align-items:center;justify-content:center;gap:4px;padding:8px 32px">
+    <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;font-size:14px;font-weight:500;border-radius:9999px;background:#dce6ff;color:#1c3080"><svg class="ico" style="width:14px;height:14px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M14.5 9.5a2.5 2.5 0 0 0-5 0c0 3 5 2 5 5a2.5 2.5 0 0 1-5 0M12 6v1.5M12 16.5V18"></path></svg> Lauréats FSE</span>
+    <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;font-size:14px;font-weight:500;border-radius:9999px;color:#4b5563"><svg class="ico" style="width:14px;height:14px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"></path><path d="M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-5 8-8 9l-4-4c1-3 4.5-6.5 7-10z"></path><circle cx="15" cy="9" r="1.5"></circle></svg> Étudiants entrepreneurs</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<section style="position:relative;overflow:hidden;padding:72px 0;background:linear-gradient(135deg,#0e1840,#152460 60%,#070c20)">
+  <div style="position:absolute;inset:0;opacity:.12;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%232b4bbf' stroke-width='1.2'%3E%3Cpath d='M0 30c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M0 60c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M0 90c20-10 40 10 60 0s40-10 60 0'/%3E%3Cpath d='M30 0c-10 20 10 40 0 60s-10 40 0 60'/%3E%3Cpath d='M90 0c-10 20 10 40 0 60s-10 40 0 60'/%3E%3C/g%3E%3C/svg%3E&quot;);background-size:120px 120px"></div>
+  <div class="container" style="position:relative;display:flex;align-items:center;justify-content:center">
+    <div style="display:flex;align-items:center">
+      <div style="text-align:center;padding:0 56px;border-right:1px solid rgba(255,255,255,.2)"><div style="font-size:64px;font-weight:200;letter-spacing:-.02em;color:#ffffff;line-height:1">15</div><div style="margin-top:12px;font-size:13px;text-transform:uppercase;letter-spacing:.15em;color:#8aabff">projets financés depuis 2023</div></div>
+      <div style="text-align:center;padding:0 56px;border-right:1px solid rgba(255,255,255,.2)"><div style="font-size:64px;font-weight:200;letter-spacing:-.02em;color:#ffffff;line-height:1">5 000 €</div><div style="margin-top:12px;font-size:13px;text-transform:uppercase;letter-spacing:.15em;color:#8aabff">de subvention d'amorçage maximum</div></div>
+      <div style="text-align:center;padding:0 56px"><div style="font-size:64px;font-weight:200;letter-spacing:-.02em;color:#ffffff;line-height:1">3</div><div style="margin-top:12px;font-size:13px;text-transform:uppercase;letter-spacing:.15em;color:#8aabff">cohortes, dont les alumni sont mentors</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COHORTES -->
+<section class="section grid-bg">
+  <div class="container" style="display:flex;flex-direction:column;gap:64px">
+    <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow">Lauréats FSE</span><h2 class="h2"><span class="u">Portraits de lauréats et témoignages</span></h2></div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid #e5e7eb;padding-bottom:16px">
+    <div style="display:flex;flex-direction:column;gap:6px"><span class="h3">Lauréats FSE 3</span><span style="font-size:14px;color:#6b7280">Promotion 2025 · projets incubés via Senghor'Innov</span></div>
+    <span class="badge badge-amber">Innovation et passage à l'échelle</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:24px"><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 3</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département [Santé]</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 3</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département [Environnement]</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 3</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département [Management]</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 3</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département [Culture]</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div></div>
+</div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid #e5e7eb;padding-bottom:16px">
+    <div style="display:flex;flex-direction:column;gap:6px"><span class="h3">Lauréats FSE 2</span><span style="font-size:14px;color:#6b7280">Consolidation · projets à fort impact social et technologique</span></div>
+    <span class="badge badge-amber">Dimension intrapreneuriale</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:24px"><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 2</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département [Santé]</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 2</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département [Environnement]</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 2</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département [Management]</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 2</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département [Culture]</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div></div>
+</div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid #e5e7eb;padding-bottom:16px">
+    <div style="display:flex;flex-direction:column;gap:6px"><span class="h3">Lauréats FSE 1</span><span style="font-size:14px;color:#6b7280">Lancement 2023 · projets en amorçage ayant validé leur preuve de concept</span></div>
+    <span class="badge badge-amber">Preuve de concept</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:24px"><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 1</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département Santé</span>
+    <div class="quote">« Grâce au FSE 1, j'ai pu passer de la théorie à la pratique. La subvention de 5 000 € a été le catalyseur pour produire mon premier prototype et tester mon marché localement avant la fin de mon Master. »</div>
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 1</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département Environnement</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 1</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département Management</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div><div class="portrait">
+  <div class="photo ph">Photo du lauréat</div>
+  <div class="b">
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="name">[Nom du lauréat]</span><span class="badge badge-blue" style="padding:3px 10px;font-size:11px">FSE 1</span></div>
+    <span class="proj">[Nom du projet]</span>
+    <span class="dept">Département [Culture]</span>
+    
+    <div style="display:flex;gap:8px;margin-top:4px"><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><span class="social"><svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span></div>
+  </div>
+</div></div>
+</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:#f9fafb">
+  <div style="max-width:896px;margin:0 auto;padding:0 32px;text-align:center">
+    <div style="background:#eef2ff;border-radius:16px;padding:48px;display:flex;flex-direction:column;gap:20px;align-items:center">
+      <h3 style="font-size:30px;font-weight:700;color:#111827;margin:0">Vous êtes alumni entrepreneur ?</h3>
+      <p class="lead" style="max-width:600px">Rejoignez le réseau des mentors et accompagnez les nouvelles cohortes SEE 1 et SEE 2.</p>
+      <span class="btn btn-blue"><svg class="ico" style="width:18px;height:18px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="3"></circle><path d="M16 15.5a5 5 0 0 1 5.5 4.5"></path></svg> Devenir mentor <svg class="ico" style="width:16px;height:16px;color:currentColor;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:16px"><img src="logo-senghor.png" style="height:36px;width:auto;filter:brightness(0) invert(1)" alt="Université Senghor"><span>Pôle Entrepreneuriat et Innovation · Direction du Développement et de l'Entrepreneuriat</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><svg class="ico" style="width:16px;height:16px;color:#5478e6;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg> <span style="color:#ffffff">entrepreneuriat@usenghor.org</span></div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+</body>
+</html>

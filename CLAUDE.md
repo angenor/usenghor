@@ -66,7 +66,7 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 
 ## Base de données
 
-**PostgreSQL 16** via Docker (`docker-compose.yml` dans `usenghor_backend/`). Le schéma SQL complet est dans `usenghor_backend/documentation/modele_de_données/services/` avec un fichier orchestrateur [`main.sql`](usenghor_backend/documentation/modele_de_données/services/main.sql) qui inclut 16 fichiers via `\i` :
+**PostgreSQL 16** via Docker (`docker-compose.yml` dans `usenghor_backend/`). Le schéma SQL complet est dans `usenghor_backend/documentation/modele_de_données/services/` avec un fichier orchestrateur [`main.sql`](usenghor_backend/documentation/modele_de_données/services/main.sql) qui inclut 17 fichiers via `\i` :
 
 | Fichier | Service | Tables principales |
 |---------|---------|-------------------|
@@ -83,6 +83,7 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 | `10_project.sql` | Project | projects, project_categories |
 | `11_newsletter.sql` | Newsletter | newsletter_subscribers, newsletter_campaigns |
 | `12_editorial.sql` | Editorial | editorial_categories, editorial_contents |
+| `16_entrepreneurship.sql` | Entrepreneurship | pei_programs, pei_cohorts, pei_resources |
 | `99_functions.sql` | Utilitaires | Fonctions et triggers |
 | `99_data_init.sql` | Seed | Données initiales |
 | `99_views.sql` | Vues | Vues agrégées |
@@ -101,6 +102,9 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 | `useMockData()` | Données de dev sans BDD |
 | `components/faq/admin/*` | Backoffice FAQ (entrées + catégories trilingues, audit) |
 | `useFaqApi()` | Composable admin FAQ (`/api/admin/faq/*`) |
+| `useEntrepreneurshipApi()` | Composable admin pôle PEI (`/api/admin/entrepreneurship/*`) |
+| `components/entrepreneurship/admin/*` | Backoffice PEI (dispositifs, cohortes, ressources, tableau de bord) |
+| `AdminMediaPicker` | Sélecteur de médiathèque transverse (modale, recherche, téléversement) |
 
 **Stockage du contenu riche :** Double colonne `*_html` (rendu public) + `*_md` (édition Markdown) pour chaque champ de contenu riche (11 tables, ~20 colonnes).
 
@@ -108,7 +112,7 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 
 - **Français avec accents** (é, è, ê, à, ç, ù) obligatoires dans le code et les contenus
 - **Nommage de fichiers/dossiers : PAS d'accents ni de caractères spéciaux** (problèmes d'encodage SSH/Docker en production). Utiliser uniquement `[a-z0-9_-]`.
-- Champs trilingues : `*_fr`, `*_en`, `*_ar`
+- Champs trilingues : convention additive (`title`, `title_en`, `title_ar` ; `content_html`, `content_en_html`…) pour les domaines à traduction automatique (`autofill_translations` / `useLocalizedField`) ; `*_fr`, `*_en`, `*_ar` pour la FAQ
 - Alias : `@bank` → `./bank`
 
 ## Parallel Sub-agents Strategy
@@ -158,6 +162,7 @@ Après chaque modification significative du projet, vérifier si CLAUDE.md refl�
 - Infrastructure / DevOps : Docker Compose v3.8 (`docker-compose.monitoring.yml`), Prometheus 2.55.1 (TSDB, rétention 30j / 4.5 GB), Grafana 11.4.0 (provisioning par fichier, auth admin via env, sign-up & anonyme OFF), node-exporter 1.8.2, cAdvisor 0.49.1. Nginx reverse-proxy `monitoring.<DOMAINE>` + rate limiting + TLS Let's Encrypt. Réseau Docker `usenghor_network` partagé. Aucun port public pour Prometheus/exporters. Pilotage via `./deploy.sh monitoring {up|down|logs|status}`. (020-monitoring-stack)
 
 ## Recent Changes
+- 021-pei-entrepreneurship-core: socle du Pôle Entrepreneuriat et Innovation — SQL `16_entrepreneurship.sql` + migration `045_entrepreneurship.sql` (tables `pei_programs`, `pei_cohorts`, `pei_resources`, seeds FR, 43 clés éditoriales), API `/api/admin/entrepreneurship/*` et `/api/public/entrepreneurship/*`, section admin « Entrepreneuriat (PEI) » (`/admin/entrepreneuriat`), page éditoriale `entrepreneurship`, permissions `entrepreneurship.*` ; lancer « Traduire les champs manquants » après la migration
 - call-type-candidature-masque: le type d'appel `application` (« Candidature ») est déprécié et fusionné dans `training` (« Formation ») — migration `044_call_type_application_vers_training.sql` (données `application_calls` + `project_calls`, table de sauvegarde pour rollback) ; option masquée dans les filtres publics et les formulaires admin, valeur conservée dans l'ENUM `call_type` pour compatibilité
 - appels-sync-atomique: sauvegarde des listes d'un appel (critères, prises en charge, documents, calendrier) via `PUT /api/admin/application-calls/{id}/details` (une transaction, idempotent, diff par `id`) — remplace le cycle « tout supprimer / tout recréer » qui produisait des doublons ; migration `042_application_calls_dedup_sous_tables.sql` pour nettoyer l'existant
 - 020-monitoring-stack: socle observabilité (Prometheus + Grafana + node-exporter + cAdvisor) — métriques système et conteneurs, sans instrumentation applicative ; rétention 30j, accès HTTPS via `monitoring.<DOMAINE>` derrière Nginx
