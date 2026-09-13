@@ -105,6 +105,8 @@ Validation locale du 2026-09-13 (base `usenghor_postgres`, 58 partenaires) :
   - Hors périmètre : le fil d'Ariane admin affiche le slug (« Laureats ») comme pour toutes les pages admin.
   - Données de test supprimées ; base locale revenue à l'état initial.
 
+- **Production (T053, 2026-09-13)** : sauvegarde `backups/backup_usenghor_20260913_165623.sql` (dump complet) ; migration 046 jouée **deux fois** sur `usenghor_db` sans erreur (1er passage `UPDATE 1`, 2e `UPDATE 0`) → `pei_laureates` vide, 4 rattachements (`CCI Côte d'Ivoire` support ; `AUF`, `Agence française de développement`, `Organisation internationale de la Francophonie` international), 79 partenaires inchangés, triggers créés. Code poussé sur `origin/main` (backend `3c3bfe6`, frontend `1065a3b`, parent `3619e3a`). **Reste à faire par un humain** : `./deploy.sh update` (refusé en mode automatique), puis vérifier `docker ps` (uptime récent) et `/admin/entrepreneuriat/partenaires`.
+
 ## 9. Production
 
 ```bash
