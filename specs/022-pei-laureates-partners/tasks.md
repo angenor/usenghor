@@ -175,7 +175,7 @@ Monorepo : backend `usenghor_backend/app/{models,schemas,services,routers/admin,
 - [X] T050 Dérouler `specs/022-pei-laureates-partners/quickstart.md` §3 à §6 avec un compte `editor` et un compte sans permission ; consigner les écarts dans quickstart.md (section « Écarts constatés lors de la validation »).
 - [X] T051 [P] Mettre à jour `CLAUDE.md` : ligne `16_entrepreneurship.sql` du tableau SQL complétée (`pei_laureates`, `pei_partners`), tableau « Composants clés » (`components/entrepreneurship/admin/*` : lauréats, partenaires ; `useEntrepreneurshipApi()` : lauréats, partenaires), entrée « Recent Changes » 022 (migration 046 + rattachement initial, rollback 046 avant 045, ordre par cohorte / famille, endpoints publics `/laureates` et `/partners`).
 - [X] T052 [P] Mettre à jour `specs/roadmap-pei-entrepreneuriat.md` § 2.4 (`pei_partners` : colonne `partner_id` avec FK cascade au lieu de `partner_external_id`) et mentionner la feature 022 comme livrée (portée : ordre par cohorte, verbatim texte simple, chiffres calculés).
-- [ ] T053 Production (après merge et `./deploy.sh`) : `./deploy.sh backup`, jouer `046_pei_laureates_partners.sql` deux fois sur `usenghor_db` (quickstart §9), vérifier les rattachements initiaux dans le backoffice « Partenaires du pôle » et corriger à la main tout rattachement inattendu.
+- [X] T053 Production (après merge et `./deploy.sh`) : `./deploy.sh backup`, jouer `046_pei_laureates_partners.sql` deux fois sur `usenghor_db` (quickstart §9), vérifier les rattachements initiaux dans le backoffice « Partenaires du pôle » et corriger à la main tout rattachement inattendu.
 
 ---
 
