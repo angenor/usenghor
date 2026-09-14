@@ -299,6 +299,12 @@ nouvelle page d'article ou de partenaire n'est créée en doublon.
 
 ### Feature 025 — Page « Entreprendre et étudier » : Statut Étudiant-Entrepreneur (guide, FAQ, candidature)
 
+> ✅ **Livrée** (2026-09-14, `specs/025-pei-see-status-page/`). Portée retenue : quatre catégories FAQ au code
+> réservé `see-*` (visibles aussi sur `/faq`) lues via `GET /api/public/faq?category_prefix=see-` ; conditions
+> et pièces **de l'appel d'abord, textes éditoriaux en secours** ; état d'appel ouvert / à venir / clos / absent
+> sans erreur ; migration `049_pei_see_page.sql` (65 clés, 4 catégories, 8 questions dont 2 publiées et
+> 6 brouillons) ; la 9ᵉ question du cahier des charges reste à créer par l'équipe dans le backoffice FAQ.
+
 **Dépend de** : 023. **Livre** : `/entrepreneuriat/statut-etudiant-entrepreneur`, catégorie FAQ « see », liaison à l'appel.
 
 ```
