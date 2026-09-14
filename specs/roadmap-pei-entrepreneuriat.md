@@ -304,6 +304,7 @@ nouvelle page d'article ou de partenaire n'est créée en doublon.
 > et pièces **de l'appel d'abord, textes éditoriaux en secours** ; état d'appel ouvert / à venir / clos / absent
 > sans erreur ; migration `049_pei_see_page.sql` (65 clés, 4 catégories, 8 questions dont 2 publiées et
 > 6 brouillons) ; la 9ᵉ question du cahier des charges reste à créer par l'équipe dans le backoffice FAQ.
+> Déployée et vérifiée en production le 2026-09-14 (migration 049 jouée : 138 clés, 4 catégories, 8 questions dont 2 publiées).
 
 **Dépend de** : 023. **Livre** : `/entrepreneuriat/statut-etudiant-entrepreneur`, catégorie FAQ « see », liaison à l'appel.
 
