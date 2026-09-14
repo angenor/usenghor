@@ -110,3 +110,8 @@ docker exec -i usenghor_db psql -U usenghor -d usenghor -c "SELECT count(*) FROM
 ```
 
 Puis ouvrir les quatre pages publiques : heros renseignés, sous-nav sans rubrique « introuvable ». Consigner ici le compte obtenu et la date.
+
+**Résultat (2026-09-14)** : sauvegarde `backups/backup_usenghor_20260914_190737.sql` ; migration 048 jouée deux fois sur `usenghor_db` (26 puis 0 insertion) : 47 → 73 lignes `entrepreneurship.%` (la prod n'avait pas non plus la ligne supplémentaire évoquée par la 047). `./deploy.sh update` : conteneurs recréés, commit `988ad03` servi ; 15 URL (4 pages × 3 langues + onglet SEE) en 200 ; sitemap : 5 rubriques par langue ; JSON-LD `CollectionPage` + `BreadcrumbList` présents ; filtre DDE vérifié (5 actualités sur 17). Données prod au déploiement : 0 portrait, 0 ressource, 0 album et 0 événement rattachés à la DDE → alumni et ressources en état vide, partenaires (4) et actualités (5) remplis.
+
+Lighthouse mobile (prod) : accessibilité 100 / 100 / 98 → 100 après correctif `heading-order` de l'état vide / 100 ; performance alumni 79, partenaires 73, ressources 63, actualités 70 — sous l'objectif SC-008 (≥ 90), mais au niveau des pages existantes mesurées dans les mêmes conditions (`/entrepreneuriat/activites` 66, `/actualites` 79, `/faq` 77) : LCP = motif du `PageHero`, ~1,1 s de CSS bloquant et ~1,5 Mo de JS inutilisé communs au site (hors périmètre de la feature).
+
