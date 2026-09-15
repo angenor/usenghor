@@ -122,6 +122,7 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 - **Nommage de fichiers/dossiers : PAS d'accents ni de caractères spéciaux** (problèmes d'encodage SSH/Docker en production). Utiliser uniquement `[a-z0-9_-]`.
 - Champs trilingues : convention additive (`title`, `title_en`, `title_ar` ; `content_html`, `content_en_html`…) pour les domaines à traduction automatique (`autofill_translations` / `useLocalizedField`) ; `*_fr`, `*_en`, `*_ar` pour la FAQ
 - Alias : `@bank` → `./bank`
+- **Dates limites des appels en GMT** : saisie admin et affichage public en UTC suffixé « GMT », jamais dans le fuseau du navigateur — utiliser `utils/gmt-datetime.ts` (`formatGmtDate`, `formatGmtDateTime`, `toGmtInputValue` / `fromGmtInputValue` pour les `datetime-local`)
 
 ## Parallel Sub-agents Strategy
 
