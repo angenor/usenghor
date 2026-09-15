@@ -121,6 +121,7 @@ Relevé du code et de la base le 2026-09-15. Deux sous-agents d'exploration (bac
   - Fiche secteur, onglet Services : liste les services de premier niveau, avec une ligne « + N pôle(s) » sous un parent qui en a (lien vers la fiche du parent). Aucun autre changement.
 - **Rationale** : DOM identique sans pôles (SC-002). Composants inline dans les fichiers existants, pas de nouveau composant : les cartes font moins de 20 lignes.
 - **Vérification des composants existants** : aucun composant de carte de service réutilisable n'existe. Les cartes de l'organigramme et de l'onglet Services sont inline.
+- **Vérification T002 (2026-09-15, sous-agent)** : `getServiceLink`, `usePeiBreadcrumb`, `navChildLabel`, `slugifyServiceName`, `orderHierarchically`, `ServiceRelativePublic`, `ServicePublicWithChildren` absents de `app/` et `server/` → aucun renommage. Aucun composant de carte de service (`components/organization/` : `OrganigrammeSection`, `SectorsSection` ; `components/cards/` sans carte de service). `getServiceUrl` existe en copies locales (localisées) dans `OrganigrammeSection.vue` et `[type]/[slug].vue`, non exportées. À l'implémentation, la carte de l'organigramme est factorisée par `createReusableTemplate` (`@vueuse/core`, déjà installé) : même nœud DOM pour un service seul ou suivi de ses pôles, sans nouveau composant.
 
 ### R10 — Menu : seed non destructif et libellés trilingues
 
@@ -130,7 +131,7 @@ Relevé du code et de la base le 2026-09-15. Deux sous-agents d'exploration (bac
   - Valeur illisible ou non tableau : `RAISE NOTICE`, aucune écriture.
   - Élément avec `id = 'entrepreneurship'` ou `route = '/entrepreneuriat'` déjà présent : NOTICE.
   - Sinon, `arr || jsonb_build_array(entry || jsonb_build_object('sort_order', max(sort_order)+1))`.
-  - `entry` = `{"id":"entrepreneurship","label":"Entreprendre à Senghor","label_en":"Entrepreneurship at Senghor","label_ar":"ريادة الأعمال في سنغور","route":"/entrepreneuriat","icon":"fa-solid fa-lightbulb"}`.
+  - `entry` = `{"id":"entrepreneurship","label":"Entreprendre à Senghor","label_en":"Entrepreneurship at Senghor","label_ar":"ريادة الأعمال في سنغور","route":"/entrepreneuriat","icon":"fa-solid fa-rocket"}`.
 - **Décision frontend** (Q2) :
   - `AppNavBar` : le type JSON gagne `label_en?`, `label_ar?` (primaire et secondaire). Les enfants mappés conservent `_labels: { fr, en, ar }`, et un helper `navChildLabel(sectionKey, child)` renvoie `_labels[locale] || _labels.fr || t('nav.dropdowns.…')`.
   - Les trois points de rendu (l.446, 537, 782) utilisent ce helper, ce qui gère le changement de langue sans rechargement.

@@ -49,7 +49,7 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
 
 **Purpose**: accord sur le SQL, vérification de réutilisation et captures de référence avant tout code.
 
-- [ ] T001 Présenter au responsable le SQL de `specs/026-pei-org-navigation-launch/data-model.md` : § 3 (schéma de référence), § 4 (migration 050), § 5 (rollback), § 6 (test à blanc).
+- [X] T001 Présenter au responsable le SQL de `specs/026-pei-org-navigation-launch/data-model.md` : § 3 (schéma de référence), § 4 (migration 050), § 5 (rollback), § 6 (test à blanc). — **Fait (2026-09-15)** : accord du responsable, points 1, 3, 4, 5 tels que proposés ; icône **`fa-solid fa-rocket`** (data-model § 7).
   - Faire trancher les 5 points du § 7 :
     1. libellés anglais et arabe du pôle (« Entrepreneurship and Innovation Hub », « قطب ريادة الأعمال والابتكار ») et de l'entrée de menu / du pied de page (« Entrepreneurship at Senghor », « ريادة الأعمال في سنغور ») ;
     2. icône `fa-solid fa-lightbulb` ;
@@ -58,12 +58,12 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
     5. normalisation du JSON du menu.
   - **Attendre l'accord explicite** avant T008–T011.
   - Reporter les ajustements dans `data-model.md` § 4–5, `contracts/frontend.md` § 3 (i18n) et le fichier SQL temporaire.
-- [ ] T002 [P] Vérifier par sous-agent dans `usenghor_nuxt/app/**` et `usenghor_nuxt/server/**` :
+- [X] T002 [P] Vérifier par sous-agent dans `usenghor_nuxt/app/**` et `usenghor_nuxt/server/**` :
   - (a) aucun export nommé `getServiceLink`, `usePeiBreadcrumb`, `navChildLabel`, `slugifyServiceName`, `orderHierarchically`, `ServiceRelativePublic`, `ServicePublicWithChildren` (gotcha des collisions d'auto-import) ;
   - (b) aucun composant de carte de service réutilisable (inventaire du 2026-09-15 : cartes inline dans `OrganigrammeSection.vue` et `[type]/[slug].vue`).
 
   Consigner le résultat à la fin de R9 dans `specs/026-pei-org-navigation-launch/research.md`, et renommer en cas de collision.
-- [ ] T003 [P] Capturer les références avant tout changement (quickstart § 0 ; backend `:8000`, frontend `pnpm dev --port 3001`) :
+- [X] T003 [P] Capturer les références avant tout changement (quickstart § 0 ; backend `:8000`, frontend `pnpm dev --port 3001`) : — **Fait** : JSON gardés ; captures avant prises sur une copie de travail du frontend à `HEAD` après le début du code (même backend), comparées par DOM normalisé (quickstart § 0).
   - **Captures** en 1440 px et 390 px, clair, FR et AR : `/a-propos/organisation` ; `/a-propos/organisation/secteur/sec-tes` ; une fiche service sans pôle ; `/entrepreneuriat` ; `/entrepreneuriat/activites` ; menu « Plus » ouvert ; pied de page ; une fiche formation, une fiche projet et une fiche appel (reprise de T039 de la 023).
   - **JSON** dans le scratchpad :
     - `curl -s localhost:8000/api/public/sectors/with-services | jq -S . > with-services-avant.json` ;
@@ -79,23 +79,23 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
 
 **⚠️ CRITICAL**: T004–T005 sont indépendantes du SQL et à faire en premier. T008–T011 attendent l'accord T001. Aucune story avant T012–T015.
 
-- [ ] T004 Créer `usenghor_backend/tests/integration/test_services_hierarchy.py` :
+- [X] T004 Créer `usenghor_backend/tests/integration/test_services_hierarchy.py` :
   - **En-tête** : docstring renvoyant à `specs/026-pei-org-navigation-launch/contracts/api.md`.
   - **Fixture `organization_permissions`** : `organization.view` « Voir l'organisation » et `organization.edit` « Modifier l'organisation » attribués à `admin_role`, sur le modèle de `faq_permissions` dans `tests/integration/test_admin_faq_categories_api.py`.
   - **Fixture `org_tree`** : secteurs actifs `SEC-A` et `SEC-B` ; dans `SEC-A`, services actifs `DDE` (`display_order` 2) et `DRE` (`display_order` 3), plus un service **inactif** `OLD`.
   - **Test de régression C1** `test_public_sector_reads_do_not_delete_inactive_services` : `GET /api/public/sectors/with-services` puis `GET /api/public/sectors/SEC-A` → 200. Faire `await db_session.commit()`, puis vérifier par `select(Service).where(Service.id == OLD.id)` que `OLD` existe toujours et que `OLD` est absent des deux réponses.
   - **Vérifier que ce test échoue** sur le code actuel (`pytest … -k inactive` avant T005) et consigner l'échec.
-- [ ] T005 Corriger la perte de données C1 (research R3, spec FR-008b) sans réaffecter aucune collection ORM :
+- [X] T005 Corriger la perte de données C1 (research R3, spec FR-008b) sans réaffecter aucune collection ORM : — **Fait** : `build_public_sector` construit la réponse ; imbrication `children` ajoutée dans la foulée (T017), `diff` JSON identique hors nouveaux champs.
   - dans `usenghor_backend/app/services/organization_service.py`, remplacer `get_active_sectors_with_active_services` (l.424-437) par une construction de réponse qui ne modifie pas `sector.services` ;
   - dans `usenghor_backend/app/routers/public/sectors.py`, supprimer la ligne `sector.services = [s for s in sector.services if s.active]` (l.49) de `get_sector_by_code` et construire la réponse de la même façon, via une fonction de service partagée `build_public_sector(sector)` ;
   - à ce stade, garder la forme actuelle : services actifs à plat triés par `(display_order, name)` ;
   - relancer `pytest tests/integration/test_services_hierarchy.py -k inactive -v` → passe ;
   - `diff` du JSON `with-services` avec `with-services-avant.json` → identique.
-- [ ] T006 [P] Ajouter `parent_id` et `landing_path` au modèle `Service` dans `usenghor_backend/app/models/organization.py` (après `album_external_id`) :
+- [X] T006 [P] Ajouter `parent_id` et `landing_path` au modèle `Service` dans `usenghor_backend/app/models/organization.py` (après `album_external_id`) :
   - `parent_id: Mapped[str | None] = mapped_column(UUID(as_uuid=False), ForeignKey("services.id", ondelete="SET NULL"), nullable=True)` ;
   - `landing_path: Mapped[str | None] = mapped_column(String(255), nullable=True)` ;
   - **aucune relation ORM** `parent` / `children` (data-model § 2).
-- [ ] T007 [P] Étendre `usenghor_backend/app/schemas/organization.py` selon `contracts/api.md` § 1 :
+- [X] T007 [P] Étendre `usenghor_backend/app/schemas/organization.py` selon `contracts/api.md` § 1 :
   - **Constante** `LANDING_PATH_RE = r"^/(?!/)(?!(?:en|ar)(?:/|$))(?!r/)[^\s?#]*$"`.
   - **`ServiceBase`** : `parent_id: str | None = None`, `landing_path: str | None = Field(None, max_length=255)`.
   - **`field_validator("landing_path", mode="before")`** : `strip()` ; `""` → `None` ; hors regex → `ValueError("La page dédiée doit être un chemin interne du site commençant par / (ex. /entrepreneuriat), sans préfixe de langue")`.
@@ -104,10 +104,10 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
   - **Nouveau `ServiceRelativePublic`** (`from_attributes`) : `id`, `name`, `name_en`, `name_ar`, `sigle`, `color`, `landing_path`, `display_order`.
   - **Nouveau `ServicePublicWithChildren(ServicePublic)`** : `children: list[ServicePublic] = []`.
   - **`SectorPublicWithServices.services`** : `list[ServicePublicWithChildren]`.
-- [ ] T008 Mettre à jour `usenghor_backend/documentation/modele_de_données/services/04_organization.sql` **après l'accord T001**, en recopiant data-model § 3 :
+- [X] T008 Mettre à jour `usenghor_backend/documentation/modele_de_données/services/04_organization.sql` **après l'accord T001**, en recopiant data-model § 3 :
   - dans `CREATE TABLE services`, après `album_external_id` : `parent_id UUID REFERENCES services(id) ON DELETE SET NULL`, `landing_path VARCHAR(255)`, avec leurs commentaires ;
   - après `idx_services_sector` : `services_parent_not_self`, `services_landing_path_format`, `idx_services_parent`, fonction `services_check_hierarchy()` et trigger `services_check_hierarchy` (corps identique à la migration).
-- [ ] T009 Créer `usenghor_backend/documentation/modele_de_données/migrations/050_services_parent_landing.sql` **après l'accord T001**, par copie exacte du SQL validé de data-model § 4 : en-tête, `BEGIN`, puis les étapes 1 à 4, `COMMIT`, `\echo`. Détail des étapes :
+- [X] T009 Créer `usenghor_backend/documentation/modele_de_données/migrations/050_services_parent_landing.sql` **après l'accord T001**, par copie exacte du SQL validé de data-model § 4 : en-tête, `BEGIN`, puis les étapes 1 à 4, `COMMIT`, `\echo`. Détail des étapes :
   1. **Structure** : colonnes, `services_parent_id_fkey`, `services_parent_not_self`, `services_landing_path_format`, index partiel, fonction et trigger.
   2. **Pôle** :
      - identifiant fixe `5e1c0050-0000-4000-8000-00000000e1ab` ;
@@ -117,33 +117,33 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
      - NOTICE en français.
   3. **Menu** : ajout non destructif en fin de `navbar.secondary.about.children`, avec `id` `entrepreneurship`, `label`, `label_en`, `label_ar`, `route` `/entrepreneuriat`, `icon`, `sort_order` = max + 1 ; liste absente ou vide → création ; valeur illisible ou non tableau → NOTICE sans écriture.
   4. **Lien court** : `pei` → `/entrepreneuriat`, `created_by NULL`, `ON CONFLICT (code) DO NOTHING`.
-- [ ] T010 [P] Créer `usenghor_backend/documentation/modele_de_données/migrations/050_services_parent_landing_rollback.sql` **après l'accord T001**, par copie exacte de data-model § 5, avec en en-tête « à jouer AVANT les rollbacks 049 → 045 ». Il retire, dans l'ordre :
+- [X] T010 [P] Créer `usenghor_backend/documentation/modele_de_données/migrations/050_services_parent_landing_rollback.sql` **après l'accord T001**, par copie exacte de data-model § 5, avec en en-tête « à jouer AVANT les rollbacks 049 → 045 ». Il retire, dans l'ordre :
   - le lien `pei` vers `/entrepreneuriat` ;
   - l'entrée de menu `id = 'entrepreneurship'` ;
   - le pôle d'identifiant fixe, s'il n'a pas de contenu dans `service_team`, `service_objectives`, `service_achievements`, `service_projects` ou `service_media_library` (sinon NOTICE et conservation) ;
   - le trigger, la fonction, l'index, les contraintes et les colonnes.
-- [ ] T011 Jouer quickstart § 1–2 en local :
+- [X] T011 Jouer quickstart § 1–2 en local :
   - créer la DDE de test (`aaaaaaaa-0000-4000-8000-0000000000dd`, secteur `SEC-TES`, nom avec apostrophe typographique ’) ;
   - migration 050 ×2 : NOTICE attendues, comptes `pei | poles | menu | lien` identiques ;
   - § 2 : les 6 refus du trigger et le rattachement valide, en `BEGIN … ROLLBACK` ;
   - rollback ×2, puis rejeu de la migration.
 
   Consigner le résultat sous le § 1 de `specs/026-pei-org-navigation-launch/quickstart.md`.
-- [ ] T012 [P] Étendre les types admin :
+- [X] T012 [P] Étendre les types admin : — Mappage : `transformToDisplay` / `transformWithDetailsToDisplay` recopient déjà tous les champs (spread) ; `transformMockToDisplay` complété.
   - `usenghor_nuxt/app/types/api/organization.ts` (`ServiceRead`) ;
   - `usenghor_nuxt/app/composables/useServicesApi.ts` (`ServiceWithDetails`, `ServiceCreate`, `ServiceUpdate`, `ServiceDisplay`) : `parent_id?: string | null`, `landing_path?: string | null` ;
   - recopier ces deux champs dans le mappage de `getAllServices` → `ServiceDisplay`.
-- [ ] T013 [P] Étendre `usenghor_nuxt/app/composables/usePublicOrganizationApi.ts` selon `contracts/frontend.md` § 1 :
+- [X] T013 [P] Étendre `usenghor_nuxt/app/composables/usePublicOrganizationApi.ts` selon `contracts/frontend.md` § 1 : — `getServiceUrl` accepte désormais `Pick<ServicePublic, 'name'>` (élargissement de type, même comportement).
   - `ServicePublic` : `parent_id: string | null`, `landing_path: string | null` ;
   - nouveaux `ServiceRelativePublic`, `ServicePublicWithChildren` (`children: ServicePublic[]`) ;
   - `SectorPublicWithServices.services: ServicePublicWithChildren[]` ;
   - `ServicePublicWithDetails` : `parent?: ServiceRelativePublic | null`, `children?: ServiceRelativePublic[]` ;
   - nouvelle fonction retournée `getServiceLink(service: Pick<ServicePublic, 'name' | 'landing_path'>): string` = `service.landing_path || getServiceUrl(service)` (non localisée) ;
   - `findServiceBySlug` et `getServiceUrl` inchangés.
-- [ ] T014 Vérifier que le backend démarre et que le JSON public est additif :
+- [X] T014 Vérifier que le backend démarre et que le JSON public est additif :
   - `uvicorn app.main:app --reload` sans erreur ;
   - `curl -s localhost:8000/api/public/services | jq -S .` comparé à `services-avant.json` : seuls `parent_id` et `landing_path` sont ajoutés, et le pôle PEI apparaît dans la liste.
-- [ ] T015 [P] Ajouter à `organization_service.py` le helper `_is_uuid` (ou réutiliser celui de `entrepreneurship_service.py`, s'il est importable sans cycle) et la méthode `get_children_counts(service_ids) -> dict[str, int]`, qui renvoie le nombre de pôles par parent en une seule requête. T018 et T026 s'en servent.
+- [X] T015 [P] Ajouter à `organization_service.py` le helper `_is_uuid` (ou réutiliser celui de `entrepreneurship_service.py`, s'il est importable sans cycle) et la méthode `get_children_counts(service_ids) -> dict[str, int]`, qui renvoie le nombre de pôles par parent en une seule requête. T018 et T026 s'en servent. — `_is_uuid` local (pas d'import croisé).
 
 **Checkpoint** : correctif C1 livré, colonnes et pôle en base locale, schémas et types prêts. Les stories peuvent commencer.
 
@@ -155,7 +155,7 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
 
 **Independent Test** : quickstart § 5, organigramme et fiches en FR / EN / AR, 1440 et 390 px, clair et sombre, captures avant / après.
 
-- [ ] T016 [US1] Ajouter les tests publics à `usenghor_backend/tests/integration/test_services_hierarchy.py`. Données : `POLE` actif, `parent_id = DDE`, `landing_path = '/entrepreneuriat'`.
+- [X] T016 [US1] Ajouter les tests publics à `usenghor_backend/tests/integration/test_services_hierarchy.py`. Données : `POLE` actif, `parent_id = DDE`, `landing_path = '/entrepreneuriat'`.
   - `with-services` :
     - `SEC-A.services` ne contient que `DDE` et `DRE`, dans cet ordre ;
     - `DDE.children == [POLE]` ;
@@ -167,34 +167,34 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
   - `GET /api/public/services/{POLE}` → `parent.id == DDE`, `children == []`.
   - `GET /api/public/services/{DDE}` → `parent is None`, `children[0].landing_path == '/entrepreneuriat'`.
   - Parent inactif → `GET /api/public/services/{POLE}` renvoie `parent is None`.
-- [ ] T017 [US1] Implémenter l'imbrication dans `build_public_sector(sector)` de `usenghor_backend/app/services/organization_service.py` (research R3, `contracts/api.md` § 3.1) :
+- [X] T017 [US1] Implémenter l'imbrication dans `build_public_sector(sector)` de `usenghor_backend/app/services/organization_service.py` (research R3, `contracts/api.md` § 3.1) :
   - `tops` = services actifs avec `parent_id is None`, triés par `(display_order, name)` ;
   - `children` de chaque top = services actifs du secteur avec `parent_id == top.id`, même tri ;
   - retourner `SectorPublicWithServices`, avec des `services` de type `ServicePublicWithChildren` ;
   - un pôle dont le parent est inactif ou hors secteur n'apparaît pas ;
   - utilisé par `/with-services` et `/{code}`.
-- [ ] T018 [US1] Exposer `parent` et `children` sur la fiche publique :
+- [X] T018 [US1] Exposer `parent` et `children` sur la fiche publique :
   - dans `usenghor_backend/app/routers/public/services.py`, `ServicePublicWithDetailsEnriched` reçoit `parent: ServiceRelativePublic | None = None` et `children: list[ServiceRelativePublic] = []` ;
   - dans `get_service_with_details` (`organization_service.py:717`), ou dans une nouvelle méthode `get_service_relatives(service)` : parent chargé seulement s'il est **actif**, enfants actifs triés par `(display_order, name)` ;
   - la construction champ par champ du routeur (l.137-164) remplit les deux champs ;
   - lancer `pytest tests/integration/test_services_hierarchy.py -v` → US1 et C1 passent.
-- [ ] T019 [P] [US1] Ajouter les clés i18n françaises :
+- [X] T019 [P] [US1] Ajouter les clés i18n françaises :
   - dans `usenghor_nuxt/i18n/locales/fr/organization-detail.json` : `organizationDetail.poles.title` « Pôles », `organizationDetail.poles.parentOf` « Pôle de », `organizationDetail.poles.dedicatedPage` « Voir la page dédiée », `organizationDetail.poles.count` « + {n} pôle | + {n} pôles » ;
   - dans `usenghor_nuxt/i18n/locales/fr/organization.json` : `organization.poles.of` « Pôles de {name} ».
-- [ ] T020 [P] [US1] Ajouter les mêmes clés en anglais dans `usenghor_nuxt/i18n/locales/en/organization-detail.json` et `usenghor_nuxt/i18n/locales/en/organization.json` : « Hubs », « Hub of », « Visit the dedicated page », « + {n} hub | + {n} hubs », « Hubs of {name} ».
-- [ ] T021 [P] [US1] Ajouter les mêmes clés en arabe dans `usenghor_nuxt/i18n/locales/ar/organization-detail.json` et `usenghor_nuxt/i18n/locales/ar/organization.json` : « الأقطاب », « قطب تابع لـ », « زيارة الصفحة المخصصة », « + {n} قطب | + {n} أقطاب », « أقطاب {name} ».
-- [ ] T022 [US1] Afficher les pôles dans `usenghor_nuxt/app/components/organization/OrganigrammeSection.vue` (`contracts/frontend.md` § 3, research R9) :
+- [X] T020 [P] [US1] Ajouter les mêmes clés en anglais dans `usenghor_nuxt/i18n/locales/en/organization-detail.json` et `usenghor_nuxt/i18n/locales/en/organization.json` : « Hubs », « Hub of », « Visit the dedicated page », « + {n} hub | + {n} hubs », « Hubs of {name} ».
+- [X] T021 [P] [US1] Ajouter les mêmes clés en arabe dans `usenghor_nuxt/i18n/locales/ar/organization-detail.json` et `usenghor_nuxt/i18n/locales/ar/organization.json` : « الأقطاب », « قطب تابع لـ », « زيارة الصفحة المخصصة », « + {n} قطب | + {n} أقطاب », « أقطاب {name} ».
+- [X] T022 [US1] Afficher les pôles dans `usenghor_nuxt/app/components/organization/OrganigrammeSection.vue` (`contracts/frontend.md` § 3, research R9) : — Carte factorisée par `createReusableTemplate({ inheritAttrs: false })` (DOM identique vérifié).
   - **Sans enfants** : dans la boucle de la grille (l.232-278), un service sans `children?.length` garde **exactement** le nœud `NuxtLink data-card` actuel. Seule sa destination change, et seulement s'il a `landing_path` : `localePath(getServiceLink(service))`.
   - **Avec enfants** : il est rendu dans `<div class="flex flex-col gap-2">`, avec la même carte, puis `<ul class="ms-4 ps-3 border-s-2 space-y-2" :aria-label="t('organization.poles.of', { name })">`. La bordure prend la couleur du parent (`service.color`) ou la palette du secteur.
   - **Carte compacte de pôle** (`NuxtLink :to="localePath(getServiceLink(pole))"`) : pastille du sigle, sinon `fa-building` ; nom `localized(pole, 'name')` ; flèche `fa-arrow-right` avec `rtl:-scale-x-100` ; variantes `dark:bg-gray-800` / `dark:text-*`.
   - Importer `getServiceLink` depuis `usePublicOrganizationApi`, sans redéfinir de helper local homonyme.
-- [ ] T023 [US1] Dans `usenghor_nuxt/app/pages/a-propos/organisation/[type]/[slug].vue`, onglet Présentation d'un service : insérer entre la carte de description (l.519-523) et le bouton « onglet suivant » (l.531) :
+- [X] T023 [US1] Dans `usenghor_nuxt/app/pages/a-propos/organisation/[type]/[slug].vue`, onglet Présentation d'un service : insérer entre la carte de description (l.519-523) et le bouton « onglet suivant » (l.531) :
   - (1) si `entity.parent` : lien `t('organizationDetail.poles.parentOf')` + `parent.sigle || localized(parent, 'name')` → `localePath(getServiceUrl(entity.parent))`, avec une flèche en miroir RTL ;
   - (2) si `entity.landing_path` : bouton `t('organizationDetail.poles.dedicatedPage')` → `localePath(entity.landing_path)` ;
   - (3) si `entity.children?.length` : `<section aria-labelledby="poles-title">` avec `<h3 id="poles-title">` `t('organizationDetail.poles.title')` et une grille `grid sm:grid-cols-2 gap-4` de cartes au style de l'organigramme → `localePath(getServiceLink(child))`.
 
   Sans parent, page dédiée ni enfant, aucun nœud ni aucune marge ne sont ajoutés. Dans l'onglet Services d'une fiche **secteur** (l.690-731), sous un service avec `children.length`, ajouter la ligne `t('organizationDetail.poles.count', { n }, n)` liée à la fiche du parent.
-- [ ] T024 [US1] Dérouler quickstart § 5 (étapes 1 à 6) en local :
+- [X] T024 [US1] Dérouler quickstart § 5 (étapes 1 à 6) en local :
   - organigramme en FR / EN / AR, 1440 / 390 px, clair / sombre, RTL ;
   - désactivation de la DDE → pôle masqué, et DDE toujours en base après plusieurs rechargements ;
   - fiche DDE (bloc « Pôles ») et fiche PEI (liens) ;
@@ -213,7 +213,7 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
 
 **Independent Test** : quickstart § 4 (étapes 1 à 8) et appels `curl` directs.
 
-- [ ] T025 [US2] Ajouter les tests admin à `usenghor_backend/tests/integration/test_services_hierarchy.py`, avec `authenticated_client` et `organization_permissions`. Refus attendus (**rien d'enregistré**, vérifié en base) :
+- [X] T025 [US2] Ajouter les tests admin à `usenghor_backend/tests/integration/test_services_hierarchy.py`, avec `authenticated_client` et `organization_permissions`. Refus attendus (**rien d'enregistré**, vérifié en base) :
 
   | Requête | Code | `detail` |
   |---|---|---|
@@ -231,7 +231,7 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
   - `parent_id: null` explicite → détache ;
   - `POST /{POLE}/duplicate?new_name=Copie` → copie avec `parent_id = DDE` et `landing_path is None` ;
   - `DELETE /{DDE}` → 200 et `POLE.parent_id is None` (la FK `ondelete="SET NULL"` déclarée sur le modèle en T006 est créée par `create_all`).
-- [ ] T026 [US2] Implémenter `async def _validate_hierarchy(self, service_id: str | None, sector_id: str | None, parent_id: str | None, sector_changed: bool) -> None` dans `usenghor_backend/app/services/organization_service.py` (table de `contracts/api.md` § 2) :
+- [X] T026 [US2] Implémenter `async def _validate_hierarchy(self, service_id: str | None, sector_id: str | None, parent_id: str | None, sector_changed: bool) -> None` dans `usenghor_backend/app/services/organization_service.py` (table de `contracts/api.md` § 2) :
   - `ValidationException` (422) pour un parent introuvable, un UUID invalide ou l'auto-référence ;
   - `ConflictException` (409) pour un parent qui a un parent, un service avec N pôles qui reçoit un parent, un secteur différent (`IS DISTINCT FROM`), ou un changement de secteur d'un service qui a N pôles.
 
@@ -242,7 +242,7 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
   - `duplicate_service` (l.626) : recopier `parent_id`, laisser `landing_path` à `None`.
 
   Lancer `pytest tests/integration/test_services_hierarchy.py -v` → tout passe.
-- [ ] T027 [US2] Ajouter au formulaire de la modale de `usenghor_nuxt/app/pages/admin/organisation/services/index.vue` (l.1267-1533, `contracts/frontend.md` § 2) :
+- [X] T027 [US2] Ajouter au formulaire de la modale de `usenghor_nuxt/app/pages/admin/organisation/services/index.vue` (l.1267-1533, `contracts/frontend.md` § 2) :
   - **Sélecteur « Service parent »** sous « Secteur » (l.1292) : `<select v-model="newService.parent_id">`.
     - Options : `null` « Aucun (service de premier niveau) », puis `parentOptions` = services avec `!s.parent_id && s.sector_id === newService.sector_id && s.id !== editingServiceId`, triés par nom, libellé `sigle — name`.
     - `:disabled="editingChildrenCount > 0"`, avec l'aide « Ce service a {n} pôle(s) : il ne peut pas être rattaché ».
@@ -253,16 +253,16 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
     - Bouton Enregistrer (l.1524) également désactivé si la valeur est invalide.
   - **Valeurs initiales** : `parent_id` et `landing_path` à l'ouverture en édition, `null` / `''` en création ; `''` envoyé comme `null`.
   - **Erreurs** : `modalError` affiche `error.data?.detail` des réponses 409 / 422 dans un bandeau `role="alert"` en haut de la modale, à la place du seul `console.error` de `saveService` (l.482) ; remis à vide à l'ouverture.
-- [ ] T028 [US2] Afficher la hiérarchie dans la liste de `usenghor_nuxt/app/pages/admin/organisation/services/index.vue` :
+- [X] T028 [US2] Afficher la hiérarchie dans la liste de `usenghor_nuxt/app/pages/admin/organisation/services/index.vue` : — Écart : miroir RTL de l'icône porté par un `<span>` parent (`fa-rotate-90` et `rtl:-scale-x-100` s'écrasent sur le même élément).
   - fonction locale `orderHierarchically(list)` : pôles juste après leur parent, parents triés par `(display_order, name)`, pôles par `(display_order, name)` ; appliquée à `filteredServices` (l.302) et à chaque groupe de `filteredServicesGrouped` (l.346) ;
   - ligne ou carte de pôle, dans la vue tableau (l.856) et la vue groupée (l.1109-1247) : `ps-8`, icône `fa-solid fa-turn-up fa-rotate-90` avec `rtl:-scale-x-100`, pastille « Pôle de {parent.sigle || parent.name} » ; un pôle dont le parent est filtré s'affiche seul, avec sa pastille ;
   - `canDrag` (l.594) faux pour une ligne de pôle ; les `ids` passés à `reorderServices` dans `handleDrop` (l.610) excluent les pôles.
-- [ ] T029 [US2] Dans la modale de suppression de `usenghor_nuxt/app/pages/admin/organisation/services/index.vue` (l.1536-1599) : si le service a N pôles (compte calculé sur `services`), afficher l'avertissement « Ses N pôle(s) deviendront des services de premier niveau du secteur. », sans bloquer la suppression.
-- [ ] T030 [P] [US2] Dans l'onglet Informations de `usenghor_nuxt/app/pages/admin/organisation/services/[id].vue` (l.427-455), ajouter trois lignes en lecture seule :
+- [X] T029 [US2] Dans la modale de suppression de `usenghor_nuxt/app/pages/admin/organisation/services/index.vue` (l.1536-1599) : si le service a N pôles (compte calculé sur `services`), afficher l'avertissement « Ses N pôle(s) deviendront des services de premier niveau du secteur. », sans bloquer la suppression.
+- [X] T030 [P] [US2] Dans l'onglet Informations de `usenghor_nuxt/app/pages/admin/organisation/services/[id].vue` (l.427-455), ajouter trois lignes en lecture seule :
   - « Service parent » : `NuxtLink` vers `/admin/organisation/services/{parent_id}` avec le nom du parent (via `getAllServices` ou `getServiceById(parent_id)`), sinon « — » ;
   - « Page dédiée » : chemin, sinon « — » ;
   - « Pôles » : liens vers les services dont `parent_id === service.id`, ligne masquée s'il n'y en a aucun.
-- [ ] T031 [US2] Dérouler quickstart § 4 (étapes 1 à 8) :
+- [X] T031 [US2] Dérouler quickstart § 4 (étapes 1 à 8) :
   - liste hiérarchique, recherche et glisser-déposer ;
   - rattachement d'un service de test ;
   - DDE non rattachable et bandeau 409 au changement de secteur ;
@@ -284,29 +284,29 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
 
 **Independent Test** : quickstart § 6.
 
-- [ ] T032 [US3] Ajouter le test à `usenghor_backend/tests/integration/test_services_hierarchy.py` : `create_short_link` saute un code déjà pris.
+- [X] T032 [US3] Ajouter le test à `usenghor_backend/tests/integration/test_services_hierarchy.py` : `create_short_link` saute un code déjà pris.
   - Fixture locale : `CREATE SEQUENCE IF NOT EXISTS short_link_counter_seq START WITH 0 MINVALUE 0 MAXVALUE 1679615`, puis `SELECT setval('short_link_counter_seq', 32921)`, et un `ShortLink(code='pei', target_url='/entrepreneuriat')`.
   - Appel `ShortLinkService(db_session).create_short_link('/actualites', created_by=None)` → le code obtenu est différent de `'pei'` (`int_to_base36(32923)`), sans exception.
-- [ ] T033 [US3] Modifier `create_short_link` dans `usenghor_backend/app/services/short_links_service.py` (l.92-137, research R12, `contracts/api.md` § 4) :
+- [X] T033 [US3] Modifier `create_short_link` dans `usenghor_backend/app/services/short_links_service.py` (l.92-137, research R12, `contracts/api.md` § 4) :
   - boucle d'au plus 20 itérations : `nextval('short_link_counter_seq')` → si `counter > MAX_COUNTER`, `ValidationException` « Capacité maximale atteinte (1 679 616 liens)… » (message existant) → `code = int_to_base36(counter)` → sortie si `SELECT 1 FROM short_links WHERE code = :code` est vide ;
   - après 20 échecs : `ValidationException("Impossible de générer un code court libre, réessayez")` ;
   - réduire le `try/except Exception` actuel à l'erreur de séquence épuisée, sans masquer les autres exceptions ;
   - lancer `pytest … -k short_link -v` → passe.
-- [ ] T034 [P] [US3] Libellés trilingues dans `usenghor_nuxt/app/components/AppNavBar.vue` (research R10, `contracts/frontend.md` § 4) :
+- [X] T034 [P] [US3] Libellés trilingues dans `usenghor_nuxt/app/components/AppNavBar.vue` (research R10, `contracts/frontend.md` § 4) :
   - types JSON des enfants primaires (l.227-262) et secondaires (l.266-297) : `label_en?: string`, `label_ar?: string` ;
   - `NavChild` (l.29-36) : `_labels?: { fr?: string, en?: string, ar?: string }`, rempli par le mappage en plus de `_label` ;
   - fonction `navChildLabel(sectionKey: string, child: NavChild): string` = `child._labels?.[locale.value as 'fr' | 'en' | 'ar'] || child._label || t(\`nav.dropdowns.${sectionKey}.${child.key}\`)` ;
   - remplacer les trois expressions `child._label || t('nav.dropdowns.…')` (méga-menu l.446, menu « Plus » l.537, mobile l.782) ;
   - une entrée sans `label_en` ni `label_ar` doit donner une sortie identique.
-- [ ] T035 [P] [US3] Étendre `usenghor_nuxt/app/components/admin/editorial/NavItemsField.vue` :
+- [X] T035 [P] [US3] Étendre `usenghor_nuxt/app/components/admin/editorial/NavItemsField.vue` :
   - `NavSubItem` (l.4-12) : `label_en?: string`, `label_ar?: string` ;
   - formulaire d'ajout et d'édition (l.318-391) : champs facultatifs « Libellé (anglais) » (`dir="ltr"`) et « Libellé (arabe) » (`dir="rtl"`) sous « Libellé » ;
   - enregistrement de l'item : fusion `{ ...itemExistant, ...formData }` (clés inconnues préservées), suppression des clés `label_en` / `label_ar` vides ;
   - affichage de la liste : libellés EN / AR discrets sous le libellé FR quand ils existent.
-- [ ] T036 [P] [US3] Ajouter le lien au pied de page :
+- [X] T036 [P] [US3] Ajouter le lien au pied de page :
   - `usenghor_nuxt/app/components/AppFooter.vue`, colonne University (l.256-288) : `<li>` après `governance` avec `NuxtLink :to="localePath('/entrepreneuriat')"` et `t('footer.university.entrepreneurship')`, mêmes classes que les liens voisins ;
   - `footer.university.entrepreneurship` = « Entreprendre à Senghor » dans `usenghor_nuxt/i18n/locales/fr/footer.json`, « Entrepreneurship at Senghor » dans `…/en/footer.json`, « ريادة الأعمال في سنغور » dans `…/ar/footer.json`.
-- [ ] T037 [US3] Dérouler quickstart § 6 :
+- [X] T037 [US3] Dérouler quickstart § 6 :
   - menu « Plus » en FR / EN / AR, bureau et mobile, changement de langue à chaud ;
   - libellé anglais ajouté à « Notre histoire » dans le backoffice, visible en EN seulement ;
   - suppression de l'entrée du pôle puis rejeu de la 050 → rajoutée une fois ;
@@ -326,7 +326,7 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
 
 **Independent Test** : quickstart § 7.
 
-- [ ] T038 [US4] Ajouter `export function usePeiBreadcrumb(current: MaybeRefOrGetter<string | null>, ddeServiceId: MaybeRefOrGetter<string | null>)` dans `usenghor_nuxt/app/composables/usePeiPage.ts` (`contracts/frontend.md` § 6) :
+- [X] T038 [US4] Ajouter `export function usePeiBreadcrumb(current: MaybeRefOrGetter<string | null>, ddeServiceId: MaybeRefOrGetter<string | null>)` dans `usenghor_nuxt/app/composables/usePeiPage.ts` (`contracts/frontend.md` § 6) :
   - données : `useAsyncData('pei-org-services', () => listServices().catch(() => []))` ;
   - `pole` = service avec `landing_path === '/entrepreneuriat'` ;
   - `dde` = service avec `id === pole?.parent_id`, sinon `id === toValue(ddeServiceId)` ;
@@ -340,13 +340,13 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
   - retour `{ breadcrumb, ready }`.
 
   Dans `usePeiPage`, remplacer le bloc l.71-79 par `usePeiBreadcrumb(() => t(\`pei.nav.${navKey}\`), ddeServiceId)` et attendre `ready` dans le `Promise.all` final. `ddeService` et `ddeServiceId` restent inchangés (données des rubriques).
-- [ ] T039 [P] [US4] Dans `usenghor_nuxt/app/pages/entrepreneuriat/index.vue` :
+- [X] T039 [P] [US4] Dans `usenghor_nuxt/app/pages/entrepreneuriat/index.vue` :
   - supprimer `ddeLink` et le `breadcrumb` local (l.59-67) ;
   - utiliser `const { breadcrumb, ready: breadcrumbReady } = usePeiBreadcrumb(null, ddeServiceId)`, avec `breadcrumbReady` ajouté au `Promise.all` (l.30) ;
   - conserver la lecture `pei-home-dde`, **seulement si** `ddeService` sert encore à autre chose que le fil d'Ariane (sinon la retirer) ;
   - le JSON-LD `BreadcrumbList` (l.83-104) utilise le `breadcrumb` partagé.
-- [ ] T040 [P] [US4] Même changement dans `usenghor_nuxt/app/pages/entrepreneuriat/activites.vue` : supprimer les l.69-77, puis `usePeiBreadcrumb(() => t('pei.nav.activities'), ddeServiceId)`, `ready` dans le `Promise.all` (l.28), JSON-LD (l.94-100) sur le `breadcrumb` partagé. Garder intacts l'ancre `route.hash` et `scrollToPageAnchor` (l.57-62).
-- [ ] T041 [US4] Dérouler quickstart § 7 :
+- [X] T040 [P] [US4] Même changement dans `usenghor_nuxt/app/pages/entrepreneuriat/activites.vue` : supprimer les l.69-77, puis `usePeiBreadcrumb(() => t('pei.nav.activities'), ddeServiceId)`, `ready` dans le `Promise.all` (l.28), JSON-LD (l.94-100) sur le `breadcrumb` partagé. Garder intacts l'ancre `route.hash` et `scrollToPageAnchor` (l.57-62).
+- [X] T041 [US4] Dérouler quickstart § 7 :
   - les sept pages en FR / EN / AR : niveaux et liens, dernier niveau sans lien ;
   - JSON-LD `BreadcrumbList` identique au fil affiché ;
   - pôle détaché → repli sur la clé ; clé vide + pôle détaché → niveau DDE omis sans erreur ;
@@ -364,13 +364,13 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
 
 **Independent Test** : quickstart § 8.
 
-- [ ] T042 [US5] Réécrire le bloc organisation (l.124-149) de `usenghor_nuxt/server/api/__sitemap__/urls.ts` (research R13, `contracts/frontend.md` § 7) :
+- [X] T042 [US5] Réécrire le bloc organisation (l.124-149) de `usenghor_nuxt/server/api/__sitemap__/urls.ts` (research R13, `contracts/frontend.md` § 7) : — Ajout de `_i18nTransform: true` sur les entrées d'organisation (sinon émises en français seulement).
   - ajouter en tête `function slugifyServiceName(name: string): string`, avec le commentaire « Copie de slugify (app/composables/usePublicOrganizationApi.ts l.137-144) — doit rester identique » et le même corps (NFD, suppression des diacritiques, minuscules, `[^a-z0-9]+` → `-`, `-` retirés aux extrémités) ;
   - bloc `try` secteurs : `$fetch<Array<{ code: string }>>(\`${backendUrl}/api/public/sectors\`)` → `loc: \`/a-propos/organisation/secteur/${code.toLowerCase()}\`` ;
   - bloc `try` services séparé : `$fetch<Array<{ name: string }>>(\`${backendUrl}/api/public/services\`)` → `loc: \`/a-propos/organisation/service/${slugifyServiceName(name)}\``, dédupliqué par `Set` ;
   - chaque bloc garde son `catch` silencieux ;
   - aucune ligne pour `/entrepreneuriat/*` (découverte automatique).
-- [ ] T043 [US5] Dérouler quickstart § 8 :
+- [X] T043 [US5] Dérouler quickstart § 8 :
   - `sitemap.xml` en local ;
   - 100 % des URLs d'organisation en 200 ;
   - aucune `secteurs/` ni `services/` ;
@@ -387,11 +387,11 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
 
 **Purpose** : build, non-régression complète et documentation.
 
-- [ ] T044 Lancer la suite backend `cd usenghor_backend && source .venv/bin/activate && pytest -q`. `test_services_hierarchy.py` est entièrement vert. Les 5 échecs FAQ liés au vrai traducteur (`record_id="bulk"`, gotcha connu) sont notés sans être masqués. Aucun autre échec nouveau.
-- [ ] T045 [P] Lancer le build `cd usenghor_nuxt && NODE_OPTIONS=--max-old-space-size=8192 pnpm build` : aucune erreur de type ou d'import, aucun `WARN` de collision d'auto-import sur les noms de T002.
-- [ ] T046 Non-régression visuelle (quickstart § 9) : captures après pour toutes les pages de T003, comparées à l'avant ; différences acceptées uniquement pour les cartes et fiches liées au pôle, le menu « Nous connaître » et le pied de page.
+- [X] T044 Lancer la suite backend `cd usenghor_backend && source .venv/bin/activate && pytest -q`. `test_services_hierarchy.py` est entièrement vert. Les 5 échecs FAQ liés au vrai traducteur (`record_id="bulk"`, gotcha connu) sont notés sans être masqués. Aucun autre échec nouveau.
+- [X] T045 [P] Lancer le build `cd usenghor_nuxt && NODE_OPTIONS=--max-old-space-size=8192 pnpm build` : aucune erreur de type ou d'import, aucun `WARN` de collision d'auto-import sur les noms de T002.
+- [X] T046 Non-régression visuelle (quickstart § 9) : captures après pour toutes les pages de T003, comparées à l'avant ; différences acceptées uniquement pour les cartes et fiches liées au pôle, le menu « Nous connaître » et le pied de page.
   - Fiches formation, projet et appel à 1440 et 390 px : si elles sont identiques, cocher T039 dans `specs/023-pei-public-home-activities/tasks.md` avec la date et le résultat.
-- [ ] T047 [P] Mettre à jour `CLAUDE.md` :
+- [X] T047 [P] Mettre à jour `CLAUDE.md` :
   - ligne « Composants clés » `OrganigrammeSection` (pôles sous le parent, carte vers `landing_path`) ;
   - `usePeiPage` → `usePeiBreadcrumb` ;
   - `AppNavBar` et `NavItemsField` : `label_en` / `label_ar` ;
@@ -405,11 +405,13 @@ Après les phases 1–2 (dont la migration 050), US1 à US5 sont indépendantes.
     - plan du site corrigé (`secteur/`, `service/`) ;
     - correctif des lectures publiques des secteurs, qui supprimaient les services inactifs ;
     - migration 050 et ordre des rollbacks (050 avant 049 → 045).
-- [ ] T048 [P] Mettre à jour `specs/roadmap-pei-entrepreneuriat.md` : bandeau « ✅ Livrée » sous « Feature 026 », avec la portée retenue (pôle par `parent_id` / `landing_path`, menu « Nous connaître » trilingue, pied de page, `/r/pei`, plan du site, correctif C1).
-- [ ] T049 Commit local dans chaque dépôt concerné, **sans push**, avec des messages en français :
+- [X] T048 [P] Mettre à jour `specs/roadmap-pei-entrepreneuriat.md` : bandeau « ✅ Livrée » sous « Feature 026 », avec la portée retenue (pôle par `parent_id` / `landing_path`, menu « Nous connaître » trilingue, pied de page, `/r/pei`, plan du site, correctif C1). — Bandeau « Livrée en local », production en attente d'accord.
+- [X] T049 Commit local dans chaque dépôt concerné, **sans push**, avec des messages en français :
   - `usenghor_backend` : correctif C1, hiérarchie des services, liens courts, SQL 050 ;
   - `usenghor_nuxt` : backoffice, organigramme, fiche, menu, pied de page, fil d'Ariane, plan du site ;
   - racine : specs 026, CLAUDE.md, roadmap.
+
+  **Fait (2026-09-15)** : `usenghor_backend` bc5c17f, `usenghor_nuxt` 45df7f5 (sans les modifications `i18n/locales/*/actualites.json`, étrangères à la 026), racine (specs, CLAUDE.md, roadmap, T039 de la 023, pointeurs des sous-dépôts). Aucun push.
 
 ---
 

@@ -18,6 +18,8 @@ Captures **avant** la feature (1440 px et 390 px, clair ; FR et AR) :
 
 Garder aussi le JSON de `GET /api/public/sectors/with-services`, `GET /api/public/services` et du plan du site (`/__sitemap__/urls` ou `/sitemap.xml`).
 
+> **Résultat § 0 (2026-09-15)** : JSON de référence `with-services`, `services` et plan du site gardés (scratchpad). Captures avant prises sur une copie de travail du frontend à `HEAD` (même backend, même base), 1440 et 390 px, clair, FR + AR : organigramme, fiche secteur `sec-tes`, fiche service sans pôle, fiche DDE, `/entrepreneuriat`, `/entrepreneuriat/activites`, fiches formation / projet / appel (FR). Comparaison par DOM normalisé du contenu (attributs `data-v-*`, commentaires et états d'animation retirés), les pixels variant dans la barre de navigation entre les deux copies (badge de version, outils de dev).
+
 ## 1. Base locale : DDE de test, puis migration 050 (FR-010, SC-008)
 
 La base locale n'a pas de DDE (research C8). Créer la donnée de test, **hors migration** :
@@ -47,6 +49,8 @@ SELECT (SELECT count(*) FROM services WHERE sigle = 'PEI') AS pei,
        (SELECT count(*) FROM short_links WHERE code = 'pei') AS lien;   -- 1 | 1 | n+1 | 1, identiques après le 2e passage
 ```
 
+> **Résultat (2026-09-15)** : DDE de test créée (`aaaaaaaa-…dd`, `SEC-TES`, apostrophe ’). Passage 1 : `PEI : pôle créé (5e1c0050-…e1ab) sous la DDE`, `Menu : entrée du pôle ajoutée (sort_order 5)`, `INSERT 0 1`. Passage 2 : `pôle déjà présent`, `entrée du pôle déjà présente`, `INSERT 0 0`. Comptes `1 | 1 | 5 | 1` identiques. Rollback ×2 : pôle supprimé, menu revenu à ses 4 entrées identiques, lien et colonnes retirés ; second passage sans erreur (NOTICE « does not exist, skipping »). Rejeu après rollback : pôle recréé, entrée rajoutée, `1 | 1 | 5 | 1`.
+
 ## 2. Règles de hiérarchie en base (FR-002, FR-003)
 
 Dans `BEGIN; … ROLLBACK;`, chaque requête doit échouer avec le message du trigger ou de la contrainte (data-model § 6) :
@@ -59,6 +63,8 @@ Dans `BEGIN; … ROLLBACK;`, chaque requête doit échouer avec le message du tr
 
 Le rattachement valide d'un service de `SEC-TES` à la DDE, lui, passe.
 
+> **Résultat (2026-09-15)**, en `BEGIN … ROLLBACK` : auto-référence → `services_parent_not_self` ; rattachement au PEI → « Le service parent est lui-même un pôle (un seul niveau) » ; rattachement de la DDE → « Ce service a 1 pôle(s) : il ne peut pas être rattaché » ; parent d'un autre secteur (SAC → DDE) → « Le service parent doit appartenir au même secteur » ; changement de secteur de la DDE → « Déplacez ou détachez d'abord ses 1 pôle(s) » ; `landing_path='//x'` → `services_landing_path_format`. Rattachement valide de « test servi 3 » accepté ; suppression de la DDE → `parent_id` du PEI à NULL.
+
 ## 3. Tests backend (FR-002 à FR-008, FR-022, correctif C1)
 
 ```bash
@@ -68,6 +74,8 @@ pytest -m "not slow" -q   # non-régression (les 5 tests FAQ liés au vrai tradu
 ```
 
 **Attendu** : tous les cas de research R15 passent, dont « un service inactif existe toujours après `GET /with-services` et `GET /sectors/{code}` ». Vérifier que ce test **échoue** sur le code d'avant la correction (stash).
+
+> **Résultat (2026-09-15)** : `test_services_hierarchy.py` → **15 passed** (base de test : structure 050 appliquée, colonnes + trigger). Le test de régression C1 **échoue sur le code d'origine** (copie de travail à `HEAD` : « le service inactif a été supprimé par une lecture publique ») et passe après correctif. Suite complète : **173 passed, 5 failed** — les 5 échecs sont les tests FAQ connus liés au vrai traducteur (`test_admin_faq_categories_api` ×4, `test_admin_faq_entries_api::test_each_mutation_creates_audit_log`), aucun autre échec. Remarque : l'`AuditMiddleware` écrit dans la base de développement pendant les tests (comportement préexistant).
 
 ## 4. Backoffice (US2, FR-012 à FR-015)
 
@@ -90,6 +98,17 @@ pytest -m "not slow" -q   # non-régression (les 5 tests FAQ liés au vrai tradu
 
    Une entrée par création, modification ou suppression, avec les deux champs (FR-008, SC-009).
 
+> **Résultat (2026-09-15)**, navigateur piloté (Playwright) :
+> 1. Liste groupée : PEI en retrait sous la DDE, pastille « Pôle de DDE », sans poignée de glisser-déposer.
+> 2. « test servi 3 » : options « Aucun », « DDE — Direction… », « test seri 2 » (ni lui-même ni le PEI) ; rattachement enregistré (`parent_id` en base), affiché « Pôle de DDE » au rechargement. L'enregistrement prend quelques secondes (traduction automatique du nom sans EN/AR).
+> 3. DDE : sélecteur désactivé (« Ce service a N pôle(s) … ») ; changement de secteur → bandeau `role="alert"` « Déplacez ou détachez d'abord ses 2 pôle(s) », rien d'enregistré.
+> 4. Page dédiée `/en/x` → message immédiat et bouton Enregistrer désactivé ; refus API couverts par les tests (`en/x`, `//x`, `/en/x`, `/ar`, `/r/pei`, `/a b`, `/x?y`, `/x#y` → 422 ; `"  "` → NULL).
+> 5. Appels directs : couverts par `test_admin_hierarchy_refusals` (409 / 422, `detail` exact, rien d'enregistré).
+> 6. Modale de suppression de la DDE : « Ses 1 pôle(s) deviendront des services de premier niveau du secteur. » (annulée ; détachement réel vérifié par le test `DELETE` et en SQL § 2).
+> 7. `[id].vue` du PEI : « Service parent » (lien vers la DDE), « Page dédiée » `/entrepreneuriat`.
+> 8. Audit : `update | 804356cd-… | (vide) | aaaaaaaa-…dd` pour le rattachement, une entrée, sans doublon ; le refus 409 ne crée pas d'entrée.
+> « test servi 3 » a ensuite été détaché.
+
 ## 5. Public : organigramme et fiches (US1, FR-016 à FR-019, SC-001, SC-002)
 
 1. `/a-propos/organisation` (FR, EN, AR ; 1440 et 390 px ; clair et sombre) :
@@ -102,9 +121,17 @@ pytest -m "not slow" -q   # non-régression (les 5 tests FAQ liés au vrai tradu
 5. Fiche secteur `SEC-TES`, onglet Services : ligne « + 1 pôle » sous la DDE.
 6. Captures **après** vs § 0 pour les fiches et les cartes sans pôle : aucune différence (SC-002). `diff` du JSON `/services` : seuls `parent_id` et `landing_path` sont ajoutés.
 
+> **Résultat (2026-09-15)** :
+> 1. Organigramme FR / AR, 1440 / 390 px, clair et sombre : carte PEI sous la DDE, liseré `border-s` (à droite en AR), flèche inversée en RTL, nom localisé ; PEI absent de la grille du secteur ; lien `/entrepreneuriat`, `/ar/entrepreneuriat`.
+> 2. DDE désactivée → pôle absent, DDE toujours en base après lectures répétées (test `test_inactive_parent_hides_poles_without_deleting`).
+> 3. Fiche DDE : section « Pôles » / « الأقطاب » avec la carte PEI → page dédiée.
+> 4. Fiche PEI : lien « Pôle de DDE » et bouton « Voir la page dédiée ».
+> 5. Fiche secteur : ligne « + 1 pôle » sous la DDE.
+> 6. DOM normalisé avant / après : cartes et fiches **sans pôle strictement identiques** (secteur, service sans pôle, formation, projet, appel), seules différences = lien « Entreprendre à Senghor » du pied de page, libellé arabe de l'entrée de menu, bloc du pôle. Un premier passage a révélé des attributs `service="[object Object]"` sur les cartes (props de `createReusableTemplate` héritées) : corrigé par `inheritAttrs: false`, DOM de nouveau identique. Écart visuel attendu : dans une rangée de la grille qui contient un service avec pôles, les cartes voisines s'étirent à la hauteur de la rangée (comportement de grille existant). `diff` JSON : services existants identiques hors `parent_id` / `landing_path` (et `children` dans `with-services`).
+
 ## 6. Menu, pied de page, lien court (US3, FR-020 à FR-022, SC-004, SC-005)
 
-1. Menu « Plus » › Nous connaître (FR / EN / AR, bureau et mobile) : dernière entrée « Entreprendre à Senghor » / « Entrepreneurship at Senghor » / « ريادة الأعمال في سنغور », icône ampoule, lien localisé. Les autres entrées sont inchangées dans les trois langues.
+1. Menu « Plus » › Nous connaître (FR / EN / AR, bureau et mobile) : dernière entrée « Entreprendre à Senghor » / « Entrepreneurship at Senghor » / « ريادة الأعمال في سنغور », icône fusée, lien localisé. Les autres entrées sont inchangées dans les trois langues.
 2. Changer de langue sans recharger → le libellé suit.
 3. Backoffice › Pages éditoriales › Barre de navigation › « Nous connaître » :
    - l'entrée du pôle montre ses trois libellés ;
@@ -114,6 +141,14 @@ pytest -m "not slow" -q   # non-régression (les 5 tests FAQ liés au vrai tradu
 5. `curl -sI http://localhost:3001/r/pei` et `/r/PEI` → `302`, `location: /entrepreneuriat`. Le lien apparaît dans `/admin/liens-courts`.
 6. Génération qui saute les codes pris : couvert par le test du § 3.
 
+> **Résultat (2026-09-15)** :
+> 1. Menu « Plus » bureau : dernière entrée de « Nous connaître » = « Entreprendre à Senghor » / « Entrepreneurship at Senghor » / « ريادة الأعمال في سنغور », liens `/entrepreneuriat`, `/en/…`, `/ar/…` ; autres entrées inchangées. Mobile (390 px) : même libellé et lien localisé par langue.
+> 2. Changement de langue : libellé calculé par `navChildLabel` à chaque rendu (réactif sur `locale`).
+> 3. `label_en` « Our story (test) » ajouté à « Notre histoire » → visible en EN seulement, FR et AR inchangés ; retiré ensuite. Entrée du pôle supprimée puis 050 rejouée → rajoutée une fois en fin de liste, autres entrées intactes. (Éditeur `NavItemsField` : champs « Libellé (anglais) / (arabe) » ajoutés, compilation vérifiée ; saisie par l'interface non rejouée.)
+> 4. Pied de page : « Entreprendre à Senghor » après « Gouvernance » en FR / EN / AR, lien localisé, une occurrence visible dans la bonne langue et aucune dans les autres.
+> 5. `curl -sI localhost:3001/r/pei` et `/r/PEI` → `302`, `location: /entrepreneuriat` ; `GET /api/admin/short-links?search=pei` → `pei → /entrepreneuriat`.
+> 6. `test_create_short_link_skips_taken_code` : compteur 32 921 + code `pei` existant → code `int_to_base36(32923)`.
+
 ## 7. Fil d'Ariane (US4, FR-023 à FR-025, SC-007)
 
 1. Les sept pages `/entrepreneuriat[/activites|/alumni|/partenaires|/ressources|/actualites|/statut-etudiant-entrepreneur]` × FR / EN / AR :
@@ -122,6 +157,12 @@ pytest -m "not slow" -q   # non-régression (les 5 tests FAQ liés au vrai tradu
 2. `curl -s …/entrepreneuriat/activites | grep -o '"@type":"BreadcrumbList".*'` : mêmes niveaux et mêmes URLs localisées.
 3. Détacher le PEI de la DDE → niveau DDE résolu par la clé (en local, renseigner la clé avec l'identifiant de la DDE de test). Clé vidée et pôle détaché → niveau DDE omis, sans erreur. Rétablir.
 4. `grep -rn "pei.breadcrumb.dde" app/pages app/composables` → une seule occurrence (`usePeiPage.ts`).
+
+> **Résultat (2026-09-15)** :
+> 1. JSON-LD `BreadcrumbList` des sept pages (FR, EN, AR échantillonnés) : « Accueil › Nous connaître › Notre organisation › DDE › Pôle Entrepreneuriat et Innovation (› rubrique) » ; EN « Home › About › Our Organization › DDE › Entrepreneurship and Innovation Hub › Our alumni » ; AR identique en arabe. DDE résolue par le parent du pôle (clé locale vide).
+> 2. Données structurées et fil visible construits depuis le même `breadcrumb` partagé.
+> 3. Pôle détaché + clé vide → niveau DDE omis sans erreur ; pôle détaché + clé renseignée → « DDE » résolu par la clé ; état rétabli.
+> 4. `grep "pei.breadcrumb.dde"` dans `app/pages` et `app/composables` → une seule occurrence (`usePeiPage.ts`).
 
 ## 8. Plan du site (US5, FR-026, SC-006)
 
@@ -138,11 +179,15 @@ grep -c 'entrepreneuriat' /tmp/sm.xml   # 7 pages × 3 langues présentes
 - chaque service et pôle actif présent une fois par langue ;
 - les sept pages du mini-site présentes.
 
+> **Résultat (2026-09-15)** : 21 URLs d'organisation (2 secteurs actifs + 5 services / pôles actifs, × FR / EN / AR) → **21 × 200** ; aucune `secteurs/` ni `services/` ; chaque service et pôle une fois par langue. Les URLs dynamiques de la source n'étaient émises qu'en français (`autoI18n` ne les déclinait pas) : ajout de `_i18nTransform: true` sur les entrées d'organisation. Sept pages `/entrepreneuriat*` présentes en FR, EN et AR (21 URLs). Avant : 0 fiche service émise et secteurs en `secteurs/{CODE}`.
+
 ## 9. Build et non-régression
 
 `cd usenghor_nuxt && NODE_OPTIONS=--max-old-space-size=8192 pnpm build`. Aucune erreur, et aucun `WARN` de collision d'auto-import sur les nouveaux noms.
 
 Captures après vs § 0 pour toutes les pages listées, T039 compris (fiches formation, projet, appel à 1440 et 390 px). Consigner le résultat, et cocher T039 (023) s'il est conforme.
+
+> **Résultat (2026-09-15)** : `NODE_OPTIONS=--max-old-space-size=8192 pnpm build` → « Build complete! », aucune erreur, aucun `WARN` de collision sur `getServiceLink`, `usePeiBreadcrumb`, `navChildLabel`, `slugifyServiceName`, `orderHierarchically`, `ServiceRelativePublic`, `ServicePublicWithChildren`. Non-régression : voir § 5.6 ; fiches formation, projet et appel à 1440 et 390 px → DOM identique hors lien ajouté au pied de page → T039 (023) coché.
 
 ## 10. Mise en ligne (US6, FR-027, FR-028) — **chaque étape attend un accord explicite**
 

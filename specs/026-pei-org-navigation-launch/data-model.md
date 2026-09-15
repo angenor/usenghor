@@ -1,6 +1,6 @@
 # Data Model — 026 Rattachement du PEI à l'organigramme, navigation et mise en ligne
 
-> **Porte d'accord** : le § 3 (schéma de référence), le § 4 (migration 050) et le § 5 (rollback) sont **à valider avant tout code**. Les fichiers définitifs seront copiés tels quels dans `usenghor_backend/documentation/modele_de_données/migrations/`. Test à blanc du 2026-09-15 en local, en transaction annulée, avec une DDE de test (résultats au § 6).
+> **Accord donné le 2026-09-15** (voir § 7). **Porte d'accord** : le § 3 (schéma de référence), le § 4 (migration 050) et le § 5 (rollback) sont **à valider avant tout code**. Les fichiers définitifs seront copiés tels quels dans `usenghor_backend/documentation/modele_de_données/migrations/`. Test à blanc du 2026-09-15 en local, en transaction annulée, avec une DDE de test (résultats au § 6).
 
 ## 1. Entités
 
@@ -46,7 +46,7 @@
 
 ```json
 { "id": "entrepreneurship", "label": "Entreprendre à Senghor", "label_en": "Entrepreneurship at Senghor",
-  "label_ar": "ريادة الأعمال في سنغور", "route": "/entrepreneuriat", "icon": "fa-solid fa-lightbulb", "sort_order": 5 }
+  "label_ar": "ريادة الأعمال في سنغور", "route": "/entrepreneuriat", "icon": "fa-solid fa-rocket", "sort_order": 5 }
 ```
 
 - `label_en` et `label_ar` sont **facultatifs** pour toute entrée (primaire ou « Plus »), avec repli `label`, puis `t('nav.dropdowns.…')`.
@@ -246,7 +246,7 @@ DECLARE
         'label_en', 'Entrepreneurship at Senghor',
         'label_ar', 'ريادة الأعمال في سنغور',
         'route', '/entrepreneuriat',
-        'icon', 'fa-solid fa-lightbulb');
+        'icon', 'fa-solid fa-rocket');
     raw  TEXT;
     arr  JSONB;
     next_order INTEGER;
@@ -409,3 +409,5 @@ COMMIT;
 3. Trigger en base en plus de la validation backend (R1).
 4. Rollback : le pôle est conservé s'il a reçu du contenu (équipe, objectifs, médias…), sinon supprimé.
 5. Normalisation du JSON du menu (ordre des clés et espaces) lors de l'ajout.
+
+**Accord du 2026-09-15** (responsable) : SQL des § 3 à 5 validé. Points 1, 3, 4 et 5 acceptés tels que proposés ; point 2 → icône **`fa-solid fa-rocket`** (reportée aux § 1.3 et 4).

@@ -289,7 +289,7 @@ Le responsable technique valide, étape par étape, la mise en production. Les t
 - **Libellé DDE du fil d'Ariane** : sigle du service parent tel que saisi (aujourd'hui « DDE »), repli traduit. Le libellé du niveau pôle reste le libellé traduit du mini-site.
 - **Fiche d'un pôle avec page dédiée** : pas de redirection automatique vers la page dédiée, pour ne pas changer le comportement des adresses de fiche. Liens vers le parent et vers la page dédiée.
 - **Audit** : on réutilise le journal d'audit existant, sans nouvelle permission. Le rattachement et le détachement sont des modifications ordinaires du service.
-- **Icône du menu** : `fa-solid fa-lightbulb` par défaut (modifiable dans l'éditeur du menu).
+- **Icône du menu** : `fa-solid fa-rocket` (retenue à l’accord SQL du 2026-09-15) (modifiable dans l'éditeur du menu).
 - **Position dans le pied de page** : après « Gouvernance », dont le lien mène à l'organisation.
 - **Lien court** : `pei` fait 3 caractères, ce qui respecte la limite de 4. La cible relative ne demande aucun ajout de domaine autorisé.
 - **Production** : d'après les suivis, 045 à 049 sont déjà jouées. Le contrôle en lecture seule le confirme avant toute écriture, et aucune migration n'est rejouée sans raison, même si toutes sont rejouables.

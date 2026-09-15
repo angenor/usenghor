@@ -350,6 +350,13 @@ un appel clos affiche l'état prévu sans erreur.
 
 ### Feature 026 — Rattachement à l'organigramme, navigation et mise en ligne
 
+> ✅ **Livrée en local** (2026-09-15, `specs/026-pei-org-navigation-launch/`), mise en production en attente d'accord
+> (quickstart § 10). Portée retenue : pôle par `services.parent_id` / `landing_path` (décision D1, trigger
+> `services_check_hierarchy`), carte du pôle sous la DDE dans l'organigramme et section « Pôles » de la fiche,
+> entrée « Entreprendre à Senghor » trilingue dans « Plus » › Nous connaître (libellés `label_en` / `label_ar`
+> ouverts à toutes les entrées du menu), lien du pied de page, `/r/pei`, fil d'Ariane factorisé, plan du site
+> corrigé, correctif de perte de données des lectures publiques des secteurs (C1) ; migration 050 + rollback.
+
 **Dépend de** : 023 à 025. **Livre** : `services.parent_id` + `landing_path`, carte « pôle » sur la fiche DDE, menu « Plus », fil d'Ariane, redirections, déploiement.
 
 ```
