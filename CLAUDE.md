@@ -128,7 +128,7 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 
 ## Parallel Sub-agents Strategy
 
-Use multiple sub-agents in parallel for efficiency(10 max):
+Use multiple sub-agents in parallel for efficiency(10+):
 - Search frontend + backend simultaneously
 - Explore multiple files/folders at the same time
 - Run tests + verifications in parallel after modifications
