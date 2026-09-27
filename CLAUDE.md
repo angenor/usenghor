@@ -126,6 +126,7 @@ bank/mock-data/    # Données de dev (miroir du schéma PostgreSQL)
 - **Français avec accents** (é, è, ê, à, ç, ù) obligatoires dans le code et les contenus
 - **Nommage de fichiers/dossiers : PAS d'accents ni de caractères spéciaux** (problèmes d'encodage SSH/Docker en production). Utiliser uniquement `[a-z0-9_-]`.
 - Champs trilingues : convention additive (`title`, `title_en`, `title_ar` ; `content_html`, `content_en_html`…) pour les domaines à traduction automatique (`autofill_translations` / `useLocalizedField`) ; `*_fr`, `*_en`, `*_ar` pour la FAQ
+- **Pas de tiret cadratin « — » dans les textes publics du mini-site PEI** (`/entrepreneuriat/*` : gabarits, i18n, exemples, contenus seedés) : effet « texte généré ». Remplacer selon le contexte (` : `, virgule, point médian ` · `, parenthèses, phrase scindée). Les commentaires de code ne sont pas concernés ; contenus seedés corrigés par la migration `053_pei_sans_tiret_cadratin.sql`
 - Alias : `@bank` → `./bank`
 - **Dates limites des appels en GMT** : saisie admin et affichage public en UTC suffixé « GMT », jamais dans le fuseau du navigateur — utiliser `utils/gmt-datetime.ts` (`formatGmtDate`, `formatGmtDateTime`, `toGmtInputValue` / `fromGmtInputValue` pour les `datetime-local`)
 
